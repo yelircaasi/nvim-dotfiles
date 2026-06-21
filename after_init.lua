@@ -11,6 +11,7 @@ require("options")
 map_explicit = utils.map
 setup_plugin = utils.setup_plugin
 packadd = utils.packadd
+REPOS_DIR = vim.fn.resolve("~/repos")
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── DEPENDENCY MODULES ─────────────────────────────────────────────────────
@@ -62,7 +63,6 @@ config_modules = {
 	["langs.tex"] = false,
 	["langs.typst"] = false,
 	["langs.xit"] = false,
-	["lsp_etc"] = false,
 	["macros"] = false,
 	["miscellaneous"] = false,
 	["projects"] = false,

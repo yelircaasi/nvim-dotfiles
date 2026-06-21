@@ -13,14 +13,14 @@ end
 local function setup_wezterm_run()
 	-- TODO
 	-- require("wezterm_send").setup()
-	vim.opt.runtimepath:prepend("/home/isaac/repos/wezterm-run.nvim")
+	vim.opt.runtimepath:prepend(REPOS_DIR .. "/wezterm-run.nvim")
 	local wezrun = require("wezterm-run")
 	wezrun.setup()
 end
 
 local function setup_consilium()
 	-- TODO
-	vim.opt.runtimepath:prepend("/home/isaac/repos/consilium.nvim")
+	vim.opt.runtimepath:prepend(REPOS_DIR .. "/consilium.nvim")
 	local consilium = require("consilium")
 	consilium.setup()
 end

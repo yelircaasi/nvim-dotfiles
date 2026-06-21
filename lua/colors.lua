@@ -1,5 +1,5 @@
 local function setup_odenwald_colorscheme()
-	vim.opt.runtimepath:prepend("/home/isaac/repos/nvim-colors/odenwald.nvim")
+	vim.opt.runtimepath:prepend(REPOS_DIR .. "/nvim-colors/odenwald.nvim")
 	local odenwald = require("odenwald")
 	odenwald.setup()
 	odenwald.load()
