@@ -1,8 +1,9 @@
 -- setup_plugin("plenary")
 -- setup_plugin("nio")
-local selections = {
-	line = "lualine",
-	breadcrumbs = "dropbar",
+local selections = { -- used to ensure mutual exclusivity of conflicting plugins
+	top_line = "dropbar", -- dropbar|nougat|minibar|winbar
+	bottom_line = "lualine", -- lualine|nougat|cokeline|heirline|galaxyline|staline|windline
+	tab_line = "bufferline", -- bufferline|tabby|nougat
 }
 local plugins = {
 	["nvim-web-devicons"] = true,
@@ -14,19 +15,25 @@ local plugins = {
 	["symbols"] = true,
 	["aerial"] = false,
 	["navbuddy"] = false,
-	["dropbar"] = selections.breadcrumbs == "dropbar",
-	["lualine"] = selections.line == "lualine",
-	["cokeline"] = selections.line == "cokeline",
-	["heirline"] = selections.line == "heirline",
-	["galaxyline"] = selections.line == "galaxyline",
-	["staline"] = selections.line == "staline",
+
+	["bufferline"] = selections.tab_line == "bufferline",
+	["tabby"] = selections.tab_line == "tabby",
+	["nougat::tabline"] = selections.tab_line == "nougat",
+
+	["dropbar"] = selections.top_line == "dropbar",
+	["nougat::winbar"] = selections.top_line == "nougat",
+	["minibar"] = selections.top_line == "minibar",
+	["winbar"] = selections.top_line == "winbar",
+
+	["lualine"] = selections.bottom_line == "lualine",
+	["nougat::statusline"] = selections.bottom_line == "nougat",
+	["cokeline"] = selections.bottom_line == "cokeline",
+	["heirline"] = selections.bottom_line == "heirline",
+	["galaxyline"] = selections.bottom_line == "galaxyline",
+	["staline"] = selections.bottom_line == "staline",
+	["windline"] = selections.bottom_line == "windline",
+
 	["navic"] = false,
-	["bufferline"] = false,
-	["nougat"] = false,
-	["tabby"] = false,
-	["minibar"] = false,
-	["winbar"] = false,
-	["windline"] = false,
 	["vimade"] = false,
 	["zen-mode"] = true,
 	["modicator"] = true,
@@ -559,62 +566,251 @@ local function setup_lualine()
 		-- don't split bar; use single bar
 		vim.o.laststatus = 3
 
-		local colors = {
-			blue = "#80a0ff",
-			cyan = "#79dac8",
-			black = "#080808",
-			white = "#c6c6c6",
-			red = "#ff5189",
-			violet = "#d183e8",
-			grey = "#303030",
-		}
+		-- local colors = {
+		-- 	blue = "#80a0ff",
+		-- 	cyan = "#79dac8",
+		-- 	black = "#080808",
+		-- 	white = "#c6c6c6",
+		-- 	red = "#ff5189",
+		-- 	violet = "#d183e8",
+		-- 	grey = "#303030",
+		-- }
+
+		-- local bubbles_theme = {
+		-- 	normal = {
+		-- 		a = { fg = colors.black, bg = colors.violet },
+		-- 		b = { fg = colors.white, bg = colors.grey },
+		-- 		c = { fg = colors.white },
+		-- 	},
+
+		-- 	insert = { a = { fg = colors.black, bg = colors.blue } },
+		-- 	visual = { a = { fg = colors.black, bg = colors.cyan } },
+		-- 	replace = { a = { fg = colors.black, bg = colors.red } },
+
+		-- 	inactive = {
+		-- 		a = { fg = colors.white, bg = colors.black },
+		-- 		b = { fg = colors.white, bg = colors.black },
+		-- 		c = { fg = colors.white },
+		-- 	},
+		-- }
+
+		-- local half_circles = { right = "", left = "" }
+
+		-- local OLD_cfg = {
+		-- 	options = {
+		-- 		theme = bubbles_theme,
+		-- 		component_separators = "  ",
+		-- 		section_separators = half_circles,
+		-- 	},
+		-- 	sections = {
+		-- 		lualine_a = {
+		-- 			{ "mode", separator = { left = half_circles.left }, right_padding = 2 },
+		-- 		},
+		-- 		lualine_b = { "filename", "branch" },
+		-- 		lualine_c = {
+		-- 			"%=", --[[ add your center components here in place of this comment ]]
+		-- 		},
+		-- 		lualine_x = {},
+		-- 		lualine_y = {
+		-- 			{ "filetype", "progress" },
+		-- 		},
+		-- 		lualine_z = {
+		-- 			{ "location", separator = { right = half_circles.right }, left_padding = 2 },
+		-- 		},
+		-- 	},
+		-- 	inactive_sections = {
+		-- 		lualine_a = {}, -- "filename" },
+		-- 		lualine_b = {},
+		-- 		lualine_c = {},
+		-- 		lualine_x = {},
+		-- 		lualine_y = {},
+		-- 		lualine_z = {}, -- "location" },
+		-- 	},
+		-- 	tabline = {},
+		-- 	extensions = {},
+		-- }
 
 		local bubbles_theme = {
 			normal = {
-				a = { fg = colors.black, bg = colors.violet },
-				b = { fg = colors.white, bg = colors.grey },
-				c = { fg = colors.white },
+				a = { fg = "#181825", bg = "#cba6f7" },
+				b = { fg = "#cdd6f4", bg = "#313244" },
+				c = { fg = "#cdd6f4", bg = "#181825" },
 			},
-
-			insert = { a = { fg = colors.black, bg = colors.blue } },
-			visual = { a = { fg = colors.black, bg = colors.cyan } },
-			replace = { a = { fg = colors.black, bg = colors.red } },
-
+			insert = { a = { fg = "#181825", bg = "#a6e3a1" } },
+			visual = { a = { fg = "#181825", bg = "#fab387" } },
+			replace = { a = { fg = "#181825", bg = "#f38ba8" } },
+			command = { a = { fg = "#181825", bg = "#f9e2af" } },
 			inactive = {
-				a = { fg = colors.white, bg = colors.black },
-				b = { fg = colors.white, bg = colors.black },
-				c = { fg = colors.white },
+				a = { fg = "#6c7086", bg = "#181825" },
+				b = { fg = "#6c7086", bg = "#181825" },
+				c = { fg = "#6c7086", bg = "#181825" },
 			},
 		}
 
+		-- ── Reusable bubble wrapper ───────────────────────────────────────────────
+		-- Wraps a component in rounded bubble separators with a custom highlight.
+		local function bubble(component, hl_group, opts)
+			opts = opts or {}
+			return vim.tbl_extend("force", {
+				component,
+				separator = { right = "", left = "" }, -- { left = "", right = "" },
+				padding = { left = 2, right = 2 },
+				color = hl_group,
+			}, opts)
+		end
+
+		-- ── Center bubbles ────────────────────────────────────────────────────────
+
+		local git_bubble = bubble("branch", { fg = "#181825", bg = "#89b4fa" }, {
+			icon = "",
+			-- cond = function()
+			-- 	return vim.b.gitsigns_status_dict ~= nil
+			-- 		or vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null"):match("true")
+			-- end,
+		})
+
+		setup_plugin("gitsigns")
+		local git_diff = {
+			"diff",
+			symbols = { added = "+", modified = "~", removed = "-" },
+			colored = true,
+			-- cond = function()
+			-- 	return vim.b.gitsigns_status_dict ~= nil
+			-- end,
+			-- cond = function()
+			-- 	return vim.b.gitsigns_head ~= nil
+			-- end,
+			padding = { left = 1, right = 1 },
+		}
+
+		local lsp_bubble = bubble(function()
+			local clients = vim.lsp.get_clients({ bufnr = 0 })
+			if #clients == 0 then
+				return ""
+			end
+			local names = {}
+			for _, c in ipairs(clients) do
+				-- skip null-ls / none-ls noise, they show up separately
+				if c.name ~= "null-ls" and c.name ~= "none-ls" then
+					table.insert(names, c.name)
+				end
+			end
+			return #names > 0 and ("󰒋 " .. table.concat(names, ", ")) or ""
+		end, { fg = "#181825", bg = "#94e2d5" }, {
+			cond = function()
+				return #vim.lsp.get_clients({ bufnr = 0 }) > 0
+			end,
+		})
+
+		local diagnostics_bubble = {
+			"diagnostics",
+			sources = { "nvim_lsp" },
+			sections = { "error", "warn", "info", "hint" },
+			symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
+			colored = true,
+			padding = { left = 1, right = 1 },
+			cond = function()
+				return #vim.lsp.get_clients({ bufnr = 0 }) > 0
+			end,
+		}
+
+		-- ── Named sections ────────────────────────────────────────────────────────
+		local mode_section = {
+			{ "mode", separator = { left = "" }, right_padding = 2 },
+		}
+		local filename_section = {
+			bubble("filename", { fg = "#cdd6f4", bg = "#45475a" }, {
+				symbols = {
+					modified = " ●",
+					readonly = " ",
+					unnamed = " [No Name]",
+				},
+			}),
+		}
+		local git_section = {
+			"%=",
+			git_bubble,
+			git_diff,
+			"%=",
+			-- lsp_bubble,
+			-- diagnostics_bubble,
+			-- "%=",
+		}
+		local fileinfo_section = {
+			bubble("filetype", { fg = "#181825", bg = "#b4befe" }, { icon_only = false }),
+			bubble("encoding", { fg = "#181825", bg = "#585b70" }),
+			bubble("fileformat", { fg = "#181825", bg = "#585b70" }, {
+				symbols = { unix = "LF", dos = "CRLF", mac = "CR" },
+			}),
+		}
+		local location_section = {
+			bubble("progress", { fg = "#181825", bg = "#a6adc8" }),
+			{ "location", separator = { right = "" }, left_padding = 2 },
+		}
+		local navic_bubble = bubble(function()
+			local ok, navic = pcall(require, "nvim-navic")
+			if not ok or not navic.is_available() then
+				return ""
+			end
+			return navic.get_location()
+		end, { fg = "#181825", bg = "#f2cdcd" }, {
+			cond = function()
+				local ok, navic = pcall(require, "nvim-navic")
+				return ok and navic.is_available()
+			end,
+		})
+		local placeholder_section = {
+			"%=",
+			bubble(function()
+				return "PLACEHOLDER"
+			end, { fg = "#181825", bg = "#f2cdcd" }),
+			"%=",
+		}
+
+		-- ── Config ────────────────────────────────────────────────────────────────
 		local cfg = {
 			options = {
 				theme = bubbles_theme,
 				component_separators = "",
-				section_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				globalstatus = true, -- single statusline across all windows
+				refresh = { statusline = 100 },
 			},
+
 			sections = {
-				lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } },
-				lualine_b = { "filename", "branch" },
-				lualine_c = {
-					"%=", --[[ add your center components here in place of this comment ]]
-				},
-				lualine_x = {},
-				lualine_y = { "filetype", "progress" },
-				lualine_z = {
-					{ "location", separator = { right = "" }, left_padding = 2 },
-				},
+				lualine_a = mode_section,
+
+				lualine_b = filename_section,
+
+				-- Centre: git branch + diff + LSP name + diagnostics
+				lualine_c = git_section,
+
+				-- lualine_d = navic_section,
+
+				-- lualine_w = placeholder_section,
+
+				lualine_x = placeholder_section,
+
+				lualine_y = fileinfo_section,
+
+				lualine_z = location_section,
 			},
+
 			inactive_sections = {
-				lualine_a = {}, -- "filename" },
+				lualine_a = {},
 				lualine_b = {},
-				lualine_c = {},
-				lualine_x = {},
+				lualine_c = {
+					{ "filename", color = { fg = "#6c7086" } },
+				},
+				lualine_x = {
+					{ "location", color = { fg = "#6c7086" } },
+				},
 				lualine_y = {},
-				lualine_z = {}, -- "location" },
+				lualine_z = {},
 			},
+
 			tabline = {},
-			extensions = {},
+			extensions = { "neo-tree", "quickfix", "toggleterm", "trouble" },
 		}
 
 		lualine.setup(cfg)
@@ -625,19 +821,191 @@ local function setup_lualine()
 		vim.o.laststatus = 3
 
 		local cfg = {
+			options = {
+				icons_enabled = true,
+				theme = "auto",
+				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				disabled_filetypes = {
+					statusline = {},
+					winbar = {},
+				},
+				ignore_focus = {},
+				always_divide_middle = true,
+				always_show_tabline = true,
+				globalstatus = false,
+				refresh = {
+					statusline = 1000,
+					tabline = 1000,
+					winbar = 1000,
+					refresh_time = 16, -- ~60fps
+					events = {
+						"WinEnter",
+						"BufEnter",
+						"BufWritePost",
+						"SessionLoadPost",
+						"FileChangedShellPost",
+						"VimResized",
+						"Filetype",
+						"CursorMoved",
+						"CursorMovedI",
+						"ModeChanged",
+					},
+				},
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = { "filename" },
+				lualine_x = { "encoding", "fileformat", "filetype" },
+				lualine_y = { "progress" },
+				lualine_z = { "location" },
+			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = {},
-				lualine_x = {},
+				lualine_c = { "filename" },
+				lualine_x = { "location" },
 				lualine_y = {},
 				lualine_z = {},
 			},
+			tabline = {},
+			winbar = {},
+			inactive_winbar = {},
+			extensions = {},
 		}
 		lualine.setup(cfg)
 	end
 
-	setup_plugin("lualine", lualine_defaultlike) -- lualine_bubbles)
+	local function lualine_other(lualine)
+		local colors = {
+			fg = "#aaaaaa",
+			bg = "#153d21",
+			blue = "#80a0ff",
+			cyan = "#79dac8",
+			black = "#080808",
+			white = "#c6c6c6",
+			red = "#ff5189",
+			violet = "#d183e8",
+			grey = "#303030",
+			green = "#195510",
+			orange = "#5b490d",
+			red = "#650e0e",
+		}
+		local config = {
+			options = {
+				-- Disable sections and component separators
+				component_separators = "",
+				section_separators = "",
+				theme = {
+					normal = { c = { fg = colors.fg, bg = colors.bg } },
+					inactive = { c = { fg = "#636363", bg = "#122507" } },
+				},
+			},
+			sections = {
+				-- these are to remove the defaults
+				lualine_a = {},
+				lualine_b = {},
+				lualine_y = {},
+				lualine_z = {},
+				-- These will be filled later
+				lualine_c = {},
+				lualine_x = {},
+			},
+			inactive_sections = {
+				-- these are to remove the defaults
+				lualine_a = {},
+				lualine_b = {},
+				lualine_y = {},
+				lualine_z = {},
+				lualine_c = {},
+				lualine_x = {},
+			},
+		}
+
+		local function insert_left(component)
+			table.insert(config.sections.lualine_c, component)
+		end
+
+		local function insert_right(component)
+			table.insert(config.sections.lualine_x, component)
+		end
+
+		local conditions = {
+			buffer_not_empty = function()
+				return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+			end,
+			buffer_empty = function()
+				return vim.fn.empty(vim.fn.expand("%:t")) == 1
+			end,
+			screen_width = function(min_w)
+				return function()
+					return vim.o.columns > min_w
+				end
+			end,
+			check_git_workspace = function()
+				local filepath = vim.fn.expand("%:p:h")
+				local gitdir = vim.fn.finddir(".git", filepath .. ";")
+				return gitdir and #gitdir > 0 and #gitdir < #filepath
+			end,
+			diff_mode = function()
+				return vim.o.diff == true
+			end,
+			-- ... other conditions
+		}
+
+		insert_left({
+			"branch",
+			icon = "",
+			color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
+		})
+
+		insert_left({
+			"diff",
+			symbols = { added = " ", modified = " ", removed = " " },
+			diff_color = {
+				added = { fg = colors.green },
+				modified = { fg = colors.orange },
+				removed = { fg = colors.red },
+			},
+			cond = conditions.screen_width(80),
+		})
+
+		insert_left({
+			"diagnostics",
+			sources = { "nvim_diagnostic" },
+			symbols = { error = " ", warn = " ", info = " " },
+			diagnostics_color = {
+				color_error = { fg = colors.red },
+				color_warn = { fg = colors.yellow },
+				color_info = { fg = colors.cyan },
+			},
+		})
+
+		insert_left({
+			function()
+				return "%="
+			end,
+		})
+
+		insert_right({
+			"location",
+			color = { fg = colors.fg_dark },
+			cond = conditions.buffer_not_empty,
+		})
+
+		insert_right({
+			"encoding",
+		})
+
+		insert_right({
+			"filetype",
+		})
+	end
+
+	-- setup_plugin("lualine", lualine_other)
+	-- setup_plugin("lualine", lualine_bubbles)
+	setup_plugin("lualine", lualine_defaultlike)
 end
 
 local function setup_cokeline()
@@ -711,8 +1079,39 @@ end
 local function setup_bufferline()
 	-- https://github.com/akinsho/bufferline.nvim
 	-- A snazzy bufferline for Neovim
-	local bufferline_defaults = {
+	local BG = "#031A16"
+	local FG = "#425c57"
+	local NORMAL = {
+		fg = FG,
+		bg = BG,
+	}
+	local BRIGHT = {
+		fg = "#ffffff",
+		bg = BG, --"#0B342D",
+		bold = true,
+		italic = true,
+	}
+	local SAME = {
+		fg = BG,
+		bg = BG,
+	}
+	local bufferline_config = {
+		highlights = {
+			fill = NORMAL,
+			background = NORMAL,
+			tab = NORMAL,
+			tab_selected = BRIGHT,
+			tab_separator = SAME,
+			tab_separator_selected = SAME,
+			buffer_visible = NORMAL,
+			buffer_selected = BRIGHT,
+			tab_close = SAME,
+			separator_selected = SAME,
+			separator_visible = SAME,
+			separator = SAME,
+		},
 		options = {
+
 			mode = "buffers", -- set to "tabs" to only show tabpages instead
 			-- commented out because depends on bufferline
 			-- style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
@@ -723,12 +1122,12 @@ local function setup_bufferline()
 			left_mouse_command = "buffer %d", -- can be a string | function, | false see "Mouse actions"
 			middle_mouse_command = nil, -- can be a string | function, | false see "Mouse actions"
 			indicator = {
-				icon = "▎", -- this should be omitted if indicator style is not 'icon'
-				style = "icon", -- | 'underline' | 'none',
+				-- icon = " 👁️", --"▎", -- this should be omitted if indicator style is not 'icon'
+				style = "none", -- | 'underline' | 'none' | 'icon',
 			},
-			buffer_close_icon = "󰅖",
+			buffer_close_icon = "", --"󰅖",
 			modified_icon = "● ",
-			close_icon = " ",
+			close_icon = "", --" ",
 			left_trunc_marker = " ",
 			right_trunc_marker = " ",
 			--- name_formatter can be used to change the buffer's label in the bufferline.
@@ -795,8 +1194,8 @@ local function setup_bufferline()
 				-- return custom_map[element.filetype]
 			end,
 			show_buffer_icons = true, -- | false, -- disable filetype icons for buffers
-			show_buffer_close_icons = true, -- | false,
-			show_close_icon = true, -- | false,
+			show_buffer_close_icons = false, -- | false,
+			show_close_icon = false, -- | false,
 			show_tab_indicators = true, -- | false,
 			show_duplicate_prefix = true, -- | false, -- whether to show duplicate buffer prefix
 			duplicates_across_groups = true, -- whether to consider duplicate paths in different groups as duplicates
@@ -804,9 +1203,9 @@ local function setup_bufferline()
 			move_wraps_at_ends = false, -- whether or not the move command "wraps" at the first or last position
 			-- can also be a table containing 2 custom separators
 			-- [focused and unfocused]. eg: { '|', '|' }
-			separator_style = "slant", -- | "slope" | "thick" | "thin" | { "any", "any" },
+			separator_style = nil, -- | "slope" | "thick" | "thin" | { "any", "any" },
 			enforce_regular_tabs = false, -- | true,
-			always_show_bufferline = true, -- | false,
+			always_show_bufferline = false, -- | false,
 			auto_toggle_bufferline = true, -- | false,
 			hover = {
 				enabled = true,
@@ -832,28 +1231,309 @@ local function setup_bufferline()
 		},
 	}
 	setup_plugin("bufferline", function(bufferline)
-		bufferline.setup(bufferline_defaults)
+		bufferline.setup(bufferline_config)
 	end)
 end
 
-local function setup_nougat()
+local function setup_nougat_tabline()
+	-- https://github.com/MunifTanjim/nougat.nvim
+	-- Hyperextensible Statusline / Tabline / Winbar for Neovim
+	setup_plugin("nougat", function(_) end) -- TODO
+end
+
+local function setup_nougat_statusline()
+	-- https://github.com/MunifTanjim/nougat.nvim
+	-- Hyperextensible Statusline / Tabline / Winbar for Neovim
+	setup_plugin("nougat", function(_) end) -- TODO
+end
+
+local function setup_nougat_winbar()
+	-- https://github.com/MunifTanjim/nougat.nvim
+	-- Hyperextensible Statusline / Tabline / Winbar for Neovim
 	setup_plugin("nougat", function(_) end) -- TODO
 end
 
 local function setup_tabby()
+	--
+	--
 	setup_plugin("tabby", {}) -- TODO
 end
 
 local function setup_minibar()
-	setup_plugin("minibar", {}) -- TODO
+	-- https://github.com/aktersnurra/minibar.nvim
+	-- A minimalistic winbar.
+	local cfg = {
+		["ignore-filetypes"] = {
+			"help",
+			"startify",
+			"dashboard",
+			"packer",
+			"neogitstatus",
+			"NvimTree",
+			"Trouble",
+			"alpha",
+			"lir",
+			"Outline",
+			"NeogitStatus",
+			"NeogitCommitMessage",
+			"NeogitNotification",
+			"NeogitCommitView",
+			"spectre_panel",
+		},
+		["events"] = {
+			"CursorMoved",
+			"CursorHold",
+			"BufWinEnter",
+			"BufFilePost",
+			"InsertEnter",
+			"BufWritePost",
+			"TabClosed",
+		},
+	}
+	setup_plugin("minibar", cfg)
 end
 
 local function setup_winbar()
-	setup_plugin("winbar", {}) -- TODO
+	-- https://github.com/fgheng/winbar.nvim
+	-- winbar config for neovim
+	local cfg = {
+		enabled = true,
+
+		show_file_path = true,
+		show_symbols = true,
+
+		colors = {
+			path = "", -- You can customize colors like #c946fd
+			file_name = "",
+			symbols = "",
+		},
+
+		icons = {
+			file_icon_default = "",
+			seperator = ">",
+			editor_state = "●",
+			lock_icon = "",
+		},
+
+		exclude_filetype = {
+			"help",
+			"startify",
+			"dashboard",
+			"packer",
+			"neogitstatus",
+			"NvimTree",
+			"Trouble",
+			"alpha",
+			"lir",
+			"Outline",
+			"spectre_panel",
+			"toggleterm",
+			"qf",
+		},
+	}
+	setup_plugin("winbar", cfg)
 end
 
 local function setup_windline()
-	setup_plugin("windline", function(_) end) -- TODO
+	setup_plugin("windline", function(windline)
+		local windline = require("windline")
+		local helper = require("windline.helpers")
+		local sep = helper.separators
+		local vim_components = require("windline.components.vim")
+
+		local b_components = require("windline.components.basic")
+		local state = _G.WindLine.state
+
+		local lsp_comps = require("windline.components.lsp")
+		local git_comps = require("windline.components.git")
+
+		local hl_list = {
+			Black = { "white", "black" },
+			White = { "black", "white" },
+			Inactive = { "InactiveFg", "InactiveBg" },
+			Active = { "ActiveFg", "ActiveBg" },
+		}
+		local basic = {}
+
+		basic.divider = { b_components.divider, "" }
+		basic.file_name_inactive = { b_components.full_file_name, hl_list.Inactive }
+		basic.line_col_inactive = { b_components.line_col, hl_list.Inactive }
+		basic.progress_inactive = { b_components.progress, hl_list.Inactive }
+
+		basic.vi_mode = {
+			name = "vi_mode",
+			hl_colors = {
+				Normal = { "black", "red", "bold" },
+				Insert = { "black", "green", "bold" },
+				Visual = { "black", "yellow", "bold" },
+				Replace = { "black", "blue_light", "bold" },
+				Command = { "black", "magenta", "bold" },
+				NormalBefore = { "red", "black" },
+				InsertBefore = { "green", "black" },
+				VisualBefore = { "yellow", "black" },
+				ReplaceBefore = { "blue_light", "black" },
+				CommandBefore = { "magenta", "black" },
+				NormalAfter = { "white", "red" },
+				InsertAfter = { "white", "green" },
+				VisualAfter = { "white", "yellow" },
+				ReplaceAfter = { "white", "blue_light" },
+				CommandAfter = { "white", "magenta" },
+			},
+			text = function()
+				return {
+					{ sep.left_rounded, state.mode[2] .. "Before" },
+					{ state.mode[1] .. " ", state.mode[2] },
+					{ sep.left_rounded, state.mode[2] .. "After" },
+				}
+			end,
+		}
+
+		basic.lsp_diagnos = {
+			name = "diagnostic",
+			hl_colors = {
+				red = { "red", "black" },
+				yellow = { "yellow", "black" },
+				blue = { "blue", "black" },
+			},
+			width = 90,
+			text = function(bufnr)
+				if lsp_comps.check_lsp(bufnr) then
+					return {
+						{ lsp_comps.lsp_error({ format = "  %s" }), "red" },
+						{ lsp_comps.lsp_warning({ format = "  %s" }), "yellow" },
+						{ lsp_comps.lsp_hint({ format = "  %s" }), "blue" },
+					}
+				end
+				return ""
+			end,
+		}
+
+		basic.file = {
+			name = "file",
+			hl_colors = {
+				default = hl_list.White,
+			},
+			text = function()
+				return {
+					{ b_components.cache_file_icon({ default = "" }), "default" },
+					{ " ", "default" },
+					{ b_components.cache_file_name("[No Name]", "unique") },
+					{ b_components.file_modified(" ") },
+					{ b_components.cache_file_size() },
+				}
+			end,
+		}
+
+		basic.right = {
+			hl_colors = {
+				sep_before = { "black_light", "black" },
+				sep_after = { "black_light", "black" },
+				text = { "white", "black_light" },
+			},
+			text = function()
+				return {
+					{ sep.left_rounded, "sep_before" },
+					{ "l/n", "text" },
+					{ b_components.line_col_lua },
+					{ "" },
+					{ b_components.progress_lua },
+					{ sep.right_rounded, "sep_after" },
+				}
+			end,
+		}
+		basic.git = {
+			name = "git",
+			width = 90,
+			hl_colors = {
+				green = { "green", "black" },
+				red = { "red", "black" },
+				blue = { "blue", "black" },
+			},
+			text = function(bufnr)
+				if git_comps.is_git(bufnr) then
+					return {
+						{ " " },
+						{ git_comps.diff_added({ format = " %s" }), "green" },
+						{ git_comps.diff_removed({ format = "  %s" }), "red" },
+						{ git_comps.diff_changed({ format = "  %s" }), "blue" },
+					}
+				end
+				return ""
+			end,
+		}
+
+		local default = {
+			filetypes = { "default" },
+			active = {
+				{ " ", hl_list.Black },
+				basic.vi_mode,
+				basic.file,
+				{ vim_components.search_count(), { "red", "white" } },
+				{ sep.right_rounded, hl_list.Black },
+				basic.lsp_diagnos,
+				basic.git,
+				basic.divider,
+				{ git_comps.git_branch({ icon = "  " }), { "green", "black" }, 90 },
+				{ " ", hl_list.Black },
+				basic.right,
+				{ " ", hl_list.Black },
+			},
+			inactive = {
+				basic.file_name_inactive,
+				basic.divider,
+				basic.divider,
+				basic.line_col_inactive,
+				{ "", hl_list.Inactive },
+				basic.progress_inactive,
+			},
+		}
+
+		local quickfix = {
+			filetypes = { "qf", "Trouble" },
+			active = {
+				{ "🚦 Quickfix ", { "white", "black" } },
+				{ helper.separators.slant_right, { "black", "black_light" } },
+				{
+					function()
+						return vim.fn.getqflist({ title = 0 }).title
+					end,
+					{ "cyan", "black_light" },
+				},
+				{ " Total : %L ", { "cyan", "black_light" } },
+				{ helper.separators.slant_right, { "black_light", "InactiveBg" } },
+				{ " ", { "InactiveFg", "InactiveBg" } },
+				basic.divider,
+				{ helper.separators.slant_right, { "InactiveBg", "black" } },
+				{ "🧛 ", { "white", "black" } },
+			},
+			always_active = true,
+			show_last_status = true,
+		}
+
+		local explorer = {
+			filetypes = { "fern", "NvimTree", "lir" },
+			active = {
+				{ "  ", { "white", "black_light" } },
+				{ helper.separators.slant_right, { "black_light", "NormalBg" } },
+				{ b_components.divider, "" },
+				{ b_components.file_name(""), { "NormalFg", "NormalBg" } },
+			},
+			always_active = true,
+			show_last_status = true,
+		}
+
+		windline.setup({
+			colors_name = function(colors)
+				-- ADD MORE COLOR HERE ----
+				return colors
+			end,
+			statuslines = {
+				default,
+				explorer,
+				quickfix,
+			},
+		})
+	end)
 end
 
 --─────────────────────────────────────────────────────────────────────────────
@@ -1454,7 +2134,9 @@ local functions = {
 	["staline"] = setup_staline,
 	["navic"] = setup_navic,
 	["bufferline"] = setup_bufferline,
-	["nougat"] = setup_nougat,
+	["nougat::statusline"] = setup_nougat_statusline,
+	["nougat::tabline"] = setup_nougat_tabline,
+	["nougat::winbar"] = setup_nougat_winbar,
 	["tabby"] = setup_tabby,
 	["minibar"] = setup_minibar,
 	["winbar"] = setup_winbar,
@@ -1503,7 +2185,9 @@ maybe_setup("galaxyline")
 maybe_setup("staline")
 maybe_setup("navic")
 maybe_setup("bufferline")
-maybe_setup("nougat")
+maybe_setup("nougat::statusline")
+maybe_setup("nougat::tabline")
+maybe_setup("nougat::winbar")
 maybe_setup("tabby")
 maybe_setup("minibar")
 maybe_setup("winbar")
