@@ -362,6 +362,7 @@ Self-contained keys (act immediately in normal mode):
 ```lua
   -- https://github.com/tarting/tktodo.nvim
   -- A telescope extension to toggle todo items in notes from the telekasten.nvim home directory.
+    setup_plugin("telescope-live-grep-args")
 	setup_plugin("tktodo", {}) 
 	setup_plugin("telescope-code-actions", {})
 	setup_plugin("telescope-file-browser", {})

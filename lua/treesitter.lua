@@ -63,6 +63,7 @@ local function configure_filetypes_and_aliases()
 	})
 
 	-- FILETYPE ALIASES
+	vim.treesitter.language.register("markdown", "txt")
 	vim.treesitter.language.register("cpp", "cuda")
 	vim.treesitter.language.register("javascript", "jsx")
 	vim.treesitter.language.register("typescript", "tsx")
@@ -190,6 +191,22 @@ local function wrap_treesitter_start()
 		-- dmap = true,
 	}
 	local orig_ts_start = vim.treesitter.start
+
+	local function safe_start(bufnr, lang)
+		if lang == "" then
+			return
+		end
+
+		local ok, err = pcall(orig_ts_start, bufnr, lang)
+		if not ok then
+			if err and err:match("No parser") then
+				vim.notify("No treesitter parser for: " .. lang, vim.log.levels.DEBUG)
+			else
+				vim.notify("Treesitter error for " .. lang .. ": " .. tostring(err), vim.log.levels.WARN)
+			end
+		end
+	end
+
 	vim.treesitter.start = function(bufnr, lang)
 		bufnr = bufnr or 0
 
@@ -202,7 +219,12 @@ local function wrap_treesitter_start()
 			return
 		end
 
-		return orig_ts_start(bufnr, lang)
+		local ft = vim.bo[bufnr].filetype
+		if ft == "" then
+			return
+		end
+
+		return safe_start(bufnr, lang)
 	end
 end
 

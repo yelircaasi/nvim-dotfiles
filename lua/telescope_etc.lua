@@ -11,6 +11,36 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 				-- the default case_mode is "smart_case"
 			},
 		},
+		defaults = {
+			mappings = {
+				i = {
+					-- Movement
+					["<C-j>"] = "move_selection_next",
+					["<C-k>"] = "move_selection_previous",
+					["<C-d>"] = "preview_scrolling_down",
+					["<C-u>"] = "preview_scrolling_up",
+					-- Actions
+					["<C-q>"] = "send_to_qflist",
+					["<C-l>"] = "complete_tag",
+					["<C-x>"] = "select_horizontal",
+					["<C-v>"] = "select_vertical",
+					["<C-t>"] = "select_tab",
+					["<Esc>"] = "close",
+					["<C-c>"] = "close",
+				},
+				n = {
+					["<C-j>"] = "move_selection_next",
+					["<C-k>"] = "move_selection_previous",
+					["j"] = "move_selection_next",
+					["k"] = "move_selection_previous",
+					["gg"] = "move_to_top",
+					["G"] = "move_to_bottom",
+					["<C-d>"] = "preview_scrolling_down",
+					["<C-u>"] = "preview_scrolling_up",
+					["q"] = "close",
+				},
+			},
+		},
 	})
 	telescope.load_extension("advanced_git_search")
 	telescope.load_extension("fzf")
@@ -38,7 +68,7 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 		mode = "n",
 		sequence = "<leader>fg",
 		action = function()
-			telescope_builtin.live_grep()
+			require("telescope.builtin").live_grep()
 		end,
 		desc = "Telescope: Live Grep",
 	})
