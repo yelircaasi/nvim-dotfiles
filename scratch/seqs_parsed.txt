@@ -36,8 +36,8 @@
 
 =======================
 =========  R  =========
-=======================                             |    ./lua/search.lua
-DUP! "<leader>R"     vuffers: reset_custom_display_names         |    ./lua/navigation.lua
+=======================
+<leader>R     vuffers: reset_custom_display_names         |    ./lua/navigation.lua
 
 =======================
 =========  T  =========

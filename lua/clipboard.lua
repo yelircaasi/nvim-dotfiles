@@ -7,6 +7,7 @@ local function general_config()
 	--> then use "+y / "+p explicitly
 
 	local nv = { "n", "v" }
+	local nvx = { "n", "v", "x" }
 	map_explicit({
 		mode = nv,
 		sequence = "<leader>y",

@@ -1,7 +1,7 @@
 local function set_options()
 	local global_options = {
 		mapleader = " ",
-		maplocalleader = ","
+		maplocalleader = ",",
 
 		loaded_netrwPlugin = 1, -- for yazi
 		nerdfont = true,

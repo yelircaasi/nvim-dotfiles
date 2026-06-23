@@ -2,115 +2,115 @@
 ==========================
 ========  <space>  =======
 ==========================
-"<localleader><space>"    |    "toggle viewer viewed state"    |    /home/isaac/.config/nvim/lua/git.lua
+<localleader><space>    |    "toggle viewer viewed state"    |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  a  ========
 =======================
-"<LocalLeader>a"          |    "<cmd>CodeCompanionChat Toggle<cr>"
-"<localleader>aa"         |    "add assignee"                  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>ad"         |    "remove assignee"               |    /home/isaac/.config/nvim/lua/git.lua
+"<LocalLeader>a"        |    "<cmd>CodeCompanionChat Toggle<cr>"
+<localleader>aa         |    "add assignee"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>ad         |    "remove assignee"               |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  b  ========
 =======================
-"<localleader>b"          |    "hide/show changed files panel" |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>b          |    "hide/show changed files panel" |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  C  ========
 =======================
-"<localleader>C"          |    "review PR commits"             |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>C          |    "review PR commits"             |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  c  ========
 =======================
-"<localleader>ca"         |    "add (a new review) comment"                   |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>cd"         |    "delete comment"                |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>ce"         |    "show comment edit history"     |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>cg"         |    "view contributing guidelines"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>cr"         |    "add reply"                     |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>ca         |    "add (a new review) comment"                   |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>cd         |    "delete comment"                |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>ce         |    "show comment edit history"     |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>cg         |    "view contributing guidelines"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>cr         |    "add reply"                     |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  d  ========
 =======================
-"<localleader>dc"         |    "create discussion"             |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>dc         |    "create discussion"             |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  e  ========
 =======================
-"<localleader>e"          |    "move focus to changed file panel"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>e          |    "move focus to changed file panel"  |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  g  ========
 =======================
-"<localleader>gi"         |    "navigate to a local repo issue"    |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>gi         |    "navigate to a local repo issue"    |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  i  ========
 =======================
-"<localleader>ic"         |    "close issue/PR"                   |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>in"    |    "create issue"                  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>il"         |    "list open issues on same repo" |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>io"         |    "reopen issue/PR"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>ic         |    "close issue/PR"                   |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>in         |    "create issue"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>il         |    "list open issues on same repo" |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>io         |    "reopen issue/PR"                  |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  l  ========
 =======================
-"<localleader>la"         |    "add label"                     |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>lc"         |    "create label"                  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>ld"         |    "remove label"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>la         |    "add label"                     |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>lc         |    "create label"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>ld         |    "remove label"                  |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  n  ======== 
 =======================
-"<localleader>nd"         |    "mark notification as done"       |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>nr"         |    "mark notification as read"       |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>nu"         |    "unsubscribe from notifications"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>nd         |    "mark notification as done"       |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>nr         |    "mark notification as read"       |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>nu         |    "unsubscribe from notifications"  |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  p  ======== 
 =======================
-"<localleader>pc"         |    "list PR commits"               |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>pd"         |    "show PR diff"                  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>pf"         |    "list PR changed files"         |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>pm"         |    "merge commit PR"               |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>po"         |    "checkout PR"                   |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>pq"         |    "merge commit PR and add to merge queue (Merge queue must be enabled in the repo)",  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>prm"        |    "rebase and merge PR"           |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>prq"        |    "rebase and add to merge queue (Merge queue must be enabled in the repo)",  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>psm"        |    "squash and merge PR"     |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>psq"        |    "squash and add to merge queue (Merge queue must be enabled in the repo)",  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>pc         |    "list PR commits"               |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>pd         |    "show PR diff"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>pf         |    "list PR changed files"         |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>pm         |    "merge commit PR"               |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>po         |    "checkout PR"                   |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>pq         |    "merge commit PR and add to merge queue (Merge queue must be enabled in the repo)",  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>prm        |    "rebase and merge PR"           |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>prq        |    "rebase and add to merge queue (Merge queue must be enabled in the repo)",  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>psm        |    "squash and merge PR"     |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>psq        |    "squash and add to merge queue (Merge queue must be enabled in the repo)",  |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  r  ========
 =======================
-"<localleader>r-"         |    "add/remove 👎 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>r"          |    do_redo (muren)
-"<localleader>r+"         |    "add/remove 👍 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rc"         |    "add/remove 😕 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>re"         |    "add/remove 👀 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rh"         |    "add/remove ❤️ reaction"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>ri"         |    "reference comment in new issue"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rl"         |    "add/remove 😄 reaction"          |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rp"         |    "add/remove 🎉 reaction"          |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rr"         |    "add/remove 🚀 reaction"          |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rt"         |    "resolve PR thread"               |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>rT"         |    "unresolve PR thread"             |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>r-         |    "add/remove 👎 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>r          |    do_redo (muren)
+<localleader>r+         |    "add/remove 👍 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rc         |    "add/remove 😕 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>re         |    "add/remove 👀 reaction"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rh         |    "add/remove ❤️ reaction"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>ri         |    "reference comment in new issue"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rl         |    "add/remove 😄 reaction"          |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rp         |    "add/remove 🎉 reaction"          |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rr         |    "add/remove 🚀 reaction"          |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rt         |    "resolve PR thread"               |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>rT         |    "unresolve PR thread"             |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  s  ========
 =======================
-"<localleader>sa"         |    "add suggestion"                  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>sa         |    "add suggestion"                  |    /home/isaac/.config/nvim/lua/git.lua
 
 =======================
 ==========  u  ========
 =======================
-"<localleader>u"          |    do_undo (muren)
+<localleader>u          |    do_undo (muren)
 
 =======================
 ==========  v  ========
 =======================
-"<localleader>va"         |    "add reviewer"                       |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>vd"    |    "discard/remove review || remove reviewer request"                     |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>vr"         |    "resume a pending review for the current PR"  |    /home/isaac/.config/nvim/lua/git.lua
-"<localleader>vs"    |    "start/submit review"                      |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>va         |    "add reviewer"                       |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>vd         |    "discard/remove review || remove reviewer request"                     |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>vr         |    "resume a pending review for the current PR"  |    /home/isaac/.config/nvim/lua/git.lua
+<localleader>vs         |    "start/submit review"                      |    /home/isaac/.config/nvim/lua/git.lua

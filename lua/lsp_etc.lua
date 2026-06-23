@@ -44,7 +44,6 @@ end
 local function create_keymaps()
 	local lsp_map_opts = { buffer = bufnr, silent = true }
 
-
 	map_explicit({
 		mode = "n",
 		sequence = "<leader>ql",
