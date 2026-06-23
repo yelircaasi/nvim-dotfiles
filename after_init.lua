@@ -39,6 +39,7 @@ config_modules = {
 	["langs.python"] = true,
 	["mappings"] = true,
 	["search"] = true,
+	["telescope_etc"] = true,
 
 	["ai"] = false,
 	["clipboard"] = true,
@@ -68,7 +69,6 @@ config_modules = {
 	["projects"] = false,
 	["replacer"] = false,
 	["task_runner"] = false,
-	["telescope_etc"] = false,
 	["terminal"] = false,
 	["testing"] = false,
 	["tmp"] = false,
