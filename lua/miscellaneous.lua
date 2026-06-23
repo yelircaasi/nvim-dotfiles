@@ -335,32 +335,32 @@ local function setup_timew()
 		-- Set Timew bindings
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tn",
+			sequence = "<leader>twn",
 			action = "<Cmd>Timew start<CR>",
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>ts",
+			sequence = "<leader>tws",
 			action = "<Cmd>Timew stop<CR>",
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tc",
+			sequence = "<leader>twc",
 			action = "<Cmd>Timew continue<CR>",
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tC",
+			sequence = "<leader>twC",
 			action = "<Cmd>Timew cancel<CR>",
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>td",
+			sequence = "<leader>twd",
 			action = "<Cmd>Timew delete<CR>",
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tS",
+			sequence = "<leader>twS",
 			action = "<Cmd>Timew summary<CR>",
 		})
 	end)
@@ -660,32 +660,32 @@ local function setup_doing()
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>da",
+			sequence = "<leader>doa",
 			action = doing.add,
 			opts = { desc = "[D]oing: [A]dd" },
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>de",
+			sequence = "<leader>doe",
 			action = doing.edit,
 			opts = { desc = "[D]oing: [E]dit" },
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>dn",
+			sequence = "<leader>don",
 			action = doing.done,
 			opts = { desc = "[D]oing: Do[n]e" },
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>dt",
+			sequence = "<leader>dot",
 			action = doing.toggle,
 			opts = { desc = "[D]oing: [T]oggle" },
 		})
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>ds",
+			sequence = "<leader>doy",
 			action = function()
 				vim.notify(doing.status(true), vim.log.levels.INFO, { title = "Doing:", icon = "" })
 			end,
@@ -885,7 +885,7 @@ local function setup_quicknote()
 	}
 	setup_plugin("quicknote", function(quicknote)
 		quicknote.setup(quicknote_defaults)
-		vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>:lua require('quicknote').NewNoteAtCurrentLine()<cr>", {})
+		vim.api.nvim_set_keymap("n", "<leader>qn", "<cmd>:lua require('quicknote').NewNoteAtCurrentLine()<cr>", {})
 	end)
 end
 
@@ -1631,11 +1631,11 @@ local function setup_nvmm()
 	-- primarily designed to work with NeoMutt by default but also offers support for mailx. This plugin can send emails in either HTML format (neomutt only) or plain text
 	local nvmm_defaults = {
 		mappings = {
-			attachment = "<leader>a",
-			config = "<leader>c",
-			preview = "<leader>p",
-			send_text = "<leader>st",
-			send_html = "<leader>sh",
+			attachment = "<leader>mma",
+			config = "<leader>mmc",
+			preview = "<leader>mmp",
+			send_text = "<leader>mmt",
+			send_html = "<leader>mmh",
 		},
 		options = {
 			mail_client = {

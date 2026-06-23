@@ -1730,7 +1730,7 @@ local function setup_harpoon_core()
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>hh",
+			sequence = "<leader>hm",
 			action = function()
 				harpoon.ui:toggle_quick_menu(list)
 			end,

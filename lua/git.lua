@@ -271,7 +271,7 @@ local function setup_octo()
 				reopen_issue = { lhs = "<localleader>io", desc = "reopen PR" },
 				list_issues = { lhs = "<localleader>il", desc = "list open issues on same repo" },
 				reload = { lhs = "<C-r>", desc = "reload PR" },
-				approve_pr = { lhs = "<leader>qa", desc = "approve PR" },
+				approve_pr = { lhs = "<leader>qpr", desc = "approve PR" },
 				open_in_browser = { lhs = "<C-b>", desc = "open PR in browser" },
 				copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
 				copy_sha = { lhs = "<C-e>", desc = "copy commit SHA to system clipboard" },
@@ -387,7 +387,7 @@ local function setup_octo()
 			},
 			repo = {
 				repo_options = { lhs = "<CR>", desc = "show repo options" },
-				create_issue = { lhs = "<localleader>ic", desc = "create issue" },
+				create_issue = { lhs = "<localleader>in", desc = "create issue" }, -- MODIFIED (non-default)
 				create_discussion = { lhs = "<localleader>dc", desc = "create discussion" },
 				contributing_guidelines = { lhs = "<localleader>cg", desc = "view contributing guidelines" },
 				open_in_browser = { lhs = "<C-b>", desc = "open repo in browser" },

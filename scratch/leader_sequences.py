@@ -6,8 +6,8 @@ def format_seq(s: str) -> str:
     s = re.sub("\\n\\s+", " <> ", s)
     return s
 
-pattern = re.compile(r'"<leader>.+?"\s*.+?\}', re.DOTALL)
-config_dir = Path.home() / "repos/neovim-flake/config_hooks_mirror"
+pattern = re.compile(r'"<localleader>.+?"\s*.+?\}', re.DOTALL)
+config_dir = Path.home() / ".config/nvim"
 seqs = []
 for file in config_dir.rglob("*.lua"):
     try:
@@ -17,5 +17,5 @@ for file in config_dir.rglob("*.lua"):
     seqs.extend(new_seqs)
 
 
-out = Path.home() / "repos/neovim-flake/scripts/seqs.txt"
+out = Path.home() / ".config/nvim/scratch/seqs_local_parsed.txt"
 out.write_text("\n".join(sorted(seqs)))

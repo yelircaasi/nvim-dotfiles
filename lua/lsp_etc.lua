@@ -44,28 +44,10 @@ end
 local function create_keymaps()
 	local lsp_map_opts = { buffer = bufnr, silent = true }
 
-	map_explicit({
-		mode = { "i" },
-		sequence = "kj",
-		action = "<escape>",
-	})
+
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>wq",
-		action = function()
-			vim.cmd("wq")
-		end,
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "<leader>ww",
-		action = function()
-			vim.cmd("w")
-		end,
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "<leader>q",
+		sequence = "<leader>ql",
 		action = function()
 			-- Populates the Quickfix list with all diagnostics from the current buffer
 			vim.diagnostic.setqflist({ bufnr = 0 })
@@ -75,6 +57,7 @@ local function create_keymaps()
 	})
 end
 
+-- TODO: remove duplication in keymaps
 local function create_autocommands()
 	local function on_attach(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -154,7 +137,7 @@ local function create_autocommands()
 			lsp_map("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
 
 			-- Actions
-			lsp_map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+			lsp_map("<leader>ca", vim.lsp.buf.code_action, "Code Action") -- TODO: duplicate
 			lsp_map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
 			-- Diagnostics
@@ -971,7 +954,7 @@ local function setup_refactoring()
 			return require("refactoring").extract_func()
 		end, { desc = "Extract Function", expr = true })
 		-- `_` is the default textobject for "current line"
-		keymap.set("n", "<leader>ree", function()
+		keymap.set("n", "<leader>rel", function()
 			return require("refactoring").extract_func() .. "_"
 		end, { desc = "Extract Function (line)", expr = true })
 
@@ -1000,43 +983,43 @@ local function setup_refactoring()
 		end, { desc = "Select refactor" })
 
 		-- `iw` is the builtin textobject for "in word". You can use any other textobject or even create the keymap without any textobject if you prefer to provide one yourself each time that you use the keymap
-		keymap.set("n", "<leader>pv", function()
+		keymap.set("n", "<leader>pvb", function()
 			return debug.print_var({ output_location = "below" }) .. "iw"
 		end, { desc = "Debug print var below", expr = true })
-		keymap.set("x", "<leader>pv", function()
+		keymap.set("x", "<leader>pvb", function()
 			return debug.print_var({ output_location = "below" })
 		end, { desc = "Debug print var below", expr = true })
 
 		-- `iw` is the builtin textobject for "in word". You can use any other textobject or even create the keymap without any textobject if you prefer to provide one yourself each time that you use the keymap
-		keymap.set("n", "<leader>pV", function()
+		keymap.set("n", "<leader>pva", function()
 			return debug.print_var({ output_location = "above" }) .. "iw"
 		end, { desc = "Debug print var above", expr = true })
-		keymap.set("x", "<leader>pV", function()
+		keymap.set("x", "<leader>pva", function()
 			return debug.print_var({ output_location = "above" })
 		end, { desc = "Debug print var above", expr = true })
 
-		keymap.set({ "x", "n" }, "<leader>pe", function()
+		keymap.set({ "x", "n" }, "<leader>peb", function()
 			return debug.print_exp({ output_location = "below" })
 		end, { desc = "Debug print exp below", expr = true })
 		-- `_` is the default textobject for "current line"
-		keymap.set("n", "<leader>pee", function()
+		keymap.set("n", "<leader>pea", function()
 			return debug.print_exp({ output_location = "below" }) .. "_"
 		end, { desc = "Debug print exp below", expr = true })
 
-		keymap.set({ "x", "n" }, "<leader>pE", function()
+		keymap.set({ "x", "n" }, "<leader>peb", function()
 			return debug.print_exp({ output_location = "above" })
 		end, { desc = "Debug print exp above", expr = true })
 		-- `_` is the default textobject for "current line"
-		keymap.set("n", "<leader>pEE", function()
+		keymap.set("n", "<leader>pea", function()
 			return debug.print_exp({ output_location = "above" }) .. "_"
 		end, { desc = "Debug print exp above", expr = true })
 
-		keymap.set("n", "<leader>pP", function()
+		keymap.set("n", "<leader>pla", function()
 			return debug.print_loc({ output_location = "above" })
-		end, { desc = "Debug print location", expr = true })
-		keymap.set("n", "<leader>pp", function()
+		end, { desc = "Debug print location above", expr = true })
+		keymap.set("n", "<leader>plb", function()
 			return debug.print_loc({ output_location = "below" })
-		end, { desc = "Debug print location", expr = true })
+		end, { desc = "Debug print location below", expr = true })
 
 		keymap.set({ "x", "n" }, "<leader>pc", function()
 			-- `ag` is a custom textobject that selects the whole buffer. It's provided by plugins like `mini.ai` (requires manual configuration using `MiniExtra.gen_ai_spec.buffer()`).
@@ -1285,7 +1268,7 @@ local function setup_glance()
 					["o"] = actions.jump,
 					["l"] = actions.open_fold,
 					["h"] = actions.close_fold,
-					["<leader>l"] = actions.enter_win("preview"), -- Focus preview window
+					["<leader>le"] = actions.enter_win("preview"), -- Focus preview window
 					["q"] = actions.close, -- Closes Glance window
 					["Q"] = actions.close,
 					["<Esc>"] = actions.close,
@@ -1297,7 +1280,7 @@ local function setup_glance()
 					["Q"] = actions.close,
 					["<Tab>"] = actions.next_location, -- Next location (skips groups, cycles)
 					["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
-					["<leader>l"] = actions.enter_win("list"), -- Focus list window
+					["<leader>le"] = actions.enter_win("list"), -- Focus list window
 				},
 			},
 

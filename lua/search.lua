@@ -253,7 +253,7 @@ local function setup_fzf_lua()
 		-- Files
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>ff",
+			sequence = "<leader>fzp",
 			action = fzf.files,
 			desc = "Find files",
 		})
@@ -265,16 +265,16 @@ local function setup_fzf_lua()
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>fb",
+			sequence = "<leader>fzb",
 			action = fzf.buffers,
-			desc = "Buffers",
+			desc = "Buffers (fzf)",
 		})
 		-- Search
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>fg",
+			sequence = "<leader>fzf",
 			action = fzf.live_grep,
-			desc = "Live grep",
+			desc = "Live grep (fzf)",
 		})
 		map_explicit({
 			mode = "n",
@@ -484,7 +484,7 @@ local function setup_snacks()
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>n",
+			sequence = "<leader>nh",
 			action = snacks.notifier.show_history,
 			desc = "Notification history",
 		})
@@ -645,7 +645,7 @@ local function setup_spectre()
 				desc = "open file",
 			},
 			["send_to_qf"] = {
-				map = "<leader>q",
+				map = "<leader>qa",
 				cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
 				desc = "send all items to quickfix",
 			},
@@ -665,7 +665,7 @@ local function setup_spectre()
 				desc = "replace current line",
 			},
 			["run_replace"] = {
-				map = "<leader>R",
+				map = "<leader>ra",
 				cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
 				desc = "replace all",
 			},
@@ -700,7 +700,7 @@ local function setup_spectre()
 				desc = "toggle search hidden",
 			},
 			["resume_last_search"] = {
-				map = "<leader>l",
+				map = "<leader>s.",
 				cmd = "<cmd>lua require('spectre').resume_last_search()<CR>",
 				desc = "repeat last search",
 			},
@@ -1005,7 +1005,7 @@ local function setup_search_replace()
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>re",
+			sequence = "<leader>r=",
 			action = "<CMD>SearchReplaceSingleBufferCExpr<CR>",
 			opts = shared_opts,
 		})

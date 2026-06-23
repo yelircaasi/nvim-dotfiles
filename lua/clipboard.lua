@@ -21,7 +21,7 @@ local function general_config()
 	})
 	map_explicit({
 		mode = nv,
-		sequence = "<leader>p",
+		sequence = "<leader>pp",
 		action = '"+p',
 		desc = "Put from system (unnamedplus) clipboard",
 	})
@@ -31,9 +31,22 @@ local function general_config()
 		action = '"+P',
 		desc = "Put from system (unnamedplus) clipboard (before)",
 	})
+
+	map_explicit({
+		mode = nvx,
+		sequence = "<leader>y",
+		action = "+y<CR>",
+		desc = "Yank to system clipboard",
+	})
+	map_explicit({
+		mode = nvx,
+		sequence = "<leader>dd",
+		action = "+d<CR>",
+		desc = "Delete and send to system clipboard",
+	})
 	map_explicit({
 		mode = nv,
-		sequence = "<leader>d",
+		sequence = "<leader>d-",
 		action = '"_d',
 		desc = "Delete to blackhole",
 	})

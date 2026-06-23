@@ -5,30 +5,14 @@ local function setup_dap_python()
 		dap_python.test_runner = "pytest"
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tt",
+			sequence = "<leader>te",
 			action = utils.mkprint("Leader is working!"),
 		})
-		map_explicit({
-			mode = "n",
-			sequence = "<leader>pp",
-			action = utils.mkprint("This works"),
-		})
-		map_explicit({
-			mode = "n",
-			sequence = "<leader>dn",
-			action = dap_python.test_method,
-		})
-		map_explicit({
-			mode = "n",
-			sequence = "<leader>df",
-			action = dap_python.test_class,
-		})
-		map_explicit({
-			mode = "v",
-			sequence = "<leader>ds",
-			action = dap_python.debug_selection,
-		})
-		-- OTHER
+		-- map_explicit({
+		-- 	mode = "n",
+		-- 	sequence = "<leader>pp",
+		-- 	action = utils.mkprint("This works"),
+		-- })
 		map_explicit({
 			mode = "n",
 			sequence = "<leader>dn",
@@ -36,7 +20,7 @@ local function setup_dap_python()
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>df",
+			sequence = "<leader>dpc",
 			action = dap_python.test_class,
 		})
 		map_explicit({
@@ -50,25 +34,6 @@ local function setup_dap_python()
 	setup_plugin("dap-python", function(dap_python)
 		dap_python.setup("debugpy-adapter")
 		dap_python.test_runner = "pytest"
-
-		map_explicit({
-		mode = "n",
-		sequence = "<leader>dn",
-		action = dap_python.test_method,
-	})
-		map_explicit({
-		mode = "n",
-		sequence = "<leader>df",
-		action = dap_python.test_class,
-	})
-
-		map_explicit({
-		mode = "v",
-		sequence = "<leader>ds",
-		action = function()
-			dap_python.debug_selection()
-		end,
-	})
 	end)
 	]]
 end
@@ -204,7 +169,7 @@ local function create_keymaps()
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>q",
+		sequence = "<leader>qf",
 		action = "<cmd>copen<cr>",
 	})
 	map_explicit({

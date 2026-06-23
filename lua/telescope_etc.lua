@@ -24,7 +24,7 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 		action = function()
 			telescope_builtin.find_files()
 		end,
-		desc = "Find Files",
+		desc = "Telescope: Find Files",
 	})
 	map_explicit({
 		mode = "n",
@@ -32,7 +32,7 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 		action = function()
 			telescope_builtin.git_files()
 		end,
-		desc = "Find Git Files",
+		desc = "Telescope: Find Git Files",
 	})
 	map_explicit({
 		mode = "n",
@@ -40,7 +40,7 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 		action = function()
 			telescope_builtin.live_grep()
 		end,
-		desc = "Live Grep",
+		desc = "Telescope: Live Grep",
 	})
 	map_explicit({
 		mode = "n",
@@ -48,7 +48,7 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 		action = function()
 			telescope_builtin.buffers()
 		end,
-		desc = "Find Buffers",
+		desc = "Telescope: Find Buffers",
 	})
 	map_explicit({
 		mode = "n",
@@ -56,51 +56,6 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 		action = function()
 			telescope_builtin.help_tags()
 		end,
-		desc = "Find Help Tags",
+		desc = "Telescope: Find Help Tags",
 	})
 end)
-
---─────────────────────────────────────────────────────────────────────────────
---──── mappings ───────────────────────────────────────────────────────────────
---─────────────────────────────────────────────────────────────────────────────
-
-map_explicit({
-	mode = "n",
-	sequence = "<leader>ff",
-	action = make_setup_function(function()
-		require("telescope.builtin").find_files()
-	end),
-	desc = "Find Files",
-})
-map_explicit({
-	mode = "n",
-	sequence = "<leader>gf",
-	action = function()
-		require("telescope.builtin").git_files()
-	end,
-	desc = "Find Git Files",
-})
-map_explicit({
-	mode = "n",
-	sequence = "<leader>fg",
-	action = function()
-		require("telescope.builtin").live_grep()
-	end,
-	desc = "Live Grep",
-})
-map_explicit({
-	mode = "n",
-	sequence = "<leader>fb",
-	action = function()
-		require("telescope.builtin").buffers()
-	end,
-	desc = "Find Buffers",
-})
-map_explicit({
-	mode = "n",
-	sequence = "<leader>fh",
-	action = function()
-		require("telescope.builtin").help_tags()
-	end,
-	desc = "Find Help Tags",
-})

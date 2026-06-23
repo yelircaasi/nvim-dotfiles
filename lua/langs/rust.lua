@@ -57,113 +57,113 @@ setup_plugin("cargo", function(crates)
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>ct",
+		sequence = "<leader>crt",
 		action = crates.toggle,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cr",
+		sequence = "<leader>crr",
 		action = crates.reload,
 		opts = opts,
 	})
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cv",
+		sequence = "<leader>crv",
 		action = crates.show_versions_popup,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cf",
+		sequence = "<leader>crf",
 		action = crates.show_features_popup,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cd",
+		sequence = "<leader>crd",
 		action = crates.show_dependencies_popup,
 		opts = opts,
 	})
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cu",
+		sequence = "<leader>cru",
 		action = crates.update_crate,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "v",
-		sequence = "<leader>cu",
+		sequence = "<leader>cru",
 		action = crates.update_crates,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>ca",
+		sequence = "<leader>cra",
 		action = crates.update_all_crates,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cU",
+		sequence = "<leader>crU",
 		action = crates.upgrade_crate,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "v",
-		sequence = "<leader>cU",
+		sequence = "<leader>crU",
 		action = crates.upgrade_crates,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cA",
+		sequence = "<leader>crA",
 		action = crates.upgrade_all_crates,
 		opts = opts,
 	})
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cx",
+		sequence = "<leader>crx",
 		action = crates.expand_plain_crate_to_inline_table,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cX",
+		sequence = "<leader>crX",
 		action = crates.extract_crate_into_table,
 		opts = opts,
 	})
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cH",
+		sequence = "<leader>crH",
 		action = crates.open_homepage,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cR",
+		sequence = "<leader>crR",
 		action = crates.open_repository,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cD",
+		sequence = "<leader>crD",
 		action = crates.open_documentation,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cC",
+		sequence = "<leader>crC",
 		action = crates.open_crates_io,
 		opts = opts,
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>cL",
+		sequence = "<leader>crL",
 		action = crates.open_lib_rs,
 		opts = opts,
 	})
@@ -172,12 +172,12 @@ end)
 local bufnr = vim.api.nvim_get_current_buf()
 map_explicit({
 	mode = "n",
-	sequence = "<leader>a",
+	sequence = "<leader>rua",
 	action = function()
 		vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
 		-- or vim.lsp.buf.codeAction() if you don't want grouping.
 	end,
-	opts = { silent = true, buffer = bufnr },
+	opts = { desc = "Rust code action", silent = true, buffer = bufnr },
 })
 map_explicit({
 	mode = "n",

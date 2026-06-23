@@ -1139,32 +1139,32 @@ local function setup_date_time_inserter()
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>dt",
+			sequence = "<leader>did",
 			action = ':r! date "+\\%d-\\%m-\\%Y" <CR>',
 			opts = { noremap = true },
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tt",
+			sequence = "<leader>dit",
 			action = ':r! date "+\\%H:\\%M:\\%S" <CR>',
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>dt",
+			sequence = "<leader>dia",
 			action = "<cmd>InsertDate<CR>",
 			opts = { noremap = true, silent = true },
 		})
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>tt",
+			sequence = "<leader>dib",
 			action = "<cmd>InsertTime<CR>",
 			opts = { noremap = true, silent = true },
 		})
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>dtt",
+			sequence = "<leader>dic",
 			action = "<cmd>InsertDateTime<CR>",
 			opts = { noremap = true, silent = true },
 		})
@@ -1978,12 +1978,12 @@ local function setup_tabular()
 	utils.packadd("tabular", function()
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>a=",
+			sequence = "<leader>t=",
 			action = ":Tabularize /=<cr>",
 		})
 		map_explicit({
 			mode = "v",
-			sequence = "<leader>a=",
+			sequence = "<leader>t=",
 			action = ":Tabularize /=<cr>",
 		})
 	end)

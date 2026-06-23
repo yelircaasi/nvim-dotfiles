@@ -472,7 +472,7 @@ local function setup_aerial()
 
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>o",
+			sequence = "<leader>ou",
 			action = "<cmd>AerialToggle<cr>",
 		})
 		map_explicit({

@@ -15,11 +15,30 @@ local function general_keymaps()
 		sequence = "<leader>ii",
 		action = "<cmd>Inspect<cr>",
 	})
+	-- map_explicit({
+	-- 	mode = "n",
+	-- 	sequence = "<leader>o",
+	-- 	action = ":update<CR> :source<CR>",
+	-- })
 	map_explicit({
-		mode = "n",
-		sequence = "<leader>o",
-		action = ":update<CR> :source<CR>",
+		mode = { "i" },
+		sequence = "kj",
+		action = "<escape>",
 	})
+	-- map_explicit({
+	-- 	mode = "n",
+	-- 	sequence = "<leader>wq",
+	-- 	action = function()
+	-- 		vim.cmd("wq")
+	-- 	end,
+	-- })
+	-- map_explicit({
+	-- 	mode = "n",
+	-- 	sequence = "<leader>ww",
+	-- 	action = function()
+	-- 		vim.cmd("w")
+	-- 	end,
+	-- })
 	map_explicit({
 		mode = "n",
 		sequence = "<leader>ww",
@@ -37,7 +56,7 @@ local function general_keymaps()
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>f",
+		sequence = "<leader>fp",
 		action = ":Pick files<CR>",
 	})
 	map_explicit({
@@ -48,25 +67,13 @@ local function general_keymaps()
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>h",
+		sequence = "<leader>hh",
 		action = ":Pick help",
 	})
 	map_explicit({
 		mode = "n",
 		sequence = "<leader>e",
 		action = ":Oil<CR>",
-	})
-	map_explicit({
-		mode = nvx,
-		sequence = "<leader>y",
-		action = "+y<CR>",
-		desc = "Yank to system clipboard",
-	})
-	map_explicit({
-		mode = nvx,
-		sequence = "<leader>d",
-		action = "+d<CR>",
-		desc = "Paste from system clipboard",
 	})
 	-- map_explicit({
 	-- 	mode = "n",
