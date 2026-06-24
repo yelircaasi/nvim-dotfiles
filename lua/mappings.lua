@@ -70,11 +70,6 @@ local function general_keymaps()
 		sequence = "<leader>hh",
 		action = ":Pick help",
 	})
-	map_explicit({
-		mode = "n",
-		sequence = "<leader>e",
-		action = ":Oil<CR>",
-	})
 	-- map_explicit({
 	-- 	mode = "n",
 	-- 	sequence = "<leader>lu",

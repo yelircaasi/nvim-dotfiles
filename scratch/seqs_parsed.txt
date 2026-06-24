@@ -105,7 +105,8 @@
 <leader>dB         function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end  |    ./lua/debugging.lua
 <leader>db         dap.toggle_breakpoint                               |    ./lua/debugging.lua
 <leader>dc         dap.continue                                        |    ./lua/debugging.lua
-<leader>dpc         dap_python.test_class                               |    ./lua/debugging.lua
+<leader>de         vim.diagnostic.open_float                               |    ./lua/debugging.lua
+<leader>dpc        dap_python.test_class                               |    ./lua/debugging.lua
 <leader>dl         dap.run_last                                        |    ./lua/debugging.lua
 <leader>dm         Cycle LSP Diagnostic Modes                          |    ./lua/lsp_etc.lua
 <leader>dn         dap_python.test_method                              |    ./lua/debugging.lua
@@ -152,8 +153,7 @@
 =======================
 =========  e  ========= EXPLORING
 =======================
-<leader>e     ":Oil<CR>"                    |    ./lua/mappings.lua
-<leader>e     vim.diagnostic.open_float     |    ./lua/debugging.lua
+<leader>ee    ":Oil<CR>"                    |    ./lua/mappings.lua
 <leader>eN    [E]rror [N]previous           |    ./lua/lsp_etc.lua
 <leader>ec    [E]rror [C]ompile             |    ./lua/lsp_etc.lua
 <leader>en    [E]rror [N]ext                |    ./lua/lsp_etc.lua

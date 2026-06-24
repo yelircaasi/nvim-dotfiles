@@ -151,7 +151,7 @@ local function create_keymaps()
 
 	map_explicit({
 		mode = "n",
-		sequence = "<leader>e",
+		sequence = "<leader>de",
 		action = vim.diagnostic.open_float,
 	})
 

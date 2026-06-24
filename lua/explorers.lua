@@ -410,6 +410,12 @@ local function setup_oil()
 		oil.setup(oil_defaults)
 		-- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
 	end)
+
+	map_explicit({
+		mode = "n",
+		sequence = "<leader>ee",
+		action = ":Oil<CR>",
+	})
 end
 
 local function setup_neotree()

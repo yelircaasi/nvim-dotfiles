@@ -1,21 +1,19 @@
--- vim.api.nvim_set_keymap('n', 'ee', '<cmd>lua require("equals").buffer()<cr>', {noremap = true})
-
--- TODO: set up pylsp-rope for refactoring
-
--- Mypy integration
--- Option 1: Via nvim-lint (recommended for live diagnostics)
--- Option 2: Use conform for on-save mypy checks (slower but thorough)
-
--- pip install "python-lsp-server[all]" pylsp-mypy
-
--- TODO: set up basedpyright
-
 local function set_python_options(ev)
 	vim.bo[ev.buf].shiftwidth = 4
 	vim.keymap.set("n", "<localleader>r", "<cmd>!python %<cr>", { buffer = ev.buf })
 end
 
 local function setup_lsp()
+	-- TODO: set up pylsp-rope for refactoring
+
+	-- TODO: Mypy integration
+	-- Option 1: Via nvim-lint (recommended for live diagnostics)
+	-- Option 2: Use conform for on-save mypy checks (slower but thorough)
+
+	-- TODO: pip install "python-lsp-server[all]" pylsp-mypy
+
+	-- TODO: set up basedpyright
+
 	setup_plugin("mypy", {
 		-- additional arguments to pass to invocations of `mypy`
 		-- by default, it is called with `--show-error-end --follow-imports=silent`
@@ -92,6 +90,7 @@ local function setup_equals()
 		set_keys = true,
 	}
 	setup_plugin("equals", equals_defaults)
+	-- vim.api.nvim_set_keymap('n', 'ee', '<cmd>lua require("equals").buffer()<cr>', {noremap = true})
 end
 
 local function setup_debugging()
@@ -142,10 +141,6 @@ function M.setup(ev, features_enabled)
 	print("Setting up Python.")
 	set_python_options(ev)
 	setup_equals()
-	if features_enabled.debugging then
-		print(" - Debugging enabled")
-		setup_debugging()
-	end
 	if features_enabled.lsp then
 		print(" - LSP enabled")
 		setup_lsp()
