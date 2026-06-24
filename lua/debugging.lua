@@ -1,47 +1,6 @@
-local function setup_dap_python()
-	setup_plugin("dap-python", function(dap_python)
-		-- local dap_python = utils.get_plugin("dap-python")
-		dap_python.setup("debugpy-adapter")
-		dap_python.test_runner = "pytest"
-		map_explicit({
-			mode = "n",
-			sequence = "<leader>te",
-			action = utils.mkprint("Leader is working!"),
-		})
-		-- map_explicit({
-		-- 	mode = "n",
-		-- 	sequence = "<leader>pp",
-		-- 	action = utils.mkprint("This works"),
-		-- })
-		map_explicit({
-			mode = "n",
-			sequence = "<leader>dn",
-			action = dap_python.test_method,
-		})
-		map_explicit({
-			mode = "n",
-			sequence = "<leader>dpc",
-			action = dap_python.test_class,
-		})
-		map_explicit({
-			mode = "v",
-			sequence = "<leader>ds",
-			action = dap_python.debug_selection,
-		})
-	end)
-	-- TODO: proposed:
-	--[[
-	setup_plugin("dap-python", function(dap_python)
-		dap_python.setup("debugpy-adapter")
-		dap_python.test_runner = "pytest"
-	end)
-	]]
-end
-
 local function setup_dapui()
+	local dap = utils.get_plugin("dap") -- TODO: add to dependencies
 	setup_plugin("dapui", function(dapui)
-		local dap = utils.get_plugin("dap")
-
 		dapui.setup({
 			layouts = {
 				{
@@ -222,7 +181,6 @@ end
 --──── CALL SETUPS ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-setup_dap_python()
 setup_dapui()
 setup_dap_virtual_text()
 create_keymaps()

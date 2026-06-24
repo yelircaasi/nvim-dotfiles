@@ -312,13 +312,22 @@ local function setup_neoclip()
 				},
 			},
 		})
-
-		vim.keymap.set("n", "<leader>ry", function()
-			require("neoclip.fzf")()
-		end, { desc = "Yank history (neoclip)" })
-		vim.keymap.set("n", "<leader>rq", function()
-			require("neoclip.fzf").macro()
-		end, { desc = "Macro history (neoclip)" })
+		map_explicit({
+			mode = "n",
+			sequence = "<leader>ry",
+			action = function()
+				require("neoclip.fzf")()
+			end,
+			desc = "Yank history (neoclip)",
+		})
+		map_explicit({
+			mode = "n",
+			sequence = "<leader>rq",
+			action = function()
+				require("neoclip.fzf").macro()
+			end,
+			desc = "Macro history (neoclip)",
+		})
 	end)
 end
 

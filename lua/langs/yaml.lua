@@ -1,11 +1,8 @@
-setup_plugin("go") -- TODO: guihua
-setup_plugin("gopher")
-
 local M = {}
 
 function M.setup(ev, features_enabled) end
-print("Setting up Go.")
-set_go_options(ev)
+print("Setting up YAML.")
+set_yaml_options(ev)
 if features_enabled.debugging then
 	print(" - Debugging enabled")
 	setup_debugging()

@@ -1,11 +1,10 @@
-setup_plugin("go") -- TODO: guihua
-setup_plugin("gopher")
+-- TODO: https://github.com/teal-language/teal-language-server
 
 local M = {}
 
 function M.setup(ev, features_enabled) end
-print("Setting up Go.")
-set_go_options(ev)
+print("Setting up tl.")
+set_tl_options(ev)
 if features_enabled.debugging then
 	print(" - Debugging enabled")
 	setup_debugging()

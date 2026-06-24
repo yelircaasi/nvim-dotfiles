@@ -109,8 +109,16 @@ local function setup_ufo()
     --]]
 		ufo.setup({})
 
-		vim.keymap.set("n", "zR", ufo.openAllFolds)
-		vim.keymap.set("n", "zM", ufo.closeAllFolds)
+		map_explicit({
+			mode = "n",
+			sequence = "zR",
+			action = ufo.openAllFolds,
+		})
+		map_explicit({
+			mode = "n",
+			sequence = "zM",
+			action = ufo.closeAllFolds,
+		})
 	end)
 	-- utils.packadd("ufo")
 	-- require("ufo").setup()

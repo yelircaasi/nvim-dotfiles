@@ -245,7 +245,11 @@ local function setup_fzf_lua()
 			},
 			keymap = {
 				fzf = {
-					["ctrl-q"] = "select-all+accept", -- send all to quickfix
+					["ctrl-j"] = "down",
+					["ctrl-k"] = "up",
+					["ctrl-d"] = "preview-page-down",
+					["ctrl-u"] = "preview-page-up",
+					["ctrl-q"] = "select-all+accept",
 				},
 			},
 		})

@@ -71,3 +71,31 @@ vim.lsp.enable("luals")
 -- https://github.com/nvim-neotest/neotest-plenary
 -- for lua testing
 setup_plugin("neotest-plenary") -- just to test installation & requiring
+
+-- TODO: move everything inside here
+create_ft_autocmd("lua", function(ev)
+	vim.bo[ev.buf].shiftwidth = 4
+end)
+
+local M = {}
+
+function M.setup(ev, features_enabled) end
+print("Setting up Lua.")
+set_lua_options(ev)
+if features_enabled.debugging then
+	print(" - Debugging enabled")
+	setup_debugging()
+end
+if features_enabled.lsp then
+	print(" - LSP enabled")
+	setup_lsp()
+end
+if features_enabled.testing then
+	print(" - Testing enabled")
+	setup_testing()
+end
+if features_enabled.debugging then
+	print(" - Debugging enabled")
+	setup_debugging()
+end
+return M

@@ -25,7 +25,7 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 					["<C-x>"] = "select_horizontal",
 					["<C-v>"] = "select_vertical",
 					["<C-t>"] = "select_tab",
-					["<Esc>"] = "close",
+					["<Esc>"] = false,
 					["<C-c>"] = "close",
 				},
 				n = {
@@ -38,7 +38,18 @@ local telescope = utils.setup_plugin_default("telescope", function(telescope)
 					["<C-d>"] = "preview_scrolling_down",
 					["<C-u>"] = "preview_scrolling_up",
 					["q"] = "close",
+					["<Esc>"] = "close", -- close from normal mode
 				},
+			},
+			preview = {
+				treesitter = true,
+				filetype_hook = function(filepath, bufnr, opts)
+					local ft = vim.filetype.match({ filename = filepath, buf = bufnr })
+					if ft then
+						vim.bo[bufnr].filetype = ft
+					end
+					return true
+				end,
 			},
 		},
 	})

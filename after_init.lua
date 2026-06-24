@@ -23,6 +23,17 @@ REPOS_DIR = vim.fn.resolve("~/repos")
 -- require("pathlib")
 
 --─────────────────────────────────────────────────────────────────────────────
+--──── TODO: move to utils ────────────────────────────────────────────────────
+--─────────────────────────────────────────────────────────────────────────────
+function create_ft_autocmd(pattern, callback)
+	vim.api.nvim_create_autocmd("FileType", {
+		group = vim.api.nvim_create_augroup("ft_" .. pattern, { clear = true }),
+		pattern = pattern,
+		callback = callback,
+	})
+end
+
+--─────────────────────────────────────────────────────────────────────────────
 --──── COLORSCHEME ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 require("colors")
@@ -30,13 +41,14 @@ require("colors")
 --─────────────────────────────────────────────────────────────────────────────
 --──── CONFIG MODULES ─────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
-config_modules = {
+
+local features = {
+	["checks"] = true,
 	["ui"] = true,
 	["treesitter"] = true,
-	["lsp_etc"] = true,
+	["lsp"] = true,
 	["editing"] = true,
 	["navigation"] = true,
-	["langs.python"] = true,
 	["mappings"] = true,
 	["search"] = true,
 	["telescope_etc"] = true,
@@ -53,39 +65,48 @@ config_modules = {
 	["explorers"] = true,
 	["folding"] = true,
 	["git"] = false,
-	["langs.go"] = false,
-	["langs.haskell"] = false,
-	["langs.json_yaml"] = false,
-	["langs.lua_language"] = false,
-	["langs.markdown"] = false,
-	["langs.multilang"] = false,
-	["langs.nix"] = false,
-	["langs.rust"] = false,
-	["langs.tex"] = false,
-	["langs.typst"] = false,
-	["langs.xit"] = false,
+
 	["macros"] = false,
 	["miscellaneous"] = false,
 	["projects"] = false,
 	["replacer"] = false,
 	["task_runner"] = false,
 	["terminal"] = false,
-	["testing"] = false,
+	["testing"] = true,
 	["tmp"] = false,
+	["multilang"] = false,
 }
+languages = {
+	["python"] = true,
+	["go"] = false,
+	["haskell"] = false,
+	["yaml"] = false,
+	["json"] = false,
+	["lua"] = false,
+	["markdown"] = false,
+	["nix"] = false,
+	["rust"] = false,
+	["tex"] = false,
+	["typst"] = false,
+	["xit"] = false,
+}
+-- not currently necessary
+-- vim.g.features = features
+-- vim.g.languages = languages
+
 local function maybe_require(mod_name)
-	local include = config_modules[mod_name]
+	local include = features[mod_name]
 	if include then
 		require(mod_name)
 	end
 end
 
-maybe_require("lsp_etc")
+maybe_require("checks")
+maybe_require("lsp")
 maybe_require("editing")
 maybe_require("navigation")
 maybe_require("treesitter")
 maybe_require("core")
-maybe_require("langs.python")
 maybe_require("ui")
 maybe_require("experimental")
 maybe_require("clipboard")
@@ -96,7 +117,7 @@ maybe_require("explorers")
 maybe_require("testing")
 maybe_require("folding")
 maybe_require("search")
-maybe_require("telescope_etc")
+maybe_require("telescope_etc") -- depends: treesitter
 maybe_require("diff")
 maybe_require("terminal")
 maybe_require("debugging")
@@ -107,20 +128,12 @@ maybe_require("replacer")
 maybe_require("git")
 maybe_require("ai")
 maybe_require("mappings")
-maybe_require("langs.multilang")
-maybe_require("langs.go")
-maybe_require("langs.haskell")
-maybe_require("langs.json_yaml")
-maybe_require("langs.lua_language")
-maybe_require("langs.markdown")
-maybe_require("langs.nix")
-maybe_require("langs.rust")
-maybe_require("langs.tex")
-maybe_require("langs.typst")
-maybe_require("langs.xit")
 maybe_require("miscellaneous")
+maybe_require("multilang")
 maybe_require("tmp")
 maybe_require("experimental")
+
+require("language_support").create(languages, features)
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── DEBUG INFO ─────────────────────────────────────────────────────────────
