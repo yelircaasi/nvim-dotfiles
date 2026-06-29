@@ -412,8 +412,29 @@ local function setup_blink_cmp()
 	setup_plugin("blink.cmp", blink_cmp_opts)
 end
 
-setup_friendly_snippets()
-setup_ultisnips()
-setup_luasnip()
-setup_nvim_cmp()
-setup_blink_cmp()
+local elements = {
+	["friendly-snippets"] = true,
+	["ultisnips"] = false,
+	["luasnip"] = true,
+	["nvim-cmp"] = false,
+	["blink.cmp"] = true,
+}
+local setups = {
+	["friendly-snippets"] = true,
+	["ultisnips"] = false,
+	["luasnip"] = true,
+	["nvim-cmp"] = false,
+	["blink.cmp"] = true,
+}
+local function maybe_setup(name)
+	if elements[name] then
+		local func = setups[name]
+		func()
+	end
+end
+
+maybe_setup("friendly-snippets")
+maybe_setup("ultisnips")
+maybe_setup("luasnip")
+maybe_setup("nvim-cmp")
+maybe_setup("blink.cmp")

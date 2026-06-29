@@ -91,6 +91,7 @@ local function setup_copilot()
 	end)
 end
 
+-- TODO: https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/
 local function setup_opencode()
 	---@type opencode.Opts
 	local opencode_defaults = {

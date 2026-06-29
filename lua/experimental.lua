@@ -1,5 +1,5 @@
 local function setup_fsread()
-	setup_plugin("fsread", function(fsread)
+	local function fsread_setup_func()
 		vim.g.flow_strength = 0.7 -- low: 0.3, middle: 0.5, high: 0.7 (default)
 		vim.api.nvim_set_hl(0, "FSPrefix", { fg = "#cdd6f4" })
 		vim.api.nvim_set_hl(0, "FSSuffix", { fg = "#6C7086" })
@@ -7,7 +7,10 @@ local function setup_fsread()
 		-- :FSRead " Flow state visual range
 		-- :FSClear " Clear all flow states
 		-- :FSToggle " Toggle flow state
-	end)
+	end
+	-- setup_plugin("fsread", fsread_setup_func)
+	local fsread = require("fsread")
+	fsread_setup_func()
 end
 
 local function setup_wezterm_run()
@@ -25,6 +28,8 @@ local function setup_consilium()
 	consilium.setup()
 end
 
-setup_fsread()
-setup_wezterm_run()
-setup_consilium()
+if false then -- TODO
+	setup_fsread()
+	setup_wezterm_run()
+	setup_consilium()
+end
