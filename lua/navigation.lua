@@ -716,18 +716,16 @@ end
 --─────────────────────────────────────────────────────────────────────────────
 
 function setups.beam()
-	-- NOTE: beam.nvim is a cursor beam plugin for mode-based cursor shapes.
-	-- Most terminal emulators handle this, so only enable if yours doesn't.
+	-- https://github.com/Piotr1215/beam.nvim
+	-- Beam nvim text operations on text objects anywhere in your file.
 	setup_plugin("beam", function(beam)
-		beam.setup({
-			cursors = {
-				normal = "block",
-				insert = "beam",
-				replace = "underline",
-				visual = "block",
-				operator = "block",
-			},
-		})
+		local beam_defaults = {
+			prefix = ",", -- Your prefix key (forward search with /)
+			backward_prefix = "-", --"<leader>;", -- Optional: backward search with ?
+			beam_scope = { enabled = true }, -- Visual selection for quotes/brackets
+			auto_discover_custom_text_objects = true, -- Use text objects from other plugins
+		}
+		beam.setup(bead_defaults)
 	end)
 end
 
@@ -1883,6 +1881,105 @@ end
 --─────────────────────────────────────────────────────────────────────────────
 --──── OTHER ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
+
+setups["mini.pick"] = function()
+	local mini_pick_defaults = {
+		-- Delays (in ms; should be at least 1)
+		delay = {
+			-- Delay between forcing asynchronous behavior
+			async = 10,
+
+			-- Delay between computation start and visual feedback about it
+			busy = 50,
+		},
+
+		-- Keys for performing actions. See `:h MiniPick-actions`.
+		mappings = {
+			caret_left = "<Left>",
+			caret_right = "<Right>",
+
+			choose = "<CR>",
+			choose_in_split = "<C-s>",
+			choose_in_tabpage = "<C-t>",
+			choose_in_vsplit = "<C-v>",
+			choose_marked = "<M-CR>",
+
+			delete_char = "<BS>",
+			delete_char_right = "<Del>",
+			delete_left = "<C-u>",
+			delete_word = "<C-w>",
+
+			mark = "<C-x>",
+			mark_all = "<C-a>",
+
+			move_down = "<C-n>",
+			move_start = "<C-g>",
+			move_up = "<C-p>",
+
+			paste = "<C-r>",
+
+			refine = "<C-Space>",
+			refine_marked = "<M-Space>",
+
+			scroll_down = "<C-f>",
+			scroll_left = "<C-h>",
+			scroll_right = "<C-l>",
+			scroll_up = "<C-b>",
+
+			stop = "<Esc>",
+
+			toggle_info = "<S-Tab>",
+			toggle_preview = "<Tab>",
+		},
+
+		-- General options
+		options = {
+			-- Whether to show content from bottom to top
+			content_from_bottom = false,
+
+			-- Whether to cache matches (more speed and memory on repeated prompts)
+			use_cache = false,
+		},
+
+		-- Source definition. See `:h MiniPick-source`.
+		source = {
+			items = nil,
+			name = nil,
+			cwd = nil,
+
+			match = nil,
+			show = nil,
+			preview = nil,
+
+			choose = nil,
+			choose_marked = nil,
+		},
+
+		-- Window related options
+		window = {
+			-- Float window config (table or callable returning it)
+			config = nil,
+
+			-- String to use as caret in prompt
+			prompt_caret = "▏",
+
+			-- String to use as prefix in prompt
+			prompt_prefix = "> ",
+		},
+	}
+	setup_plugin("mini.pick", mini_pick_defaults)
+
+	map_explicit({
+		mode = "n",
+		sequence = "<leader>fp",
+		action = ":Pick files<CR>",
+	})
+	map_explicit({
+		mode = "n",
+		sequence = "<leader>hh",
+		action = ":Pick help",
+	})
+end
 
 setups["highlight-current-n"] = function()
 	-- TODO: vendor similar approach; see README: https://github.com/rktjmp/highlight-current-n.nvim#neovim-09

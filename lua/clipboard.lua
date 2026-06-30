@@ -365,6 +365,8 @@ function setups.lazyclip()
 		},
 	}
 	setup_plugin("lazyclip", lazyclip_defaults)
+
+	-- sets <leader>Cw as "require('lazyclip.ui').open_window()<CR>"
 end
 --─────────────────────────────────────────────────────────────────────────────
 --──── pasta ──────────────────────────────────────────────────────────────────

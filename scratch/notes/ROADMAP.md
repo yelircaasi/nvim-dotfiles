@@ -586,3 +586,4 @@ neorg-taskwarrior behaves as a neorg plugin, not a top-level plugin
 - [ ] https://github.com/Robitx/gp.nvim
 - [ ] https://openrouter.ai/ + https://github.com/josh-le/openrouter.nvim
 - [ ] https://github.com/frankroeder/parrot.nvim
+- [ ] https://github.com/santhosh-tekuri/picker.nvim/blob/main/lua/picker.lua -> vendor?

@@ -1676,6 +1676,15 @@ setups["nvim-lightbulb"] = function()
 	setup_plugin("nvim-lightbulb")
 end
 
+function setups.lsp_formatting() -- TODO: set up for tl
+	map_explicit({
+		mode = "n",
+		sequence = "<leader>lf",
+		action = vim.lsp.buf.format,
+		desc = "",
+	})
+end
+
 -- local functions = {
 -- 	["general-setup"] = general_setup,
 -- 	["create-keymaps"] = create_keymaps,

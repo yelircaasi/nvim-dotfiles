@@ -56,22 +56,6 @@ setups.general_keymaps = function()
 		sequence = "<leader>wq",
 		action = ":wq<CR>",
 	})
-	map_explicit({
-		mode = "n",
-		sequence = "<leader>fp",
-		action = ":Pick files<CR>",
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "<leader>lf",
-		action = vim.lsp.buf.format,
-		desc = "",
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "<leader>hh",
-		action = ":Pick help",
-	})
 	-- map_explicit({
 	-- 	mode = "n",
 	-- 	sequence = "<leader>lu",
