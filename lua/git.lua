@@ -1266,31 +1266,31 @@ function setups.blame()
 	setup_plugin("blame", blame_defaults)
 end
 
-local functions = {
-	["octo"] = setup_octo,
-	["octohub"] = setup_octohub,
-	["worktrees"] = setup_worktrees,
-	["forgit"] = setup_forgit,
-	["official-gitlab"] = setup_official_gitlab,
-	["gitlab"] = setup_gitlab,
-	["gitsigns"] = setup_gitsigns,
-	["jj"] = setup_jj,
-	["jujutsu"] = setup_jujutsu,
-	["jiejie"] = setup_jiejie,
-	["lazygit"] = setup_lazygit,
-	["git-conflict"] = setup_git_conflict,
-	["neogit"] = setup_neogit,
-	["vim-fugitive"] = setup_vim_fugitive,
-	["blame"] = setup_blame,
-}
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
-end
+-- local functions = {
+-- 	["octo"] = setup_octo,
+-- 	["octohub"] = setup_octohub,
+-- 	["worktrees"] = setup_worktrees,
+-- 	["forgit"] = setup_forgit,
+-- 	["official-gitlab"] = setup_official_gitlab,
+-- 	["gitlab"] = setup_gitlab,
+-- 	["gitsigns"] = setup_gitsigns,
+-- 	["jj"] = setup_jj,
+-- 	["jujutsu"] = setup_jujutsu,
+-- 	["jiejie"] = setup_jiejie,
+-- 	["lazygit"] = setup_lazygit,
+-- 	["git-conflict"] = setup_git_conflict,
+-- 	["neogit"] = setup_neogit,
+-- 	["vim-fugitive"] = setup_vim_fugitive,
+-- 	["blame"] = setup_blame,
+-- }
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
 
 -- maybe_call("octo")
 -- maybe_call("octohub")

@@ -388,10 +388,10 @@ end
 setups["dashboard-nvim"] = function()
 	-- https://github.com/nvimdev/dashboard-nvim/
 	--[[
-- Low memory usage. dashboard does not store the all user configs in memory like header etc
-       these string will take some memory. now it will be clean after you open a file. 
-	   You can still use dashboard command to open a new one , then dashboard will read the config from cache.
-- Blazing fast  --]]
+	- Low memory usage. dashboard does not store the all user configs in memory like header etc
+		these string will take some memory. now it will be clean after you open a file. 
+		You can still use dashboard command to open a new one , then dashboard will read the config from cache.
+	- Blazing fast  --]]
 	local dashboard_defaults = {
 		theme = "hyper", --    theme is doom and hyper default is hyper
 		disable_move, --       default is false disable move keymap for hyper
@@ -422,12 +422,12 @@ end
 function setups.dashboard()
 	-- https://github.com/MeanderingProgrammer/dashboard.nvim
 	--[[
-Fully customizable header with reference for integrating with ascii art plugin
-Provide directories and this plugin will:
-  - Display them on the dashboard
-  - Make them accessible with single letter hotkey
-Input is ordered and hotkeys are generated sequentially, making for a consistent experience
---]]
+	Fully customizable header with reference for integrating with ascii art plugin
+	Provide directories and this plugin will:
+	- Display them on the dashboard
+	- Make them accessible with single letter hotkey
+	Input is ordered and hotkeys are generated sequentially, making for a consistent experience
+	--]]
 	local dashboard_defaults = {
 		-- Sequence that determines keymaps
 		autokeys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",

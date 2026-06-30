@@ -17,7 +17,7 @@ local function set_global_ts_languages()
 	}
 end
 
-local function general_setup()
+function setups.general_setup()
 	parser_root = vim.fn.fnamemodify(OPT_DIR, ":h:h:h")
 	vim.opt.runtimepath:prepend(PARSER_DIR)
 	-- -----
@@ -68,7 +68,7 @@ local function configure_folds_and_indentation()
 	vim.opt.indentexpr = "v:lua.vim.treesitter.indent()"
 end
 
-setups["treesitter-textobjects"] = function()
+setups["nvim-treesitter-textobjects"] = function()
 	-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	-- Syntax aware text-objects, select, move, swap, and peek support.
 	local treesitter_textobjects_defaults = {

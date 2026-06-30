@@ -1,9 +1,6 @@
 local setups = {}
 
-local selections = {}
-local elements = {}
-
-local function general_setup() end
+function setups.general_setup() end
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── FILES ──────────────────────────────────────────────────────────────────
@@ -1105,7 +1102,7 @@ function setups.hop()
 	end)
 end
 
-setups["mini-jump"] = function()
+setups["mini.jump"] = function()
 	local mini_jump_defaults = {
 		-- Module mappings. Use `''` (empty string) to disable one.
 		mappings = {
@@ -1134,7 +1131,7 @@ setups["mini-jump"] = function()
 	setup_plugin("mini.jump", mini_jump_defaults)
 end
 
-setups.mini_jump2d = function()
+setups["mini.jump2d"] = function()
 	local mini_jump2d_defaults = {
 		-- Function producing jump spots (byte indexed) for a particular line.
 		-- For more information see |MiniJump2d.start()|.

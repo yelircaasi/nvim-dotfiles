@@ -1893,7 +1893,7 @@ function setups.fidget()
 		-- Where Fidget writes its logs to
 		path = string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache")),
 	},
-}]]
+	}]]
 	setup_plugin("fidget", {
 		notification = {
 			window = {
@@ -2067,57 +2067,57 @@ end
 --──── SETUP ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local functions = {
-	["nvim-web-devicons"] = setup_icons,
-	["virtcolumn"] = setup_virtcolumn,
-	["virt-column"] = setup_virt_column,
-	["smartcolumn"] = setup_smartcolumn,
-	["statuscol"] = setup_statuscol,
-	["TreePin"] = setup_treepin,
-	["symbols"] = setup_symbols,
-	["aerial"] = setup_aerial,
-	["navbuddy"] = setup_navbuddy,
-	["dropbar"] = setup_dropbar,
-	["lualine"] = setup_lualine,
-	["cokeline"] = setup_cokeline,
-	["heirline"] = setup_heirline,
-	["galaxyline"] = setup_galaxyline,
-	["staline"] = setup_staline,
-	["navic"] = setup_navic,
-	["bufferline"] = setup_bufferline,
-	["nougat::statusline"] = setup_nougat_statusline,
-	["nougat::tabline"] = setup_nougat_tabline,
-	["nougat::winbar"] = setup_nougat_winbar,
-	["tabby"] = setup_tabby,
-	["minibar"] = setup_minibar,
-	["winbar"] = setup_winbar,
-	["windline"] = setup_windline,
-	["vimade"] = setup_vimade,
-	["zen-mode"] = setup_zenmode,
-	["modicator"] = setup_modicator,
-	["modes"] = setup_modes,
-	["cmdbuf"] = setup_cmdbuf,
-	["mini.cmdline"] = setup_mini_cmdline,
-	["menu"] = setup_menu,
-	["fidget"] = setup_fidget,
-	["notify"] = setup_notify,
-	["control-panel"] = setup_control_panel,
-	["output-panel"] = setup_output_panel,
-	["cosmic-ui"] = setup_cosmicui,
-	["lvim-ui-config"] = setup_lvim_ui_config,
-	["volt"] = setup_volt,
-	["noice"] = setup_noice,
-	["reactive"] = setup_reactive,
-}
+-- local functions = {
+-- 	["nvim-web-devicons"] = setup_icons,
+-- 	["virtcolumn"] = setup_virtcolumn,
+-- 	["virt-column"] = setup_virt_column,
+-- 	["smartcolumn"] = setup_smartcolumn,
+-- 	["statuscol"] = setup_statuscol,
+-- 	["TreePin"] = setup_treepin,
+-- 	["symbols"] = setup_symbols,
+-- 	["aerial"] = setup_aerial,
+-- 	["navbuddy"] = setup_navbuddy,
+-- 	["dropbar"] = setup_dropbar,
+-- 	["lualine"] = setup_lualine,
+-- 	["cokeline"] = setup_cokeline,
+-- 	["heirline"] = setup_heirline,
+-- 	["galaxyline"] = setup_galaxyline,
+-- 	["staline"] = setup_staline,
+-- 	["navic"] = setup_navic,
+-- 	["bufferline"] = setup_bufferline,
+-- 	["nougat::statusline"] = setup_nougat_statusline,
+-- 	["nougat::tabline"] = setup_nougat_tabline,
+-- 	["nougat::winbar"] = setup_nougat_winbar,
+-- 	["tabby"] = setup_tabby,
+-- 	["minibar"] = setup_minibar,
+-- 	["winbar"] = setup_winbar,
+-- 	["windline"] = setup_windline,
+-- 	["vimade"] = setup_vimade,
+-- 	["zen-mode"] = setup_zenmode,
+-- 	["modicator"] = setup_modicator,
+-- 	["modes"] = setup_modes,
+-- 	["cmdbuf"] = setup_cmdbuf,
+-- 	["mini.cmdline"] = setup_mini_cmdline,
+-- 	["menu"] = setup_menu,
+-- 	["fidget"] = setup_fidget,
+-- 	["notify"] = setup_notify,
+-- 	["control-panel"] = setup_control_panel,
+-- 	["output-panel"] = setup_output_panel,
+-- 	["cosmic-ui"] = setup_cosmicui,
+-- 	["lvim-ui-config"] = setup_lvim_ui_config,
+-- 	["volt"] = setup_volt,
+-- 	["noice"] = setup_noice,
+-- 	["reactive"] = setup_reactive,
+-- }
 
-local function maybe_setup(plugin_name)
-	local include = plugins[plugin_name]
-	if include then
-		-- print("Setting up " .. plugin_name)
-		local func = functions[plugin_name]
-		func()
-	end
-end
+-- local function maybe_setup(plugin_name)
+-- 	local include = plugins[plugin_name]
+-- 	if include then
+-- 		-- print("Setting up " .. plugin_name)
+-- 		local func = functions[plugin_name]
+-- 		func()
+-- 	end
+-- end
 
 -- maybe_setup("nvim-web-devicons")
 -- maybe_setup("virtcolumn")

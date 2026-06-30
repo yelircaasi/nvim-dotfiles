@@ -6,14 +6,11 @@
 
 local setups = {}
 
-local selections = {}
-local elements = {}
-
-local function general_setup()
+function setups.general_setup()
 	vim.cmd("set completeopt+=noselect")
 end
 
-local function create_keymaps()
+function setups.create_keymaps()
 	local lsp_map_opts = { buffer = bufnr, silent = true }
 
 	map_explicit({
@@ -29,7 +26,7 @@ local function create_keymaps()
 end
 
 -- TODO: remove duplication in keymaps
-local function create_autocommands()
+function setups.create_autocommands()
 	local function on_attach(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 		if client.name == "ruff" then
@@ -209,7 +206,7 @@ function setups.diagflow()
 	setup_plugin("diagflow", diagflow_defaults)
 end
 
-local function configure_diagnostics_modes()
+function setups.configure_diagnostics_modes()
 	current_mode_index = 1
 	diagnostics_active = false
 

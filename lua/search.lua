@@ -1368,72 +1368,8 @@ end
 
 function setups.replacer()
 	-- TODO: vendor (?)
-	local replacer = require("replacer")
+	local replacer = require("vendored.replacer")
 	replacer.setup({ rename_files = true, save_on_write = true })
 end
-
--- local functions = {
--- 	["ido"] = setup_ido,
--- 	["regex-vars"] = setup_regex_vars,
--- 	["inc_rename"] = setup_inc_rename,
--- 	["muren"] = setup_muren,
--- 	["rip-substitute"] = setup_rip_substitute,
--- 	["sad"] = setup_sad,
--- 	["fzf-lua"] = setup_fzf_lua,
--- 	["deck"] = setup_deck,
--- 	["snacks"] = setup_snacks,
--- 	["hlslens"] = setup_hlslens,
--- 	["nvim-hlsearch"] = setup_nvim_hlsearch,
--- 	["grug-far"] = setup_grug_far,
--- 	["spectre"] = setup_spectre,
--- 	["pickme"] = setup_pickme,
--- 	["renamer"] = setup_renamer,
--- 	["search-replace"] = setup_search_replace,
--- 	["rgflow"] = setup_rgflow,
--- 	["ssr"] = setup_ssr,
--- 	["substitute"] = setup_substitute,
--- 	["actions-preview"] = setup_actions_preview,
--- 	["spider"] = setup_spider,
--- 	["improved-search-nvim"] = setup_improved_search_nvim,
--- 	["nvim-rg"] = setup_nvim_rg,
--- 	["hlsearch-nvim"] = setup_hlsearch_nvim,
--- 	["nvim-monorepos"] = setup_nvim_monorepos,
--- 	["blink"] = setup_blink,
--- }
--- local function maybe_call(element_name)
--- 	local include = elements[element_name]
--- 	if include then
--- 		-- print("Calling '" .. element_name .. "'")
--- 		local func = functions[element_name]
--- 		func()
--- 	end
--- end
-
--- maybe_call("ido")
--- maybe_call("regex-vars")
--- maybe_call("inc_rename")
--- maybe_call("muren")
--- maybe_call("rip-substitute")
--- maybe_call("sad")
--- maybe_call("fzf-lua")
--- maybe_call("deck")
--- maybe_call("snacks")
--- maybe_call("hlslens")
--- maybe_call("nvim-hlsearch")
--- maybe_call("grug-far")
--- maybe_call("spectre")
--- maybe_call("pickme")
--- maybe_call("renamer")
--- maybe_call("search-replace")
--- maybe_call("rgflow")
--- maybe_call("ssr")
--- maybe_call("substitute")
--- maybe_call("actions-preview")
--- maybe_call("spider")
--- maybe_call("improved-search-nvim")
--- maybe_call("nvim-rg")
--- maybe_call("hlsearch-nvim")
--- maybe_call("nvim-monorepos")
--- maybe_call("blink")
 
 setup_all_enabled("search", setups)

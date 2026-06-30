@@ -1,6 +1,6 @@
 local setups = {}
 
-function setups.general()
+function setups.general_setup()
 	-- unnamed register syncs with system clipboard
 	vim.opt.clipboard = "unnamedplus"
 
@@ -83,6 +83,7 @@ function setups.autocommands()
 		end,
 	})
 end
+
 --─────────────────────────────────────────────────────────────────────────────
 --──── yanky ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────

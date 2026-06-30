@@ -93,8 +93,8 @@ function setups.copilot()
 	end)
 end
 
--- TODO: https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/
 function setups.opencode()
+	-- TODO: https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/
 	---@type opencode.Opts
 	local opencode_defaults = {
 		server = {
@@ -674,10 +674,12 @@ setup_all_enabled("ai", {
 	sg = setup_sg,
 })
 
-setup_if_using("copilot")
-setup_if_using("opencode")
-setup_if_using("avante")
-setup_if_using("codecompanion")
-setup_if_using("llm")
-setup_if_using("vim-ai")
-setup_if_using("sg")
+-- setup_if_using("copilot")
+-- setup_if_using("opencode")
+-- setup_if_using("avante")
+-- setup_if_using("codecompanion")
+-- setup_if_using("llm")
+-- setup_if_using("vim-ai")
+-- setup_if_using("sg")
+
+setup_all_enabled("ai", setups)

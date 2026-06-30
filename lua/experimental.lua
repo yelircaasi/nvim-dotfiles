@@ -11,7 +11,7 @@ function setups.fsread()
 		-- :FSToggle " Toggle flow state
 	end
 	-- setup_plugin("fsread", fsread_setup_func)
-	local fsread = require("fsread")
+	local fsread = require("vendored.fsread")
 	fsread_setup_func()
 end
 

@@ -148,11 +148,4 @@ function setups.neoconf()
 	setup_plugin("neoconf", neoconf_defaults)
 end
 
--- setup_auto_session()
--- setup_persistence()
--- setup_project()
--- setup_mini_sessions()
--- setup_projector()
--- setup_neoconf()
-
 setup_all_enabled("projects", setups)

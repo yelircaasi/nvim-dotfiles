@@ -27,19 +27,19 @@ local selections = { -- used to ensure mutual exclusivity of conflicting plugins
 
 USING = {
 	ai = {
-		["copilot"] = true,
-		["opencode"] = true,
-		["avante"] = true,
-		["codecompanion"] = true,
-		["llm"] = true,
-		["vim-ai"] = true,
-		["sg"] = true,
+		["copilot"] = false,
+		["opencode"] = false,
+		["avante"] = false,
+		["codecompanion"] = false,
+		["llm"] = false,
+		["vim-ai"] = false,
+		["sg"] = false,
 	},
 	checks = {
 		["rg"] = true,
 	},
 	clipboard = {
-		["general"] = true,
+		["general_setup"] = true,
 		["autocommands"] = true,
 		["yanky"] = true,
 		["lazyclip"] = true,
@@ -47,12 +47,12 @@ USING = {
 		["wastebin"] = true,
 	},
 	cloud = {
-		["kubectl"] = true,
-		["kpops"] = true,
-		["kubels"] = true,
-		["vim-helm"] = true,
-		["k8vim"] = true,
-		["kubernetes"] = true,
+		["kubectl"] = false,
+		["kpops"] = false,
+		["kubels"] = false,
+		["vim-helm"] = false,
+		["k8vim"] = false,
+		["kubernetes"] = false,
 	},
 	colors = {
 		["odenwald-colorscheme"] = true,
@@ -142,7 +142,7 @@ USING = {
 		["jupytext"] = true,
 		["quarto"] = true,
 		["asyncrun"] = true,
-		["xmake"] = true,
+		["xmake"] = false,
 	},
 	experimental = {
 		["fsread"] = false,
@@ -178,11 +178,11 @@ USING = {
 		["blame"] = false,
 	},
 	lsp = {
-		["general-setup"] = true,
-		["create-keymaps"] = true,
-		["create-autocommands"] = true,
+		["general_setup"] = true,
+		["create_keymaps"] = true,
+		["create_autocommands"] = true,
 		["diagflow"] = true,
-		["configure-diagnostics-modes"] = true,
+		["configure_diagnostics_modes"] = true,
 		["conform"] = true,
 		["lsp-format"] = true,
 		["lspkind"] = true,
@@ -310,7 +310,7 @@ USING = {
 		["otter"] = true,
 	},
 	navigation = {
-		["general-setup"] = true,
+		["general_setup"] = true,
 		["spear"] = true,
 		["smart-splits"] = true,
 		["swm"] = true,
@@ -397,23 +397,23 @@ USING = {
 		["neaterm"] = true,
 		["termim"] = true,
 		["yarepl"] = true,
-		["neomux"] = true,
+		["neomux"] = false,
 	},
 	testing = {
 		["neotest"] = true,
 		["coverage"] = true,
 	},
 	treesitter = {
-		["set-global-ts-languages"] = true,
-		["general-setup"] = true,
-		["check-parsers"] = true,
-		["configure-filetypes-and-aliases"] = true,
-		["configure-folds-and-indentation"] = true,
+		["general_setup"] = true,
+		["check_parsers"] = true,
+		["set_global_ts_languages"] = true,
+		["configure_filetypes_and_aliases"] = true,
+		["configure_folds_and_indentation"] = true,
 		["nvim-treesitter-textobjects"] = true,
 		["treesitter-context"] = true,
-		["wrap-treesitter-start"] = true,
-		["change-commands"] = true,
-		["create-autocommands"] = true,
+		["wrap_treesitter_start"] = true,
+		["change_commands"] = true,
+		["create_autocommands"] = true,
 	},
 	ui = {
 		["nvim-web-devicons"] = true,
@@ -472,3 +472,28 @@ function setup_all_enabled(modname, funcset)
 		end
 	end
 end
+
+LANGUAGES = {
+	["python"] = true,
+	["go"] = false,
+	["haskell"] = false,
+	["yaml"] = false,
+	["json"] = false,
+	["lua"] = false,
+	["markdown"] = false,
+	["nix"] = false,
+	["rust"] = false,
+	["tex"] = false,
+	["typst"] = false,
+	["xit"] = false,
+}
+
+LANGUAGE_FEATURES = {
+	lsp = true,
+	testing = true,
+	debugging = true,
+}
+
+-- not currently necessary
+-- vim.g.pde_features = features
+-- vim.g.pde_languages = languages

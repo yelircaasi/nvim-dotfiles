@@ -133,7 +133,7 @@ end
 --─────────────────────────────────────────────────────────────────────────────
 
 function setups.luasnip()
-	function setups.luasnip()
+	function setup_luasnip()
 		vim.cmd(":packadd luasnip")
 		local ls = require("luasnip")
 
@@ -384,7 +384,7 @@ setups["blink-cmp"] = function()
 		},
 
 		-- Use a preset for snippets, check the snippets documentation for more information
-		snippets = { preset = "default" | "luasnip" | "mini_snippets" | "vsnip" },
+		snippets = { preset = "default" }, -- "default" | "luasnip" | "mini_snippets" | "vsnip" },
 
 		-- Experimental signature help support
 		signature = { enabled = true },
