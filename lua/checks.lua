@@ -1,4 +1,6 @@
-local function check_rg()
+local checks = {}
+
+checks.rg = function()
 	local rg = utils.get_executable("rg")
 	if rg == "" then
 		-- print("ripgrep (rg) not found on PATH — grep features will not work.")
@@ -16,8 +18,6 @@ end
 --     return true
 -- end
 
-check_rg()
-
 -- map_explicit({
 --     sequence = "<leader>fg",
 --     action = function()
@@ -25,3 +25,5 @@ check_rg()
 --         require("telescope.builtin").live_grep()
 --     end,
 -- })
+
+setup_all_enabled("checks", checks)

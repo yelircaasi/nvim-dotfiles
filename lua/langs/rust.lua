@@ -2,7 +2,7 @@ local function set_rust_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_miscellaneous()
+function setups.miscellaneous()
 	setup_plugin("crates", function(crates)
 		crates.setup({
 			float_window = true,
@@ -158,7 +158,7 @@ local function setup_miscellaneous()
 	})
 end
 
-local function setup_lsp()
+function setups.lsp()
 	vim.g.rustaceanvim = {
 		-- Plugin configuration
 		tools = {},
@@ -206,11 +206,11 @@ local function setup_lsp()
 		}
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

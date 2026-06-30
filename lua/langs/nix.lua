@@ -1,4 +1,4 @@
-local function setup_miscellaneous()
+function setups.miscellaneous()
 	-- https://github.com/figsoda/nix-develop.nvim
 	-- Run `nix develop` without restarting neovim
 	local nix_develop_defaults = nil
@@ -33,7 +33,7 @@ local function set_nix_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	vim.lsp.config["nixd"] = {
 		cmd = { "nixd" },
 		filetypes = { "nix" },
@@ -44,11 +44,11 @@ local function setup_lsp()
 	vim.lsp.enable("nixd")
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

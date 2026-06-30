@@ -2,11 +2,11 @@ local function set_lua_options()
 	vim.bo[ev.buf].shiftwidth = 4
 end
 
-local function setup_miscellaneous()
+function setups.miscellaneous()
 	setup_plugin("neorepl")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	-- https://github.com/folke/lazydev.nvim
 	-- Faster LuaLS setup for Neovim
 	---@alias lazydev.Library {path:string, words:string[], mods:string[]}
@@ -76,14 +76,14 @@ local function setup_lsp()
 	vim.lsp.enable("luals")
 end
 
-local function setup_testing()
+function setups.testing()
 	-- TODO: add to neotest setup
 	-- https://github.com/nvim-neotest/neotest-plenary
 	-- for lua testing
 	setup_plugin("neotest-plenary") -- just to test installation & requiring
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

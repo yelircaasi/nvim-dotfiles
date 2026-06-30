@@ -71,15 +71,15 @@ local function set_tex_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	print("PLACEHOLDER")
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

@@ -1,4 +1,4 @@
-local function setup_ui()
+function setups.ui()
 	-- https://github.com/meanderingprogrammer/render-markdown.nvim
 	-- Improve viewing Markdown in Neovim
 	local render_markdown_defaults = {
@@ -1090,15 +1090,15 @@ local function set_markdown_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	print("PLACEHOLDER")
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

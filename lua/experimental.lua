@@ -1,4 +1,6 @@
-local function setup_fsread()
+local setups = {}
+
+function setups.fsread()
 	local function fsread_setup_func()
 		vim.g.flow_strength = 0.7 -- low: 0.3, middle: 0.5, high: 0.7 (default)
 		vim.api.nvim_set_hl(0, "FSPrefix", { fg = "#cdd6f4" })
@@ -13,7 +15,7 @@ local function setup_fsread()
 	fsread_setup_func()
 end
 
-local function setup_wezterm_run()
+setups["wezterm-run"] = function()
 	-- TODO
 	-- require("wezterm_send").setup()
 	vim.opt.runtimepath:prepend(REPOS_DIR .. "/wezterm-run.nvim")
@@ -21,15 +23,11 @@ local function setup_wezterm_run()
 	wezrun.setup()
 end
 
-local function setup_consilium()
+function setups.consilium()
 	-- TODO
 	vim.opt.runtimepath:prepend(REPOS_DIR .. "/consilium.nvim")
 	local consilium = require("consilium")
 	consilium.setup()
 end
 
-if false then -- TODO
-	setup_fsread()
-	setup_wezterm_run()
-	setup_consilium()
-end
+setup_all_enabled("experimental", setups)

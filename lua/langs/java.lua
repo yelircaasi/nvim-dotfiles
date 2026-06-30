@@ -2,17 +2,17 @@ local function set_java_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	-- https://github.com/Israiloff/jvim/
 	-- Java Neovim IDE
 	setup_plugin("jvim", {}) -- DEPENDS ON nvim-treesitter
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

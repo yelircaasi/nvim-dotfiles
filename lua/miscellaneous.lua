@@ -1,82 +1,10 @@
-local selections = {}
-local elements = {
-	["Launch"] = false,
-	["minimal-narrow-region"] = false,
-	["telemake"] = false,
-	["nvim-api-wrappers"] = false,
-	["wezterm-nvim"] = false,
-	["advanced_new_file"] = false,
-	["tracebundler"] = false,
-	["present"] = false,
-	["wezterm-move"] = false,
-	["move-mode"] = false,
-	["runtimetable"] = false,
-	["structlog"] = false,
-	["tealmaker"] = false,
-	["cmdTree"] = false,
-	["pommodoro-clock"] = false,
-	["pomodoro"] = false,
-	["timerly"] = false,
-	["timew"] = false,
-	["nomodoro"] = false,
-	["sche"] = false,
-	["twig"] = false,
-	["dashboard-nvim"] = false,
-	["dashboard"] = false,
-	["fsplash"] = false,
-	["drop"] = false,
-	["doing"] = false,
-	["vimwiki"] = false,
-	["obsidian"] = false,
-	["orgmode"] = false,
-	["zettelkasten"] = false,
-	["flote"] = false,
-	["scratch-buffer"] = false,
-	["neowell-lua"] = false,
-	["quicknote"] = false,
-	["nvim-highlight-colors"] = false,
-	["text-to-colorscheme"] = false,
-	["minty"] = false,
-	["color-picker"] = false,
-	["baleia"] = false,
-	["easycolor"] = false,
-	["export-colorscheme"] = false,
-	["bamboo"] = false,
-	["kreative"] = false,
-	["mini.hipatterns"] = false,
-	["paint"] = false,
-	["carbon-now-nvim"] = false,
-	["showkeys"] = false,
-	["hypersonic"] = false,
-	["regexplainer"] = false,
-	["tldr"] = false,
-	["nvim-luaref"] = false,
-	["auto-pandoc"] = false,
-	["nerdy"] = false,
-	["cyrillic"] = false,
-	["xkbswitch"] = false,
-	["http-codes"] = false,
-	["live-server"] = false,
-	["web-tools"] = false,
-	["api-browser"] = false,
-	["metrics"] = false,
-	["keylab"] = false,
-	["nvim-apm"] = false,
-	["daily-focus"] = false,
-	["interlaced"] = false,
-	["nvmm"] = false,
-	["feed"] = false,
-	["firenvim"] = false,
-	["qalc"] = false,
-	["flashcards"] = false,
-	["nvim-license"] = false,
-}
+local setups = {}
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── to vendor ──────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_launch()
+function setups.launch()
 	-- EXPERIMENTAL
 	-- https://github.com/LunarVim/Launch.nvim
 	-- Launch.nvim is modular starter for Neovim.
@@ -86,7 +14,7 @@ local function setup_launch()
 	-- EXPERIMENTAL
 end
 
-local function setup_minimal_narrow_region()
+setups["minimal-narrow-region"] = function()
 	-- https://github.com/bagohart/minimal-narrow-region.nvim
 	-- Opinionated minimal implementation of Emacs' narrowing feature (https://www.gnu.org/software/emacs/manual/html_node/emacs/Narrowing.html)
 	local minimal_narrow_region_defaults = nil
@@ -107,13 +35,13 @@ local function setup_minimal_narrow_region()
 	-- TODO: adapt for just/taskfile/etc.
 end
 
-local function setup_telemake()
+function setups.telemake()
 	-- https://github.com/ChSotiriou/nvim-telemake
 	-- nvim extension with nvim-telescope to select and run any Makefile target
 	setup_plugin("telemake") -- TODO: set up as telescope extension
 end
 
-local function setup_nvim_api_wrappers()
+setups["nvim-api-wrappers"] = function()
 	-- https://github.com/anuvyklack/nvim-api-wrappersI've eb
 	-- library with OOP wrappers around Neovim api.
 	--     This library itself depend on middleclass library.
@@ -121,14 +49,14 @@ local function setup_nvim_api_wrappers()
 	setup_plugin("nvim-api-wrappers", nvim_api_wrappers_defaults)
 end
 
-local function setup_wezterm_nvim()
+setups["wezterm-nvim"] = function()
 	-- https://github.com/willothy/wezterm.nvim
 	-- Utilities for interacting with Wezterm from within Neovim
 	local wezterm_nvim_defaults = { create_commands = true }
 	setup_plugin("wezterm-nvim", wezterm_nvim_defaults)
 end
 
-local function setup_advancednewfile()
+function setups.advancednewfile()
 	-- https://github.com/Mohammed-Taher/AdvancedNewFile.nvim
 	-- A simple plugin for neovim to create files and folders quickly.
 	setup_plugin("advanced_new_file", function(anf)
@@ -147,14 +75,14 @@ local function setup_advancednewfile()
 	-- TODO: move to modules?
 end
 
-local function setup_tracebundler()
+function setups.tracebundler()
 	-- https://github.com/notomo/tracebundler.nvim
 	-- Trace and bundle neovim lua for debugging
 	local tracebundler_defaults = nil
 	setup_plugin("tracebundler", tracebundler_defaults)
 end
 
-local function setup_present()
+function setups.present()
 	-- https://github.com/chaitanyabsprip/present.nvim
 	-- Presentation plugin for neovim written in lua
 	local present_defaults = {
@@ -167,24 +95,24 @@ local function setup_present()
 	setup_plugin("present", present_defaults)
 end
 
-local function setup_wezterm_move()
+setups["wezterm-move"] = function()
 	-- https://github.com/letieu/wezterm-move.nvim
 end
 
-local function setup_move_mode()
+setups["move-mode"] = function()
 	-- https://github.com/mawkler/move-mode.nvim
 end
 --─────────────────────────────────────────────────────────────────────────────
 --──── nvim-/lua-related ──────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_runtimetable()
+function setups.runtimetable()
 	-- https://github.com/notomo/runtimetable.nvim
 	-- Create runtime files from lua table.
 	setup_plugin("runtimetable", function(_) end)
 end
 
-local function setup_structlog()
+function setups.structlog()
 	-- https://github.com/tastyep/structlog.nvim
 	-- Structured Logging for nvim, using Lua
 	setup_plugin("structlog", function(log)
@@ -239,14 +167,14 @@ local function setup_structlog()
 	-- PROBABLY NOT, BUT WORTH A TRY
 end
 
-local function setup_tealmaker()
+function setups.tealmaker()
 	-- https://github.com/svermeulen/nvim-teal-maker
 	-- Neovim plugin that adds plugin support for teal language
 	local nvim_teal_maker_defaults = nil
 	setup_plugin("tealmaker", nvim_teal_maker_defaults)
 end
 
-local function setup_cmdree()
+function setups.cmdree()
 	-- https://github.com/CWood-sdf/cmdTree.nvim
 	--  Declaratively make your neovim user commands
 	setup_plugin("cmdTree", function(cmdtree) end)
@@ -258,7 +186,7 @@ local function setup_cmdree()
 	-- TODO: compare https://github.com/epwalsh/pomo.nvim (maybe vendor?)
 end
 
-local function setup_pommodoro_clock()
+setups["pommodoro-clock"] = function()
 	-- https://github.com/jackMort/pommodoro-clock.nvim
 	-- yet another pommodoro neovim plugin that displays an ASCII timer in an overlay
 	local pommodoro_clock_defaults = {
@@ -277,7 +205,7 @@ local function setup_pommodoro_clock()
 	-- TODO: add nui as dependency
 end
 
-local function setup_pomodoro()
+function setups.pomodoro()
 	-- https://github.com/wthollingsworth/pomodoro.nvim
 	-- A Pomodoro timer for Neovim written in Lua
 	local pomodoro_defaults = {
@@ -293,7 +221,7 @@ local function setup_pomodoro()
 	-- let g:pomodoro_timers_to_long_break = 4
 end
 
-local function setup_timerly()
+function setups.timerly()
 	-- https://github.com/nvzone/timerly
 	-- Beautiful countdown timer plugin for Neovim
 	local timerly_defaults = {
@@ -320,7 +248,7 @@ local function setup_timerly()
 	end)
 end
 
-local function setup_timew()
+function setups.timew()
 	-- https://github.com/eliasCVII/timew.nvim
 	-- Run some timewarrior commands from neovim
 	local timew_defaults = {
@@ -366,7 +294,7 @@ local function setup_timew()
 	end)
 end
 
-local function setup_nomodoro()
+function setups.nomodoro()
 	-- https://github.com/dbinagi/nomodoro
 	-- Pomodoro time tracker for NeoVim written entirely in LUA
 	local nomodoro_defaults = {
@@ -387,7 +315,7 @@ local function setup_nomodoro()
 	setup_plugin("nomodoro", nomodoro_defaults)
 end
 
-local function setup_sche()
+function setups.sche()
 	-- https://github.com/Cassin01/sche.nvim
 	-- A text-based schedule plugin for neovim (fennel)
 	local sche_defaults = {
@@ -441,7 +369,7 @@ local function setup_sche()
 	setup_plugin("sche", sche_defaults)
 end
 
-local function setup_twig()
+function setups.twig()
 	-- https://github.com/hugginsio/twig.nvim
 	-- taskwarrior integration
 	local twig_defaults = {
@@ -457,7 +385,7 @@ local function setup_twig()
 	-- TODO: hacky, but works -> necessary due to name collision
 end
 
-local function setup_dashboard_nvim()
+setups["dashboard-nvim"] = function()
 	-- https://github.com/nvimdev/dashboard-nvim/
 	--[[
 - Low memory usage. dashboard does not store the all user configs in memory like header etc
@@ -491,7 +419,7 @@ local function setup_dashboard_nvim()
 	end
 end
 
-local function setup_dashboard()
+function setups.dashboard()
 	-- https://github.com/MeanderingProgrammer/dashboard.nvim
 	--[[
 Fully customizable header with reference for integrating with ascii art plugin
@@ -545,7 +473,7 @@ Input is ordered and hotkeys are generated sequentially, making for a consistent
 	setup_plugin("dashboard", dashboard_defaults)
 end
 
-local function setup_fsplash()
+function setups.fsplash()
 	-- https://github.com/jovanlanik/fsplash.nvim
 	-- Show a custom splash screen in a floating window
 	local fsplash_defaults = {
@@ -579,7 +507,7 @@ local function setup_fsplash()
 	setup_plugin("fsplash", fsplash_defaults)
 end
 
-local function setup_drop()
+function setups.drop()
 	-- https://github.com/folke/drop.nvim
 	--  Fun little plugin that can be used as a screensaver and on your dashboard
 	local drop_defaults = {
@@ -615,7 +543,7 @@ end
 --──── pkm ────────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_doing()
+function setups.doing()
 	-- https://github.com/Hashino/doing.nvim
 	-- A minimal task manager for neovim
 	local doing_defaults = {
@@ -694,7 +622,7 @@ local function setup_doing()
 	end)
 end
 
-local function setup_vimwiki()
+function setups.vimwiki()
 	-- https://github.com/vimwiki/vimwiki
 	-- Personal Wiki for Vim
 	utils.packadd("vimwiki", function()
@@ -708,7 +636,7 @@ local function setup_vimwiki()
 	end)
 end
 
-local function setup_obsidian()
+function setups.obsidian()
 	-- https://github.com/obsidian-nvim/obsidian.nvim
 	-- Obsidian 🤝 Neovim (actively maintained version)
 	local obsidian_defaults = {
@@ -727,7 +655,7 @@ local function setup_obsidian()
 	setup_plugin("obsidian", obsidian_defaults)
 end
 
-local function setup_orgmode()
+function setups.orgmode()
 	-- https://github.com/nvim-orgmode/orgmode
 	-- Orgmode clone written in Lua for Neovim 0.11.0+
 	local orgmode_defaults = {
@@ -737,14 +665,14 @@ local function setup_orgmode()
 	setup_plugin("orgmode", orgmode_defaults)
 end
 
-local function setup_calendar()
+function setups.calendar()
 	-- https://github.com/ds1sqe/Calendar.nvim
 	-- require("calendar").getCalendar() -- this will returns you a calender string; no config needed
 	local Calendar_defaults = nil
 	setup_plugin("Calendar", Calendar_defaults)
 end
 
-local function setup_zettelkasten()
+function setups.zettelkasten()
 	-- https://github.com/Furkanzmc/zettelkasten.nvim
 	-- A Vim Philosophy Oriented Zettelkasten Note Taking Plugin
 	local zettelkasten_defaults = {
@@ -760,7 +688,7 @@ local function setup_zettelkasten()
 	setup_plugin("zettelkasten", zettelkasten_defaults)
 end
 
-local function setup_flote()
+function setups.flote()
 	-- https://github.com/JellyApple102/flote.nvim
 	-- Easily accessible, per-project markdown notes in Neovim.
 	local flote_defaults = {
@@ -784,7 +712,7 @@ local function setup_flote()
 	setup_plugin("flote", flote_defaults)
 end
 
-local function setup_scratch_buffer()
+setups["scratch-buffer"] = function()
 	-- https://github.com/2kabhishek/tdo.nvim
 	-- Fast & Simple Notes in Neovim
 	local tdo_config = { with_lsp = false }
@@ -795,7 +723,7 @@ local function setup_scratch_buffer()
 	end)
 end
 
-local function setup_neowell()
+function setups.neowell()
 	-- https://github.com/nyngwang/NeoWell.lua
 	-- Well... I will fix this line later
 	local neowell_defaults = { height = 10 }
@@ -864,7 +792,7 @@ local function setup_neowell()
 	end)
 end
 
-local function setup_quicknote()
+function setups.quicknote()
 	-- https://github.com/RutaTang/quicknote.nvim
 	-- Quickly take notes, in-place
 	local quicknote_defaults = {
@@ -899,7 +827,7 @@ end
 --──── colors ─────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_nvim_highlight_colors()
+setups["nvim-highlight-colors"] = function()
 	-- https://github.com/brenoprata10/nvim-highlight-colors
 	-- Highlight colors for neovim
 	local nvim_highlight_colors_defaults = {
@@ -973,7 +901,7 @@ local function setup_nvim_highlight_colors()
 	setup_plugin("nvim-highlight-colors", nvim_highlight_colors_defaults)
 end
 
-local function setup_text_to_colorscheme()
+setups["text-to-colorscheme"] = function()
 	-- https://github.com/svermeulen/text-to-colorscheme
 	-- Neovim colorschemes generated on the fly with a text prompt using ChatGPT
 	local text_to_colorscheme_defaults = {
@@ -1014,7 +942,7 @@ local function setup_text_to_colorscheme()
 	setup_plugin("text-to-colorscheme", text_to_colorscheme_defaults)
 end
 
-local function setup_minty()
+function setups.minty()
 	-- https://github.com/nvzone/minty
 	-- Most Beautifully crafted color tools for Neovim
 	local minty_defaults = {
@@ -1036,7 +964,7 @@ local function setup_minty()
 	setup_plugin("minty", minty_defaults)
 end
 
-local function setup_color_picker()
+setups["color-picker"] = function()
 	-- https://github.com/ziontee113/color-picker.nvim
 	-- A powerful Neovim plugin that lets users choose & modify RGB/HSL/HEX colors.
 	local color_picker_defaults = { -- for changing icons & mappings
@@ -1093,7 +1021,7 @@ local function setup_color_picker()
 	-- TODO: set up with conjure
 end
 
-local function setup_baleia()
+function setups.baleia()
 	-- https://github.com/m00qek/baleia.nvim
 	-- Colorize text with ANSI escape sequences (8, 16, 256 or TrueColor)
 	local baleia_defaults = {
@@ -1126,7 +1054,7 @@ local function setup_baleia()
 	setup_plugin("baleia", baleia_defaults)
 end
 
-local function setup_easycolor()
+function setups.easycolor()
 	-- https://github.com/neph-iap/easycolor.nvim
 	-- The easiest Neovim color picker in the world.
 	local easycolor_defaults = {
@@ -1155,21 +1083,21 @@ local function setup_easycolor()
 	setup_plugin("easycolor", easycolor_defaults)
 end
 
-local function setup_export_colorscheme()
+setups["export-colorscheme"] = function()
 	-- https://github.com/jpe90/export-colorscheme.nvim
 	-- Generate CLI program colorschemes based on your vim colorscheme
 	setup_plugin("export-colorscheme", function(_) end)
 end
 
-local function setup_bamboo()
+function setups.bamboo()
 	setup_plugin("bamboo", {})
 end
 
-local function setup_kreative()
+function setups.kreative()
 	setup_plugin("kreative", function(_) end) -- https://github.com/katawful/kreative  A colorscheme creation tool for Neovim, written in Fennel with Aniseed
 end
 
-local function setup_mini_hipatterns()
+setups["mini-hipatterns"] = function()
 	-- https://github.com/nvim-mini/mini.hipatterns
 	-- Highlight patterns in text. Part of 'mini.nvim' library.
 	local mini_hipatterns_defaults = {
@@ -1201,7 +1129,7 @@ local function setup_mini_hipatterns()
 	setup_plugin("mini.hipatterns", mini_hipatterns_defaults)
 end
 
-local function setup_paint()
+function setups.paint()
 	-- https://github.com/folke/paint.nvim
 	-- Easily add additional highlights to your buffers
 	local paint_config = {
@@ -1224,7 +1152,7 @@ local function setup_paint()
 	--─────────────────────────────────────────────────────────────────────────────
 end
 
-local function setup_carbon_now()
+setups["carbon-now"] = function()
 	-- https://github.com/ellisonleao/carbon-now.nvim
 	-- Create beautiful code snippets directly from your neovim terminal
 	local carbon_now_nvim_defaults = {
@@ -1258,7 +1186,7 @@ local function setup_carbon_now()
 	end)
 end
 
-local function setup_showkeys()
+function setups.showkeys()
 	-- https://github.com/nvzone/showkeys
 	-- Minimal Eye-candy keys screencaster for Neovim 200 ~ LOC
 	local showkeys_defaults = {
@@ -1305,7 +1233,7 @@ end
 --──── regex ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_hypersonic()
+function setups.hypersonic()
 	-- https://github.com/tomiis4/hypersonic.nvim
 	-- A Neovim plugin that provides an explanation for regular expressions.", {})
 	local hypersonic_defaults = {
@@ -1325,7 +1253,7 @@ local function setup_hypersonic()
 	setup_plugin("hypersonic", hypersonic_defaults)
 end
 
-local function setup_regexplainer()
+function setups.regexplainer()
 	-- https://github.com/bennypowers/nvim-regexplainer
 	-- Describe the regexp under the cursor
 	local regexplainer_defaults = {
@@ -1390,7 +1318,7 @@ local function setup_regexplainer()
 	--─────────────────────────────────────────────────────────────────────────────
 end
 
-local function setup_tldr()
+function setups.tldr()
 	-- https://github.com/mrjones2014/tldr.nvim
 	-- A Telescope previewer for tldr-pages
 	local tldr_defaults = {
@@ -1402,7 +1330,7 @@ local function setup_tldr()
 	setup_plugin("tldr", tldr_defaults)
 end
 
-local function setup_luaref()
+function setups.luaref()
 	-- https://github.com/emiasims/nvim-luaref
 	-- Add a vim :help reference for lua
 	local nvim_luaref_defaults = nil
@@ -1412,7 +1340,7 @@ local function setup_luaref()
 	-- :help coroutine.yield
 end
 
-local function setup_auto_pandoc()
+setups["auto-pandoc"] = function()
 	-- https://github.com/jghauser/auto-pandoc.nvim
 	-- Use pandoc to convert markdown files according to options from a yaml block
 	utils.packadd("auto-pandoc", function(auto_pandoc)
@@ -1433,7 +1361,7 @@ local function setup_auto_pandoc()
 	--─────────────────────────────────────────────────────────────────────────────
 end
 
-local function setup_nerdy()
+function setups.nerdy()
 	-- https://github.com/2KAbhishek/nerdy.nvim
 	-- Find Nerd Glyphs Easily
 	local nerdy_defaults = {
@@ -1458,7 +1386,7 @@ local function setup_nerdy()
 	end)
 end
 
-local function setup_cyrillic()
+function setups.cyrillic()
 	-- https://github.com/nativerv/cyrillic.nvim
 	-- Adds some support for Cyrillic keyboard layouts in Neovim
 	local cyrillic_defaults = {
@@ -1467,7 +1395,7 @@ local function setup_cyrillic()
 	setup_plugin("cyrillic", cyrillic_defaults)
 end
 
-local function setup_xkbswitch()
+function setups.xkbswitch()
 	-- https://github.com/ivanesmantovich/xkbswitch.nvim
 	-- Smart automatic keyboard layout switching in 110 LOC
 	local xkbswitch_defaults = { events_get_focus = false }
@@ -1479,7 +1407,7 @@ local function setup_xkbswitch()
 	-- TODO: use vim.g.http_codes
 end
 
-local function setup_http_codes()
+setups["http-codes"] = function()
 	-- https://forge.barrettruth.com/barrettruth/http-codes.nvim
 	-- Quickly investigate HTTP status codes with Mozilla, with telescope, fzf-lua, and snacks.nvim integrations.
 	setup_plugin("http-codes", function(http_codes) end)
@@ -1487,7 +1415,7 @@ local function setup_http_codes()
 	-- TODO: use vim.g.live_server
 end
 
-local function setup_live_server()
+setups["live-server"] = function()
 	-- https://forge.barrettruth.com/barrettruth/live-server.nvim
 	-- Live reload HTML, CSS, and JavaScript files inside Neovim. No external dependencies — the server runs entirely in Lua using Neovim's built-in libuv bindings.
 	setup_plugin("live-server", function(live_server) end)
@@ -1497,7 +1425,7 @@ local function setup_live_server()
 	-- TODO: https://github.com/BrowserSync/browser-sync, https://hurl.dev/docs/installation.html, prettier, jq
 end
 
-local function setup_webtools()
+function setups.webtools()
 	-- https://github.com/ray-x/web-tools.nvim
 	-- Neovim plugin for web developers. Browser-sync | http/css lsp | hurl/curl | npm/yarn/npx
 	local web_tools_defaults = {
@@ -1520,7 +1448,7 @@ local function setup_webtools()
 	-- TODO: add lua deps and install cli deps
 end
 
-local function setup_api_browser()
+setups["api-browser"] = function()
 	-- https://github.com/tlj/api-browser.nvim
 	-- Neovim plugin to open API endpoints directly in the editor
 	local api_browser_defaults = {
@@ -1540,14 +1468,14 @@ local function setup_api_browser()
 	--─────────────────────────────────────────────────────────────────────────────
 end
 
-local function setup_metrics()
+function setups.metrics()
 	-- https://github.com/mgerb/metrics.nvim
 	-- tracks time spent in your editor, logs locally to sqlite3 database
 	local metrics_defaults = { db_filename = "metrics.db" }
 	setup_plugin("metrics", metrics_defaults)
 end
 
-local function setup_keylab()
+function setups.keylab()
 	-- https://github.com/BooleanCube/keylab.nvim
 	-- Practice your nvim setup for a boost in productivity.
 	local keylab_defaults = {
@@ -1559,20 +1487,20 @@ local function setup_keylab()
 	setup_plugin("keylab", keylab_defaults)
 end
 
-local function setup_nvim_apm()
+setups["nvim-apm"] = function()
 	-- https://github.com/pseudocc/nvim-apm
 	-- calculate your APM, also show your key strokes in a buffer.
 	local nvim_apm_defaults = nil
 	setup_plugin("nvim-apm", nvim_apm_defaults)
 end
 
-local function setup_daily_focus()
+setups["daily-focus"] = function()
 	-- https://github.com/steveclarke/daily-focus.nvim
 	-- A Neovim plugin to show a daily Vim tip to focus on for the day.
 	setup_plugin("daily-focus", {}) -- TODO config error
 end
 
-local function setup_interlaced()
+function setups.interlaced()
 	-- https://github.com/tanloong/interlaced.nvim
 	-- Neovim plugin for aligning bilingual parallel texts
 	vim.g.interlaced = {
@@ -1626,7 +1554,7 @@ local function setup_interlaced()
 	setup_plugin("interlaced", function(interlaced) end)
 end
 
-local function setup_nvmm()
+function setups.nvmm()
 	-- https://github.com/martineausimon/nvim-mail-merge
 	-- primarily designed to work with NeoMutt by default but also offers support for mailx. This plugin can send emails in either HTML format (neomutt only) or plain text
 	local nvmm_defaults = {
@@ -1661,19 +1589,19 @@ local function setup_nvmm()
 	setup_plugin("nvmm", nvmm_defaults)
 end
 
-local function setup_feed()
+function setups.feed()
 	-- https://github.com/neo451/feed.nvim
 	-- Neovim feed reader, rss, atom and jsonfeed, all in lua
 	setup_plugin("feed", {}) -- TODO: FIX OPTIONS
 end
 
-local function setup_firenvim()
+function setups.firenvim()
 	-- https://github.com/glacambre/firenvim
 	-- Embed Neovim in Chrome, Firefox & others.
 	setup_plugin("firenvim", function(_) end)
 end
 
-local function setup_qalc()
+function setups.qalc()
 	-- https://github.com/Apeiros-46B/qalc.nvim
 	-- Neovim-integrated calculator based on Qalculate
 	local qalc_defaults = {
@@ -1738,7 +1666,7 @@ local function setup_qalc()
 	setup_plugin("qalc", qalc_defaults)
 end
 
-local function setup_flashcards()
+function setups.flashcards()
 	-- https://github.com/alex-laycalvert/flashcards.nvim
 	-- A Neovim plugin for Flashcards written in Lua
 	local flashcards_defaults = {
@@ -1778,7 +1706,7 @@ local function setup_flashcards()
 	setup_plugin("flashcards", flashcards_defaults)
 end
 
-local function setup_nvim_license()
+setups["nvim-license"] = function()
 	-- https://github.com/cfrt-dev/license.nvim
 	-- Simple plugin that generates a LICENSE file
 	local nvim_license_defaults = nil
@@ -1787,155 +1715,157 @@ local function setup_nvim_license()
 	--     and select the license you want to add to your project.
 end
 
-local functions = {
-	["Launch"] = setup_launch,
-	["minimal-narrow-region"] = setup_minimal_narrow_region,
-	["telemake"] = setup_telemake,
-	["nvim-api-wrappers"] = setup_nvim_api_wrappers,
-	["wezterm-nvim"] = setup_wezterm_nvim,
-	["advanced_new_file"] = setup_advancednewfile,
-	["tracebundler"] = setup_tracebundler,
-	["present"] = setup_present,
-	["wezterm-move"] = setup_wezterm_move,
-	["move-mode"] = setup_move_mode,
-	["runtimetable"] = setup_runtimetable,
-	["structlog"] = setup_structlog,
-	["tealmaker"] = setup_tealmaker,
-	["cmdTree"] = setup_cmdTree,
-	["pommodoro-clock"] = setup_pommodoro_clock,
-	["pomodoro"] = setup_pomodoro,
-	["timerly"] = setup_timerly,
-	["timew"] = setup_timew,
-	["nomodoro"] = setup_nomodoro,
-	["sche"] = setup_sche,
-	["twig"] = setup_twig,
-	["dashboard-nvim"] = setup_dashboard_nvim,
-	["dashboard"] = setup_dashboard,
-	["fsplash"] = setup_fsplash,
-	["drop"] = setup_drop,
-	["doing"] = setup_doing,
-	["vimwiki"] = setup_vimwiki,
-	["obsidian"] = setup_obsidian,
-	["orgmode"] = setup_orgmode,
-	["zettelkasten"] = setup_zettelkasten,
-	["flote"] = setup_flote,
-	["scratch-buffer"] = setup_scratch_buffer,
-	["neowell-lua"] = setup_neowell,
-	["quicknote"] = setup_quicknote,
-	["nvim-highlight-colors"] = setup_nvim_highlight_colors,
-	["text-to-colorscheme"] = setup_text_to_colorscheme,
-	["minty"] = setup_minty,
-	["color-picker"] = setup_color_picker,
-	["baleia"] = setup_baleia,
-	["easycolor"] = setup_easycolor,
-	["export-colorscheme"] = setup_export_colorscheme,
-	["bamboo"] = setup_bamboo,
-	["kreative"] = setup_kreative,
-	["mini.hipatterns"] = setup_mini_hipatterns,
-	["paint"] = setup_paint,
-	["carbon-now-nvim"] = setup_carbon_now,
-	["showkeys"] = setup_showkeys,
-	["hypersonic"] = setup_hypersonic,
-	["regexplainer"] = setup_regexplainer,
-	["tldr"] = setup_tldr,
-	["nvim-luaref"] = setup_luaref,
-	["auto-pandoc"] = setup_auto_pandoc,
-	["nerdy"] = setup_nerdy,
-	["cyrillic"] = setup_cyrillic,
-	["xkbswitch"] = setup_xkbswitch,
-	["http-codes"] = setup_http_codes,
-	["live-server"] = setup_live_server,
-	["web-tools"] = setup_webtools,
-	["api-browser"] = setup_api_browser,
-	["metrics"] = setup_metrics,
-	["keylab"] = setup_keylab,
-	["nvim-apm"] = setup_nvim_apm,
-	["daily-focus"] = setup_daily_focus,
-	["interlaced"] = setup_interlaced,
-	["nvmm"] = setup_nvmm,
-	["feed"] = setup_feed,
-	["firenvim"] = setup_firenvim,
-	["qalc"] = setup_qalc,
-	["flashcards"] = setup_flashcards,
-	["nvim-license"] = setup_nvim_license,
-}
+-- local functions = {
+-- 	["Launch"] = setup_launch,
+-- 	["minimal-narrow-region"] = setup_minimal_narrow_region,
+-- 	["telemake"] = setup_telemake,
+-- 	["nvim-api-wrappers"] = setup_nvim_api_wrappers,
+-- 	["wezterm-nvim"] = setup_wezterm_nvim,
+-- 	["advanced_new_file"] = setup_advancednewfile,
+-- 	["tracebundler"] = setup_tracebundler,
+-- 	["present"] = setup_present,
+-- 	["wezterm-move"] = setup_wezterm_move,
+-- 	["move-mode"] = setup_move_mode,
+-- 	["runtimetable"] = setup_runtimetable,
+-- 	["structlog"] = setup_structlog,
+-- 	["tealmaker"] = setup_tealmaker,
+-- 	["cmdTree"] = setup_cmdTree,
+-- 	["pommodoro-clock"] = setup_pommodoro_clock,
+-- 	["pomodoro"] = setup_pomodoro,
+-- 	["timerly"] = setup_timerly,
+-- 	["timew"] = setup_timew,
+-- 	["nomodoro"] = setup_nomodoro,
+-- 	["sche"] = setup_sche,
+-- 	["twig"] = setup_twig,
+-- 	["dashboard-nvim"] = setup_dashboard_nvim,
+-- 	["dashboard"] = setup_dashboard,
+-- 	["fsplash"] = setup_fsplash,
+-- 	["drop"] = setup_drop,
+-- 	["doing"] = setup_doing,
+-- 	["vimwiki"] = setup_vimwiki,
+-- 	["obsidian"] = setup_obsidian,
+-- 	["orgmode"] = setup_orgmode,
+-- 	["zettelkasten"] = setup_zettelkasten,
+-- 	["flote"] = setup_flote,
+-- 	["scratch-buffer"] = setup_scratch_buffer,
+-- 	["neowell-lua"] = setup_neowell,
+-- 	["quicknote"] = setup_quicknote,
+-- 	["nvim-highlight-colors"] = setup_nvim_highlight_colors,
+-- 	["text-to-colorscheme"] = setup_text_to_colorscheme,
+-- 	["minty"] = setup_minty,
+-- 	["color-picker"] = setup_color_picker,
+-- 	["baleia"] = setup_baleia,
+-- 	["easycolor"] = setup_easycolor,
+-- 	["export-colorscheme"] = setup_export_colorscheme,
+-- 	["bamboo"] = setup_bamboo,
+-- 	["kreative"] = setup_kreative,
+-- 	["mini.hipatterns"] = setup_mini_hipatterns,
+-- 	["paint"] = setup_paint,
+-- 	["carbon-now-nvim"] = setup_carbon_now,
+-- 	["showkeys"] = setup_showkeys,
+-- 	["hypersonic"] = setup_hypersonic,
+-- 	["regexplainer"] = setup_regexplainer,
+-- 	["tldr"] = setup_tldr,
+-- 	["nvim-luaref"] = setup_luaref,
+-- 	["auto-pandoc"] = setup_auto_pandoc,
+-- 	["nerdy"] = setup_nerdy,
+-- 	["cyrillic"] = setup_cyrillic,
+-- 	["xkbswitch"] = setup_xkbswitch,
+-- 	["http-codes"] = setup_http_codes,
+-- 	["live-server"] = setup_live_server,
+-- 	["web-tools"] = setup_webtools,
+-- 	["api-browser"] = setup_api_browser,
+-- 	["metrics"] = setup_metrics,
+-- 	["keylab"] = setup_keylab,
+-- 	["nvim-apm"] = setup_nvim_apm,
+-- 	["daily-focus"] = setup_daily_focus,
+-- 	["interlaced"] = setup_interlaced,
+-- 	["nvmm"] = setup_nvmm,
+-- 	["feed"] = setup_feed,
+-- 	["firenvim"] = setup_firenvim,
+-- 	["qalc"] = setup_qalc,
+-- 	["flashcards"] = setup_flashcards,
+-- 	["nvim-license"] = setup_nvim_license,
+-- }
 
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
-end
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
 
-maybe_call("Launch")
-maybe_call("minimal-narrow-region")
-maybe_call("telemake")
-maybe_call("nvim-api-wrappers")
-maybe_call("wezterm-nvim")
-maybe_call("advanced_new_file")
-maybe_call("tracebundler")
-maybe_call("present")
-maybe_call("wezterm-move")
-maybe_call("move-mode")
-maybe_call("runtimetable")
-maybe_call("structlog")
-maybe_call("tealmaker")
-maybe_call("cmdTree")
-maybe_call("pommodoro-clock")
-maybe_call("pomodoro")
-maybe_call("timerly")
-maybe_call("timew")
-maybe_call("nomodoro")
-maybe_call("sche")
-maybe_call("twig")
-maybe_call("dashboard-nvim")
-maybe_call("dashboard")
-maybe_call("fsplash")
-maybe_call("drop")
-maybe_call("doing")
-maybe_call("vimwiki")
-maybe_call("obsidian")
-maybe_call("orgmode")
-maybe_call("zettelkasten")
-maybe_call("flote")
-maybe_call("scratch-buffer")
-maybe_call("neowell-lua")
-maybe_call("quicknote")
-maybe_call("nvim-highlight-colors")
-maybe_call("text-to-colorscheme")
-maybe_call("minty")
-maybe_call("color-picker")
-maybe_call("baleia")
-maybe_call("easycolor")
-maybe_call("export-colorscheme")
-maybe_call("bamboo")
-maybe_call("kreative")
-maybe_call("mini.hipatterns")
-maybe_call("paint")
-maybe_call("carbon-now-nvim")
-maybe_call("showkeys")
-maybe_call("hypersonic")
-maybe_call("regexplainer")
-maybe_call("tldr")
-maybe_call("nvim-luaref")
-maybe_call("auto-pandoc")
-maybe_call("nerdy")
-maybe_call("cyrillic")
-maybe_call("xkbswitch")
-maybe_call("http-codes")
-maybe_call("live-server")
-maybe_call("web-tools")
-maybe_call("api-browser")
-maybe_call("metrics")
-maybe_call("keylab")
-maybe_call("nvim-apm")
-maybe_call("daily-focus")
-maybe_call("interlaced")
-maybe_call("nvmm")
-maybe_call("feed")
-maybe_call("firenvim")
-maybe_call("qalc")
-maybe_call("flashcards")
-maybe_call("nvim-license")
+-- maybe_call("Launch")
+-- maybe_call("minimal-narrow-region")
+-- maybe_call("telemake")
+-- maybe_call("nvim-api-wrappers")
+-- maybe_call("wezterm-nvim")
+-- maybe_call("advanced_new_file")
+-- maybe_call("tracebundler")
+-- maybe_call("present")
+-- maybe_call("wezterm-move")
+-- maybe_call("move-mode")
+-- maybe_call("runtimetable")
+-- maybe_call("structlog")
+-- maybe_call("tealmaker")
+-- maybe_call("cmdTree")
+-- maybe_call("pommodoro-clock")
+-- maybe_call("pomodoro")
+-- maybe_call("timerly")
+-- maybe_call("timew")
+-- maybe_call("nomodoro")
+-- maybe_call("sche")
+-- maybe_call("twig")
+-- maybe_call("dashboard-nvim")
+-- maybe_call("dashboard")
+-- maybe_call("fsplash")
+-- maybe_call("drop")
+-- maybe_call("doing")
+-- maybe_call("vimwiki")
+-- maybe_call("obsidian")
+-- maybe_call("orgmode")
+-- maybe_call("zettelkasten")
+-- maybe_call("flote")
+-- maybe_call("scratch-buffer")
+-- maybe_call("neowell-lua")
+-- maybe_call("quicknote")
+-- maybe_call("nvim-highlight-colors")
+-- maybe_call("text-to-colorscheme")
+-- maybe_call("minty")
+-- maybe_call("color-picker")
+-- maybe_call("baleia")
+-- maybe_call("easycolor")
+-- maybe_call("export-colorscheme")
+-- maybe_call("bamboo")
+-- maybe_call("kreative")
+-- maybe_call("mini.hipatterns")
+-- maybe_call("paint")
+-- maybe_call("carbon-now-nvim")
+-- maybe_call("showkeys")
+-- maybe_call("hypersonic")
+-- maybe_call("regexplainer")
+-- maybe_call("tldr")
+-- maybe_call("nvim-luaref")
+-- maybe_call("auto-pandoc")
+-- maybe_call("nerdy")
+-- maybe_call("cyrillic")
+-- maybe_call("xkbswitch")
+-- maybe_call("http-codes")
+-- maybe_call("live-server")
+-- maybe_call("web-tools")
+-- maybe_call("api-browser")
+-- maybe_call("metrics")
+-- maybe_call("keylab")
+-- maybe_call("nvim-apm")
+-- maybe_call("daily-focus")
+-- maybe_call("interlaced")
+-- maybe_call("nvmm")
+-- maybe_call("feed")
+-- maybe_call("firenvim")
+-- maybe_call("qalc")
+-- maybe_call("flashcards")
+-- maybe_call("nvim-license")
+
+setup_all_enabled("miscellaneous", setups)

@@ -11,7 +11,7 @@ local function set_haskell_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	local ht = setup_plugin("haskell-tools")
 	local bufnr = vim.api.nvim_get_current_buf()
 	local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -73,11 +73,11 @@ local function setup_lsp()
 	vim.lsp.config["haskell-ls"] = {} -- TODO (?)
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

@@ -3,7 +3,7 @@ local function set_python_options(ev)
 	vim.keymap.set("n", "<localleader>r", "<cmd>!python %<cr>", { buffer = ev.buf })
 end
 
-local function setup_lsp()
+function setups.lsp()
 	-- TODO: set up pylsp-rope for refactoring
 
 	-- TODO: Mypy integration
@@ -62,7 +62,7 @@ local function setup_lsp()
 	vim.lsp.enable("ruff")
 end
 
-local function setup_testing()
+function setups.testing()
 	local function get_neotest_python_adapter()
 		utils.packadd("neotest")
 		utils.packadd("neotest-python")
@@ -83,7 +83,7 @@ local function setup_testing()
 	})
 end
 
-local function setup_equals()
+function setups.equals()
 	-- https://github.com/liborw/equals
 	-- takes python code or markdown with python code blocks and append intermediate results to expressions followed by #=
 	local equals_defaults = {
@@ -93,7 +93,7 @@ local function setup_equals()
 	-- vim.api.nvim_set_keymap('n', 'ee', '<cmd>lua require("equals").buffer()<cr>', {noremap = true})
 end
 
-local function setup_debugging()
+function setups.debugging()
 	setup_plugin("debugpy", function(_) end)
 
 	setup_plugin("dap-python", function(dap_python)

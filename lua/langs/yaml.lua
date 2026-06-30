@@ -11,15 +11,15 @@ local function general_setup()
 	setup_plugin("yaml_nvim", yaml_nvim_defaults)
 end
 
-local function setup_lsp()
+function setups.lsp()
 	print("PLACEHOLDER")
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

@@ -1,3 +1,5 @@
+local setups = {}
+
 -- TODO: notes: ===================================================================================
 
 -- Flash has largely superseded Leap and Hop.
@@ -18,69 +20,15 @@
 -- indentmini
 --]]
 
-local selections = {}
-local elements = {
-	["general-setup"] = true,
-	["vim-commentary"] = true,
-	["Comment"] = true,
-	["todo-comments"] = true,
-	["ts_context_commentstring"] = true,
-	["savior"] = true,
-	["vim-auto-save"] = true,
-	["zpragmatic"] = true,
-	["multicursors"] = false, -- TODO: rebuild
-	["vim-visual-multi"] = true,
-	["illuminate"] = true,
-	["splitjoin"] = false, -- TODO: debug
-	["spread"] = false, -- TODO: update (using old nvim-treesitter)
-	["treesj"] = true,
-	["Bullets"] = true,
-	["sort"] = true,
-	["ax"] = true,
-	["vim-caser"] = true,
-	["wrapping"] = true,
-	["wrapping-paper"] = true,
-	["dotdot"] = false, -- TODO: debug
-	["vim-abolish"] = true,
-	["date-time-inserter"] = true,
-	["switch.vim"] = true,
-	["dial"] = false, -- TODO: debug
-	["moveline"] = true,
-	["sibling-swap"] = false, -- TODO: rebuld
-	["move"] = true,
-	["wildfire"] = true,
-	["vim-sandwich"] = true,
-	["mini.surround"] = true,
-	["ultimate-autopair"] = true,
-	["blink.pairs"] = true,
-	["rainbow-delimiters"] = true,
-	["nvim-autopairs"] = true,
-	["nvim-surround"] = true,
-	["mini.pairs"] = true,
-	["better-digraphs"] = false, -- TODO: debug
-	["indent-blankline"] = true,
-	["indent-tools"] = false, -- TODO: debug
-	["tabular"] = true,
-	["indentmini"] = true,
-	["mini.indentscope"] = true,
-	["anydent"] = true,
-	["nvim-anydent"] = true,
-	["mini.align"] = true,
-	["vim-mundo"] = true,
-	["edit-list"] = false, -- TODO: fix import error
-	["various-textobjs"] = true,
-	["autocommands"] = true,
-}
+setups["general-setup"] = function() end
 
-local function general_setup() end
-
-local function setup_vim_commentary()
+setups["vim-commentary"] = function()
 	utils.packadd("vim-commentary", function()
 		-- no configuration needed
 	end)
 end
 
-local function setup_comment()
+function setups.comment()
 	local comment_defaults = {
 		---Add a space b/w comment and the line
 		padding = true,
@@ -127,7 +75,7 @@ local function setup_comment()
 	setup_plugin("Comment", comment_defaults)
 end
 
-local function setup_todo_comments()
+setups["todo-comments"] = function()
 	local todo_comments_defaults = {
 		signs = true, -- show icons in the signs column
 		sign_priority = 8, -- sign priority
@@ -199,7 +147,7 @@ local function setup_todo_comments()
 	})
 end
 
-local function setup_ts_context_commentstring()
+setups["ts-context-commentstring"] = function()
 	-- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 	-- Neovim treesitter plugin for setting the commentstring based on the cursor location in a file.
 	local ts_context_commentstring_defaults = {}
@@ -210,7 +158,7 @@ end
 --──── saving ─────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_savior()
+function setups.savior()
 	-- https://github.com/willothy/savior.nvim | Customizable, event-based auto saving for Neovim
 
 	setup_plugin("savior", function(savior)
@@ -251,13 +199,13 @@ local function setup_savior()
 	end) -- PROBABLY NOT, BUT WORTH A TRY
 end
 
-local function setup_vim_auto_save()
+setups["vim-auto-save"] = function()
 	utils.packadd("vim-auto-save", function()
 		-- no config required
 	end) -- PROBABLY NOT, BUT WORTH A TRY
 end
 
-local function setup_zpragmatic()
+function setups.zpragmatic()
 	local zpragmatic_defaults = {
 		filetype_questions = {
 			["*"] = { -- Questions for any file type
@@ -324,7 +272,7 @@ end
 --──── multicursor ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_multicursors()
+function setups.multicursors()
 	local multicursors_defaults = {
 		DEBUG_MODE = false,
 		create_commands = true, -- create Multicursor user commands
@@ -366,7 +314,7 @@ local function setup_multicursors()
 	setup_plugin("multicursors", multicursors_defaults) -- https://github.com/smoka7/multicursors.nvim
 end
 
-local function setup_vim_visual_multi()
+setups["vim-visual-multi"] = function()
 	-- https://github.com/mg979/vim-visual-multi
 	utils.packadd("vim-visual-multi", function()
 		vim.g.VM_default_mappings = true
@@ -377,7 +325,7 @@ end
 --──── semantic features ──────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_illuminate()
+function setups.illuminate()
 	-- https://github.com/rrethy/vim-illuminate
 	-- illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching
 	utils.packadd("illuminate")
@@ -387,7 +335,7 @@ end
 --──── sequences ─────────────────────────────────────────────────────────────-
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_splitjoin()
+function setups.splitjoin()
 	-- https://github.com/bennypowers/splitjoin.nvim | Split or join list-like syntax constructs
 	setup_plugin("splitjoin", function(splitjoin)
 		local CSS = require("splitjoin.languages.css.functions")
@@ -795,7 +743,7 @@ local function setup_splitjoin()
 	end)
 end
 
-local function setup_spread()
+function setups.spread()
 	-- (uses nvim-treesitter)
 	-- https://github.com/aarondiel/spread.nvim
 	-- a neovim plugin to spread out inline objects, arrays, parameter lists, etc.
@@ -811,7 +759,7 @@ local function setup_spread()
 	end)
 end
 
-local function setup_treesj()
+function setups.treesj()
 	-- https://github.com/wansmer/treesj | for splitting/joining blocks of code
 	local treesj_defaults = {
 		---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
@@ -850,7 +798,7 @@ local function setup_treesj()
 	end)
 end
 
-local function setup_bullets()
+function setups.bullets()
 	-- https://github.com/kaymmm/bullets.nvim | lua port of dkarter/bullets.vim
 	--     (plugin for automated bullet lists)
 	local bullets_defaults = {
@@ -878,7 +826,7 @@ end
 --──── sorting ─────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_sort()
+function setups.sort()
 	-- https://github.com/sQVe/sort.nvim
 	-- Sorting plugin for Neovim that supports line-wise and delimiter sorting.
 	local sort_defaults = {
@@ -926,7 +874,7 @@ end
 --──── deletion ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_ax()
+function setups.ax()
 	setup_plugin("ax") -- https://github.com/mikeslattery/ax.nvim  Delete all the things!
 end
 
@@ -934,7 +882,7 @@ end
 --──── casing ─────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_vim_caser()
+setups["vim-caser"] = function()
 	-- cycle a word through snake_case, camelCase, PascalCase, SCREAMING_SNAKE
 	utils.packadd("vim-caser")
 end
@@ -943,7 +891,7 @@ end
 --──── wrapping ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_wrapping()
+function setups.wrapping()
 	-- https://github.com/andrewferrier/wrapping.nvim
 	-- Plugin to make it easier to switch between 'soft' and 'hard' line wrapping in NeoVim
 	local wrapping_defaults = {
@@ -984,7 +932,7 @@ local function setup_wrapping()
 	setup_plugin("wrapping", wrapping_defaults)
 end
 
-local function setup_wrapping_paper()
+setups["wrapping-paper"] = function()
 	-- https://github.com/benlubas/wrapping-paper.nvim
 	-- Simple plugin which simulates wrapping a single line at a time using floating windows and virtual text trickery
 	local wrapping_paper_defaults = {
@@ -1050,7 +998,7 @@ end
 --──── command helpers ────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_dotdot()
+function setups.dotdot()
 	-- https://codeberg.org/hernandez/dotdot.nvim
 	-- lets you search for and execute commands with a press of `..`
 	-- TODO: PR with function syntax fixed
@@ -1122,13 +1070,13 @@ end
 --──── values ─────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_vim_abolish()
+setups["vim-abolish"] = function()
 	-- https://github.com/tpope/vim-abolish
 	-- abolish.vim: Work with several variants of a word at once
 	utils.packadd("vim-abolish")
 end
 
-local function setup_date_time_inserter()
+setups["date-time-inserter"] = function()
 	setup_plugin("date-time-inserter", function(dti)
 		dti.setup({
 			date_format = "%d-%m-%Y",
@@ -1171,14 +1119,14 @@ local function setup_date_time_inserter()
 	end)
 end
 
-local function setup_switch_vim()
+setups["switch-vim"] = function()
 	-- likely strictly dominated by dial
 	-- https://github.com/AndrewRadev/switch.vim
 	-- A simple Vim plugin to switch segments of text with predefined replacements
 	utils.packadd("switch.vim")
 end
 
-local function setup_dial()
+function setups.dial()
 	setup_plugin("dial", function(dial)
 		local augend = require("dial.augend")
 		local manipulate = require("dial.map")
@@ -1349,7 +1297,7 @@ end
 --──── text movement ──────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_moveline()
+function setups.moveline()
 	-- https://github.com/willothy/moveline.nvim
 	-- Neovim plugin for moving lines up and down
 	setup_plugin("moveline", function(moveline)
@@ -1376,7 +1324,7 @@ local function setup_moveline()
 	end)
 end
 
-local function setup_sibling_swap()
+setups["sibling-swap"] = function()
 	-- https://github.com/Wansmer/sibling-swap.nvim
 	-- Neovim plugin for swaps closest siblings with Tree-Sitter
 	local sibling_swap_defaults = {
@@ -1424,7 +1372,7 @@ local function setup_sibling_swap()
 	setup_plugin("sibling-swap", sibling_swap_defaults)
 end
 
-local function setup_move()
+function setups.move()
 	local move_defaults = {
 		line = {
 			enable = true, -- Enables line movement
@@ -1515,7 +1463,7 @@ end
 --──── selection ─────────────────────────────────────────────────────────────-
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_wildfire()
+function setups.wildfire()
 	-- https://github.com/SUSTech-data/wildfire.nvim
 	-- incremental and decremental selection
 	local wildfire_defaults = {
@@ -1539,7 +1487,7 @@ end
 --──── pairs ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_vim_sandwich()
+setups["vim-sandwich"] = function()
 	-- https://github.com/machakann/vim-sandwich
 	-- Set of operators and textobjects to search/select/edit sandwiched texts.
 	utils.packadd("vim-sandwich", function()
@@ -1547,7 +1495,7 @@ local function setup_vim_sandwich()
 	end)
 end
 
-local function setup_mini_surround()
+setups["mini-surround"] = function()
 	local mini_surround_defaults = {
 		-- Add custom surroundings to be used on top of builtin ones. For more
 		-- information with examples, see `:h MiniSurround.config`.
@@ -1591,7 +1539,7 @@ local function setup_mini_surround()
 	setup_plugin("mini.surround", mini_surround_defaults)
 end
 
-local function setup_ultimate_autopair()
+setups["ultimate-autopair"] = function()
 	-- https://github.com/altermo/ultimate-autopair.nvim
 	-- treesitter supported autopairing plugin with extensions, and much more
 	local ultimate_autopair_defaults = {
@@ -1822,7 +1770,7 @@ local function setup_ultimate_autopair()
 	setup_plugin("ultimate-autopair", ultimate_autopair_defaults) -- use?
 end
 
-local function setup_blink_pairs()
+setups["blink-pairs"] = function()
 	-- https://github.com/saghen/blink.pairs
 	-- Intelligent auto-pairs with rainbow highlighting for Neovim
 	local blink_pairs_defaults = {
@@ -1872,7 +1820,7 @@ local function setup_blink_pairs()
 	setup_plugin("blink.pairs", blink_pairs_defaults)
 end
 
-local function setup_rainbow_delimiters()
+setups["rainbow-delimiters"] = function()
 	setup_plugin("rainbow-delimiters", function()
 		local rd = require("rainbow-delimiters")
 
@@ -1887,7 +1835,7 @@ local function setup_rainbow_delimiters()
 	end)
 end
 
-local function setup_nvim_autopairs()
+setups["nvim-autopairs"] = function()
 	setup_plugin("nvim-autopairs", function(ap)
 		ap.setup({
 			check_ts = true,
@@ -1895,13 +1843,13 @@ local function setup_nvim_autopairs()
 	end)
 end
 
-local function setup_nvim_surround()
+setups["nvim-surround"] = function()
 	setup_plugin("nvim-surround", function(ns)
 		ns.setup()
 	end)
 end
 
-local function setup_mini_pairs()
+setups["mini-pairs"] = function()
 	local mini_pairs_defaults = {
 		-- In which modes mappings from this `config` should be created
 		modes = { insert = true, command = false, terminal = false },
@@ -1935,7 +1883,7 @@ end
 --──── digraphs ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_better_digraphs()
+setups["better-digraphs"] = function()
 	-- https://github.com/protex/better-digraphs.nvim
 	-- Better digraphs plugin based on idea from Damian Conway
 	setup_plugin("better-digraphs", function(_) end)
@@ -1945,7 +1893,7 @@ end
 --──── indentation and alignment ──────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_indent_blankline()
+setups["indent-blankline"] = function()
 	utils.packadd("indent-blankline", function()
 		require("ibl").setup({
 			indent = {
@@ -1958,7 +1906,7 @@ local function setup_indent_blankline()
 	end)
 end
 
-local function setup_indent_tools()
+setups["indent-tools"] = function()
 	-- https://github.com/arsham/indent-tools.nvim
 	local indent_tools_defaults = {
 		normal = {
@@ -1974,7 +1922,7 @@ local function setup_indent_tools()
 	setup_plugin("indent-tools", indent_tools_defaults)
 end
 
-local function setup_tabular()
+function setups.tabular()
 	utils.packadd("tabular", function()
 		map_explicit({
 			mode = "n",
@@ -1989,7 +1937,7 @@ local function setup_tabular()
 	end)
 end
 
-local function setup_indentmini()
+function setups.indentmini()
 	setup_plugin("indentmini", function(im)
 		im.setup({
 			char = "▏",
@@ -2003,7 +1951,7 @@ local function setup_indentmini()
 	end)
 end
 
-local function setup_mini_indentscope()
+setups["mini-indentscope"] = function()
 	local mini_indentscope_defaults = {
 		-- Draw options
 		draw = {
@@ -2062,18 +2010,18 @@ local function setup_mini_indentscope()
 	setup_plugin("mini.indentscope", mini_indentscope_defaults)
 end
 
-local function setup_anydent()
+function setups.anydent()
 	setup_plugin("anydent", function(anydent) end)
 end
 
 -- TODO: duplication?
-local function setup_nvim_anydent()
+setups["nvim-anydent"] = function()
 	setup_plugin("nvim-anydent", function(ad)
 		ad.setup()
 	end)
 end
 
-local function setup_mini_align()
+setups["mini-align"] = function()
 	-- ga in normal and visual mode
 	local mini_align_defaults = {
 		-- Module mappings. Use `''` (empty string) to disable one.
@@ -2134,7 +2082,7 @@ end
 --──── miscellaneous ────────────────────────────────────────────────────────── TODO: sort
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_vim_mundo()
+setups["vim-mundo"] = function()
 	utils.packadd("vim-mundo", function()
 		map_explicit({
 			mode = "n",
@@ -2144,13 +2092,13 @@ local function setup_vim_mundo()
 	end)
 end
 
-local function setup_edit_list()
+setups["edit-list"] = function()
 	--
 	--
 	setup_plugin("edit-list", {}) -- TODO: expects /home/isaac/.cache/nvim/edit-list.json
 end
 
-local function setup_nvim_various_textobjs()
+setups["nvim-various-textobjs"] = function()
 	utils.packadd("nvim-various-textobjs", function()
 		require("various-textobjs").setup({
 			useDefaultKeymaps = true,
@@ -2162,7 +2110,7 @@ end
 --──── autocommands ───────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function create_miscellaneous_autocommands()
+setups["miscellaneous-autocommands"] = function()
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = { "help", "qf", "man", "lspinfo" },
 		callback = function(ev)
@@ -2176,114 +2124,116 @@ local function create_miscellaneous_autocommands()
 	})
 end
 
-local functions = {
-	["general-setup"] = general_setup,
-	["vim-commentary"] = setup_vim_commentary,
-	["Comment"] = setup_comment,
-	["todo-comments"] = setup_todo_comments,
-	["ts_context_commentstring"] = setup_ts_context_commentstring,
-	["savior"] = setup_savior,
-	["vim-auto-save"] = setup_vim_auto_save,
-	["zpragmatic"] = setup_zpragmatic,
-	["multicursors"] = setup_multicursors,
-	["vim-visual-multi"] = setup_vim_visual_multi,
-	["illuminate"] = setup_illuminate,
-	["splitjoin"] = setup_splitjoin,
-	["spread"] = setup_spread,
-	["treesj"] = setup_treesj,
-	["Bullets"] = setup_bullets,
-	["sort"] = setup_sort,
-	["ax"] = setup_ax,
-	["vim-caser"] = setup_vim_caser,
-	["wrapping"] = setup_wrapping,
-	["wrapping-paper"] = setup_wrapping_paper,
-	["dotdot"] = setup_dotdot,
-	["vim-abolish"] = setup_vim_abolish,
-	["date-time-inserter"] = setup_date_time_inserter,
-	["switch.vim"] = setup_switch_vim,
-	["dial"] = setup_dial,
-	["moveline"] = setup_moveline,
-	["sibling-swap"] = setup_sibling_swap_nvim,
-	["move"] = setup_move,
-	["wildfire"] = setup_wildfire,
-	["vim-sandwich"] = setup_vim_sandwich,
-	["mini.surround"] = setup_mini_surround,
-	["ultimate-autopair"] = setup_ultimate_autopair,
-	["blink.pairs"] = setup_blink_pairs,
-	["rainbow-delimiters"] = setup_rainbow_delimiters,
-	["nvim-autopairs"] = setup_nvim_autopairs,
-	["nvim-surround"] = setup_nvim_surround,
-	["mini.pairs"] = setup_mini_pairs,
-	["better-digraphs"] = setup_better_digraphs,
-	["indent-blankline"] = setup_indent_blankline,
-	["indent-tools"] = setup_indent_tools,
-	["tabular"] = setup_tabular,
-	["indentmini"] = setup_indentmini,
-	["mini.indentscope"] = setup_mini_indentscope,
-	["anydent"] = setup_anydent,
-	["nvim-anydent"] = setup_nvim_anydent,
-	["mini.align"] = setup_mini_align,
-	["vim-mundo"] = setup_vim_mundo,
-	["edit-list"] = setup_edit_list,
-	["various-textobjs"] = setup_nvim_various_textobjs,
-	["autocommands"] = create_miscellaneous_autocommands,
-}
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
-end
+-- local functions = {
+-- 	["general-setup"] = general_setup,
+-- 	["vim-commentary"] = setup_vim_commentary,
+-- 	["Comment"] = setup_comment,
+-- 	["todo-comments"] = setup_todo_comments,
+-- 	["ts_context_commentstring"] = setup_ts_context_commentstring,
+-- 	["savior"] = setup_savior,
+-- 	["vim-auto-save"] = setup_vim_auto_save,
+-- 	["zpragmatic"] = setup_zpragmatic,
+-- 	["multicursors"] = setup_multicursors,
+-- 	["vim-visual-multi"] = setup_vim_visual_multi,
+-- 	["illuminate"] = setup_illuminate,
+-- 	["splitjoin"] = setup_splitjoin,
+-- 	["spread"] = setup_spread,
+-- 	["treesj"] = setup_treesj,
+-- 	["Bullets"] = setup_bullets,
+-- 	["sort"] = setup_sort,
+-- 	["ax"] = setup_ax,
+-- 	["vim-caser"] = setup_vim_caser,
+-- 	["wrapping"] = setup_wrapping,
+-- 	["wrapping-paper"] = setup_wrapping_paper,
+-- 	["dotdot"] = setup_dotdot,
+-- 	["vim-abolish"] = setup_vim_abolish,
+-- 	["date-time-inserter"] = setup_date_time_inserter,
+-- 	["switch.vim"] = setup_switch_vim,
+-- 	["dial"] = setup_dial,
+-- 	["moveline"] = setup_moveline,
+-- 	["sibling-swap"] = setup_sibling_swap_nvim,
+-- 	["move"] = setup_move,
+-- 	["wildfire"] = setup_wildfire,
+-- 	["vim-sandwich"] = setup_vim_sandwich,
+-- 	["mini.surround"] = setup_mini_surround,
+-- 	["ultimate-autopair"] = setup_ultimate_autopair,
+-- 	["blink.pairs"] = setup_blink_pairs,
+-- 	["rainbow-delimiters"] = setup_rainbow_delimiters,
+-- 	["nvim-autopairs"] = setup_nvim_autopairs,
+-- 	["nvim-surround"] = setup_nvim_surround,
+-- 	["mini.pairs"] = setup_mini_pairs,
+-- 	["better-digraphs"] = setup_better_digraphs,
+-- 	["indent-blankline"] = setup_indent_blankline,
+-- 	["indent-tools"] = setup_indent_tools,
+-- 	["tabular"] = setup_tabular,
+-- 	["indentmini"] = setup_indentmini,
+-- 	["mini.indentscope"] = setup_mini_indentscope,
+-- 	["anydent"] = setup_anydent,
+-- 	["nvim-anydent"] = setup_nvim_anydent,
+-- 	["mini.align"] = setup_mini_align,
+-- 	["vim-mundo"] = setup_vim_mundo,
+-- 	["edit-list"] = setup_edit_list,
+-- 	["various-textobjs"] = setup_nvim_various_textobjs,
+-- 	["autocommands"] = create_miscellaneous_autocommands,
+-- }
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
 
-maybe_call("general-setup")
-maybe_call("vim-commentary")
-maybe_call("Comment")
-maybe_call("todo-comments")
-maybe_call("ts_context_commentstring")
-maybe_call("savior")
-maybe_call("vim-auto-save")
-maybe_call("zpragmatic")
-maybe_call("multicursors")
-maybe_call("vim-visual-multi")
-maybe_call("illuminate")
-maybe_call("splitjoin")
-maybe_call("spread")
-maybe_call("treesj")
-maybe_call("Bullets")
-maybe_call("sort")
-maybe_call("ax")
-maybe_call("vim-caser")
-maybe_call("wrapping")
-maybe_call("wrapping-paper")
-maybe_call("dotdot")
-maybe_call("vim-abolish")
-maybe_call("date-time-inserter")
-maybe_call("switch.vim")
-maybe_call("dial")
-maybe_call("moveline")
-maybe_call("sibling-swap")
-maybe_call("move")
-maybe_call("wildfire")
-maybe_call("vim-sandwich")
-maybe_call("mini.surround")
-maybe_call("ultimate-autopair")
-maybe_call("blink.pairs")
-maybe_call("rainbow-delimiters")
-maybe_call("nvim-autopairs")
-maybe_call("nvim-surround")
-maybe_call("mini.pairs")
-maybe_call("better-digraphs")
-maybe_call("indent-blankline")
-maybe_call("indent-tools")
-maybe_call("tabular")
-maybe_call("indentmini")
-maybe_call("mini.indentscope")
-maybe_call("anydent")
-maybe_call("nvim-anydent")
-maybe_call("mini.align")
-maybe_call("vim-mundo")
-maybe_call("edit-list")
-maybe_call("various-textobjs")
-maybe_call("autocommands")
+-- maybe_call("general-setup")
+-- maybe_call("vim-commentary")
+-- maybe_call("Comment")
+-- maybe_call("todo-comments")
+-- maybe_call("ts_context_commentstring")
+-- maybe_call("savior")
+-- maybe_call("vim-auto-save")
+-- maybe_call("zpragmatic")
+-- maybe_call("multicursors")
+-- maybe_call("vim-visual-multi")
+-- maybe_call("illuminate")
+-- maybe_call("splitjoin")
+-- maybe_call("spread")
+-- maybe_call("treesj")
+-- maybe_call("Bullets")
+-- maybe_call("sort")
+-- maybe_call("ax")
+-- maybe_call("vim-caser")
+-- maybe_call("wrapping")
+-- maybe_call("wrapping-paper")
+-- maybe_call("dotdot")
+-- maybe_call("vim-abolish")
+-- maybe_call("date-time-inserter")
+-- maybe_call("switch.vim")
+-- maybe_call("dial")
+-- maybe_call("moveline")
+-- maybe_call("sibling-swap")
+-- maybe_call("move")
+-- maybe_call("wildfire")
+-- maybe_call("vim-sandwich")
+-- maybe_call("mini.surround")
+-- maybe_call("ultimate-autopair")
+-- maybe_call("blink.pairs")
+-- maybe_call("rainbow-delimiters")
+-- maybe_call("nvim-autopairs")
+-- maybe_call("nvim-surround")
+-- maybe_call("mini.pairs")
+-- maybe_call("better-digraphs")
+-- maybe_call("indent-blankline")
+-- maybe_call("indent-tools")
+-- maybe_call("tabular")
+-- maybe_call("indentmini")
+-- maybe_call("mini.indentscope")
+-- maybe_call("anydent")
+-- maybe_call("nvim-anydent")
+-- maybe_call("mini.align")
+-- maybe_call("vim-mundo")
+-- maybe_call("edit-list")
+-- maybe_call("various-textobjs")
+-- maybe_call("autocommands")
+
+setup_all_enabled("editing", setups)

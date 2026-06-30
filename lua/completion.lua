@@ -1,3 +1,5 @@
+local setups = {}
+
 --─────────────────────────────────────────────────────────────────────────────
 --──── notes ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
@@ -107,7 +109,7 @@ end)
 --──── snippet sources ────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_friendly_snippets()
+setups["friendly-snippets"] = function()
 	utils.packadd("friendly-snippets")
 
 	vim.api.nvim_create_autocmd("InsertEnter", {
@@ -122,7 +124,7 @@ local function setup_friendly_snippets()
 	})
 end
 
-local function setup_ultisnips()
+function setups.ultisnips()
 	utils.packadd("ultisnips")
 end
 
@@ -130,8 +132,8 @@ end
 --──── snippet engines ────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_luasnip()
-	local function setup_luasnip()
+function setups.luasnip()
+	function setups.luasnip()
 		vim.cmd(":packadd luasnip")
 		local ls = require("luasnip")
 
@@ -203,7 +205,7 @@ end
 --──── completion engines ─────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_nvim_cmp()
+setups["nvim-cmp"] = function()
 	-- TODO: clean up, check whether name is "cmp" or "nvim-cmp"
 
 	-- should work (optional dependency): require("jsregexp")
@@ -319,7 +321,7 @@ local function setup_nvim_cmp()
 	})
 end
 
-local function setup_blink_cmp()
+setups["blink-cmp"] = function()
 	local bink_cmp_defaults = {
 		-- Enables keymaps, completions and signature help when true (doesn't apply to cmdline or term)
 		--
@@ -412,29 +414,31 @@ local function setup_blink_cmp()
 	setup_plugin("blink.cmp", blink_cmp_opts)
 end
 
-local elements = {
-	["friendly-snippets"] = true,
-	["ultisnips"] = false,
-	["luasnip"] = true,
-	["nvim-cmp"] = false,
-	["blink.cmp"] = true,
-}
-local setups = {
-	["friendly-snippets"] = true,
-	["ultisnips"] = false,
-	["luasnip"] = true,
-	["nvim-cmp"] = false,
-	["blink.cmp"] = true,
-}
-local function maybe_setup(name)
-	if elements[name] then
-		local func = setups[name]
-		func()
-	end
-end
+-- local elements = {
+-- 	["friendly-snippets"] = true,
+-- 	["ultisnips"] = false,
+-- 	["luasnip"] = true,
+-- 	["nvim-cmp"] = false,
+-- 	["blink.cmp"] = true,
+-- }
+-- local setups = {
+-- 	["friendly-snippets"] = true,
+-- 	["ultisnips"] = false,
+-- 	["luasnip"] = true,
+-- 	["nvim-cmp"] = false,
+-- 	["blink.cmp"] = true,
+-- }
+-- local function maybe_setup(name)
+-- 	if elements[name] then
+-- 		local func = setups[name]
+-- 		func()
+-- 	end
+-- end
 
-maybe_setup("friendly-snippets")
-maybe_setup("ultisnips")
-maybe_setup("luasnip")
-maybe_setup("nvim-cmp")
-maybe_setup("blink.cmp")
+setup_all_enabled("completion", setups)
+
+-- maybe_setup("friendly-snippets")
+-- maybe_setup("ultisnips")
+-- maybe_setup("luasnip")
+-- maybe_setup("nvim-cmp")
+-- maybe_setup("blink.cmp")

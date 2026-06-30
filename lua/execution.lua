@@ -1,11 +1,13 @@
-local function setup_conjure()
+local setups = {}
+
+function setups.conjure()
 	-- https://github.com/Olical/conjure Interactive evaluation for Neovim (Clojure, Fennel, Scheme, Python, JavaScript, PHP, R, Lua, Rust and more!)
 	vim.g["conjure#mapping#doc_word"] = true -- Disable the documentation mapping
 	vim.g["conjure#mapping#doc_word"] = { "gk" } -- Reset it to the default unprefixed K (note the special table wrapped syntax)
 	vim.cmd.packadd("conjure")
 end
 
-local function setup_sniprun()
+function setups.sniprun()
 	-- https://github.com/michaelb/sniprun
 	-- https://michaelb.github.io/sniprun/index.html
 	-- A neovim plugin to run lines/blocs of code (independently of the rest of the file), supporting multiples languages
@@ -89,7 +91,7 @@ local function setup_sniprun()
 	setup_plugin("sniprun", sniprun_defaults)
 end
 
-local function setup_live_command()
+setups["live-command"] = function()
 	-- https://github.com/smjonas/live-command.nvim
 	-- Easily create previewable commands in Neovim.
 	local live_command_defaults = {
@@ -104,19 +106,19 @@ local function setup_live_command()
 	setup_plugin("live-command", live_command_defaults)
 end
 
-local function setup_channelot()
+function setups.channelot()
 	-- https://github.com/idanarye/nvim-channelot
 	-- Operate Neovim jobs from Lua coroutines
 	setup_plugin("channelot", function(_) end)
 end
 
-local function setup_vim_slime()
+setups["vim-slime"] = function()
 	-- https://github.com/jpalardy/vim-slime
 	-- type text in a file, send it to a live REPL, and avoid having to reload all your code every time you make a change
 	utils.packadd("vim-slime")
 end
 
-local function setup_jaq()
+function setups.jaq()
 	-- TODO: look at using https://github.com/totochi-2022/jaq-nvim/commits/master/
 	-- https://github.com/is0n/jaq-nvim
 	-- Just Another Quickrun Plugin for Neovim in Lua
@@ -209,7 +211,7 @@ local function setup_jaq()
 	setup_plugin("jaq-nvim", jaq_example_config)
 end
 
-local function setup_iron()
+function setups.iron()
 	-- https://github.com/Vigemus/iron.nvim
 	-- Interactive Repl Over Neovim
 	setup_plugin("iron-nvim", function(iron)
@@ -316,7 +318,7 @@ local function setup_iron()
 	end)
 end
 
-local function setup_resin()
+function setups.resin()
 	-- https://github.com/fdschmidt93/resin.nvim
 	-- repl plugin for neovim built on textobjects
 	local resin_defaults = {
@@ -348,7 +350,7 @@ end
 --──── to vendor ──────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_officer()
+function setups.officer()
 	-- https://github.com/pianocomposer321/officer.nvim
 	-- Like dispatch.vim but using overseer.nvim:
 	--     allows you to run programs asynchronously either using :h makeprg or using an arbitrary command
@@ -356,14 +358,14 @@ local function setup_officer()
 	setup_plugin("officer", officer_defaults)
 end
 
-local function setup_compiler()
+function setups.compiler()
 	-- https://github.com/Zeioth/compiler.nvim
 	-- Neovim compiler for building and running your code without having to configure anything
 	local compiler_defaults = {} -- TODO: figure out how per-language config works, maybe reverse-engineer
 	setup_plugin("compiler", function(compiler_defaults) end)
 end
 
-local function setup_jupytext()
+function setups.jupytext()
 	-- SORT
 	-- https://github.com/GCBallesteros/jupytext.nvim
 	-- Jupyter notebooks on neovim powered by Jupytext
@@ -376,7 +378,7 @@ local function setup_jupytext()
 	setup_plugin("jupytext", jupytext_defaults)
 end
 
-local function setup_quarto()
+function setups.quarto()
 	-- https://github.com/quarto-dev/quarto-nvim
 	-- https://quarto.org/docs/tools/neovim.html
 	-- Quarto mode for Neovim
@@ -407,14 +409,14 @@ local function setup_quarto()
 	setup_plugin("quarto", quarto_defaults)
 end
 
-local function setup_asyncrun()
+function setups.asyncrun()
 	-- TODO: install as lua module (?)
 	-- https://github.com/skywind3000/asyncrun.vim
 	-- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window !!
 	utils.packadd("asyncrun")
 end
 
-local function setup_xmake()
+function setups.xmake()
 	-- https://github.com/Mythos-404/xmake.nvim
 	-- The xmake plugin for neovim provides a ui interface that allows you to configure xmake more efficiently.
 	setup_plugin("xmake", {}) -- TODO: install xmake
@@ -424,17 +426,19 @@ end
 --──── CALL SETUPS ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-setup_conjure()
-setup_sniprun()
-setup_live_command()
-setup_channelot()
-setup_vim_slime()
-setup_jaq()
-setup_iron()
-setup_resin()
-setup_officer()
-setup_compiler()
-setup_jupytext()
-setup_quarto()
-setup_asyncrun()
-setup_xmake()
+-- setup_conjure()
+-- setup_sniprun()
+-- setup_live_command()
+-- setup_channelot()
+-- setup_vim_slime()
+-- setup_jaq()
+-- setup_iron()
+-- setup_resin()
+-- setup_officer()
+-- setup_compiler()
+-- setup_jupytext()
+-- setup_quarto()
+-- setup_asyncrun()
+-- setup_xmake()
+
+setup_all_enabled("execution", setups)

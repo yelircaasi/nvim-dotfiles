@@ -1,4 +1,4 @@
-local function setup_miscellaneous()
+function setups.miscellaneous()
 	-- https://github.com/2nthony/sortjson.nvim
 	-- A NeoVIM plugin that can sort current JSON file by key name.
 	-- written in go
@@ -63,15 +63,15 @@ local function set_json_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	print("PLACEHOLDER")
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

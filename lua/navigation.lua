@@ -1,40 +1,7 @@
+local setups = {}
+
 local selections = {}
-local elements = {
-	["general-setup"] = true,
-	["spear"] = true,
-	["smart-splits"] = true,
-	["swm"] = true,
-	["nvim_winpick"] = false, -- TODO: write nix expression to build rust
-	["windows"] = false, -- TODO: fix config error
-	["pragma"] = true,
-	["windex-nvim"] = true,
-	["bafa"] = true,
-	["flybuf"] = true,
-	["vuffers"] = true,
-	["retrospect"] = true,
-	["stickybuf"] = true,
-	["spaceport-nvim"] = true,
-	["beam"] = true,
-	["navigator"] = true,
-	["vim-wordmotion"] = true,
-	["clever-f"] = true,
-	["hop"] = true,
-	["mini.jump"] = true,
-	["mini.jump2d"] = true,
-	["neowords"] = true,
-	["leap"] = true,
-	["flash"] = true,
-	["treemonkey"] = true,
-	["vim-edgemotion"] = true,
-	["whaler"] = true,
-	["marks"] = true,
-	["harpoon-core"] = true,
-	["markit"] = true,
-	["arrow"] = true,
-	["gx-extended"] = true,
-	["urlview"] = true,
-	["highlight-current-n"] = true,
-}
+local elements = {}
 
 local function general_setup() end
 
@@ -42,7 +9,7 @@ local function general_setup() end
 --──── FILES ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_spear()
+function setups.spear()
 	-- https://github.com/kbario/spear.nvim
 	-- blazingly smooth intrafolder file navigation for neovim
 	local spear_defaults = {
@@ -70,7 +37,7 @@ end
 --──── WINDOWS ────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_smart_splits()
+setups["smart-splits"] = function()
 	setup_plugin("smart-splits", function(ss)
 		ss.setup({
 			ignored_filetypes = { "nofile", "quickfix", "prompt" },
@@ -133,7 +100,7 @@ local function setup_smart_splits()
 	end)
 end
 
-local function setup_swm()
+function setups.swm()
 	setup_plugin("swm", function(swm)
 		-- Window navigation: swm makes these smart about floating windows
 		map_explicit({
@@ -188,7 +155,7 @@ local function setup_swm()
 	end)
 end
 
-local function setup_nvim_winpick()
+setups["nvim-winpick"] = function()
 	-- https://github.com/MarcusGrass/nvim_winpick
 	-- A neovim window picker and mover
 	local default_nvim_winpick_config = {
@@ -243,13 +210,13 @@ local function setup_nvim_winpick()
 	setup_plugin("nvim_winpick", default_nvim_winpick_config) -- TODO: RUST
 end
 
-local function setup_windows()
+function setups.windows()
 	-- https://github.com/anuvyklack/windows.nvim
 	-- Automatically expand width of the current window. Maximizes and restore it. And all this with nice animations!
 	setup_plugin("windows", {}) -- ERRORRED
 end
 
-local function setup_pragma()
+function setups.pragma()
 	-- https://github.com/DrKGD/pragma.nvim
 	-- Neovim plugin for programatically setup window layouts
 	local pragma_defaults = {
@@ -388,7 +355,7 @@ local function setup_pragma()
 	setup_plugin("pragma", pragma_defaults)
 end
 
-local function setup_windex_nvim()
+setups["windex-nvim"] = function()
 	-- https://github.com/declancm/windex.nvim
 	-- Clean window maximizing, terminal toggling, window/tmux pane movements and more!
 	local windex_nvim_defaults = {
@@ -409,7 +376,7 @@ end
 --──── BUFFERS ────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_bafa()
+function setups.bafa()
 	-- A minimal BufExplorer alternative
 	-- https://github.com/mistweaverco/bafa.nvim
 	-- A minimal BufExplorer alternative for lazy people for your favorite editor.
@@ -545,7 +512,7 @@ local function setup_bafa()
 	setup_plugin("bafa", bafa_defaults)
 end
 
-local function setup_flybuf()
+function setups.flybuf()
 	-- https://github.com/nvimdev/flybuf.nvim
 	-- show buffers in a float window and support use shortcut to open buffer
 	utils.setup_plugin("flybuf", function(flybuf)
@@ -562,7 +529,7 @@ local function setup_flybuf()
 	end)
 end
 
-local function setup_vuffers()
+function setups.vuffers()
 	-- https://github.com/Hajime-Suzuki/vuffers.nvim
 	-- a neovim plugin that creates a vertical split window to help you manage and navigate your buffers more efficiently
 	local vuffers_defaults = {
@@ -621,7 +588,7 @@ local function setup_vuffers()
 	setup_plugin("vuffers", vuffers_defaults)
 end
 
-local function setup_retrospect()
+function setups.retrospect()
 	-- https://github.com/mrquantumcodes/retrospect.nvim
 	-- A simple and lightweight buffer manager for Neovim
 	local retrospect_defaults = {
@@ -632,7 +599,7 @@ local function setup_retrospect()
 	setup_plugin("retrospect", retrospect_defaults)
 end
 
-local function setup_stickybuf()
+function setups.stickybuf()
 	-- https://github.com/stevearc/stickybuf.nvim
 	-- Neovim plugin for locking a buffer to a window
 	local function is_real_buffer(bufnr)
@@ -684,7 +651,7 @@ end
 --──── PROJECTS ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_spaceport_nvim()
+setups["spaceport-nvim"] = function()
 	-- https://github.com/CWood-sdf/spaceport.nvim
 	-- The blazingly fastest way to get to your projects
 	local spaceport_nvim_defaults = {
@@ -751,7 +718,7 @@ end
 --──── TEXT ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_beam()
+function setups.beam()
 	-- NOTE: beam.nvim is a cursor beam plugin for mode-based cursor shapes.
 	-- Most terminal emulators handle this, so only enable if yours doesn't.
 	setup_plugin("beam", function(beam)
@@ -767,7 +734,7 @@ local function setup_beam()
 	end)
 end
 
-local function setup_navigator()
+function setups.navigator()
 	local navigator_defaults = {
 		debug = false, -- log output, set to true and log path: ~/.cache/nvim/gh.log
 		-- slowdownd startup and some actions
@@ -1047,17 +1014,17 @@ local function setup_navigator()
 	setup_plugin("navigator", navigator_config)
 end
 
-local function setup_vim_wordmotion()
+setups["vim-wordmotion"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	utils.packadd("vim-wordmotion")
 end
 
-local function setup_clever_f()
+setups["clever-f"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	utils.packadd("clever-f.vim")
 end
 
-local function setup_hop()
+function setups.hop()
 	-- https://github.com/smoka7/hop.nvim
 	setup_plugin("hop", function(hop)
 		local directions = require("hop.hint").HintDirection
@@ -1138,7 +1105,7 @@ local function setup_hop()
 	end)
 end
 
-local function setup_mini_jump()
+setups["mini-jump"] = function()
 	local mini_jump_defaults = {
 		-- Module mappings. Use `''` (empty string) to disable one.
 		mappings = {
@@ -1167,7 +1134,7 @@ local function setup_mini_jump()
 	setup_plugin("mini.jump", mini_jump_defaults)
 end
 
-local function setup_mini_jump2d()
+setups.mini_jump2d = function()
 	local mini_jump2d_defaults = {
 		-- Function producing jump spots (byte indexed) for a particular line.
 		-- For more information see |MiniJump2d.start()|.
@@ -1220,11 +1187,11 @@ local function setup_mini_jump2d()
 	setup_plugin("mini.jump2d", mini_jump2d_defaults)
 end
 
-local function setup_neowords()
+function setups.neowords()
 	setup_plugin("neowords", function(_) end) -- https://github.com/backdround/neowords.nvim Flexible and reliable hops by any type of words
 end
 
-local function setup_leap()
+function setups.leap()
 	setup_plugin("leap", function(leap)
 		leap.opts.safe_labels = {}
 
@@ -1241,7 +1208,7 @@ local function setup_leap()
 	end)
 end
 
-local function setup_flash()
+function setups.flash()
 	local flash_defaults = {
 		-- labels = "abcdefghijklmnopqrstuvwxyz",
 		labels = "asdfghjklqwertyuiopzxcvbnm",
@@ -1530,11 +1497,11 @@ local function setup_flash()
 	end)
 end
 
-local function setup_treemonkey()
+function setups.treemonkey()
 	setup_plugin("treemonkey", function(_) end)
 end
 
-local function setup_vim_edgemotion()
+setups["vim-edgemotion"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	-- https://github.com/haya14busa/vim-edgemotion
 	-- Move to the edge!
@@ -1545,7 +1512,7 @@ end
 --──── MARKS ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_whaler()
+function setups.whaler()
 	-- TODO: set up as telescope extension
 	-- https://github.com/SalOrak/whaler.nvim
 	-- Minimalistic & highly extensible project manager for NeoVim.
@@ -1640,7 +1607,7 @@ local function setup_whaler()
 	setup_plugin("whaler", whaler_defaults)
 end
 
-local function setup_marks()
+function setups.marks()
 	-- https://github.com/chentoast/marks.nvim
 	-- A better user experience for viewing and interacting with Vim marks.
 	local marks_nvim_defaults = {
@@ -1712,7 +1679,7 @@ local function setup_marks()
 	end)
 end
 
-local function setup_harpoon_core()
+setups["harpoon-core"] = function()
 	-- https://github.com/MeanderingProgrammer/harpoon-core.nvim
 	-- Neovim harpoon like plugin, but only the core bits
 	setup_plugin("harpoon", function(harpoon)
@@ -1766,7 +1733,7 @@ local function setup_harpoon_core()
 	end)
 end
 
-local function setup_markit()
+function setups.markit()
 	-- markit is a marks extension; moving setup inside BufReadPre ensures it's
 	-- ready before any buffer is fully loaded. Flatten into top-level if you
 	-- don't need the deferred init.
@@ -1791,7 +1758,7 @@ local function setup_markit()
 	end)
 end
 
-local function setup_arrow()
+function setups.arrow()
 	-- https://github.com/otavioschwanck/arrow.nvim
 	--  Bookmark your files, separated by project, and quickly navigate through them.
 	local arrow_defaults = {
@@ -1852,7 +1819,7 @@ end
 --──── URL-RELATED ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_gx_extended()
+setups["gx-extended"] = function()
 	-- TODO: set up Jira
 	-- https://github.com/rmagatti/gx-extended.nvim
 	-- gx-extended.nvim supercharges Neovim's built-in gx command. Press gx on anything — package names, import statements, issue numbers, commit hashes, and more — and it opens the right URL in your browser.
@@ -1881,7 +1848,7 @@ local function setup_gx_extended()
 	setup_plugin("gx-extended-nvim", gx_extended_nvim_defaults)
 end
 
-local function setup_urlview()
+function setups.urlview()
 	-- https://github.com/axieax/urlview.nvim
 	-- viewing all the URLs in a buffer
 	local urlview_defaults = {
@@ -1920,7 +1887,7 @@ end
 --──── OTHER ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_highlight_current_n()
+setups["highlight-current-n"] = function()
 	-- TODO: vendor similar approach; see README: https://github.com/rktjmp/highlight-current-n.nvim#neovim-09
 	-- likely deprecated; see README
 	-- https://github.com/rktjmp/highlight-current-n.nvim
@@ -1968,82 +1935,84 @@ local function setup_highlight_current_n()
 	end)
 end
 
-local functions = {
-	["general-setup"] = general_setup,
-	["spear"] = setup_spear,
-	["smart-splits"] = setup_smart_splits,
-	["swm"] = setup_swm,
-	["nvim_winpick"] = setup_nvim_winpick,
-	["windows"] = setup_windows,
-	["pragma"] = setup_pragma,
-	["windex-nvim"] = setup_windex_nvim,
-	["bafa"] = setup_bafa,
-	["flybuf"] = setup_flybuf,
-	["vuffers"] = setup_vuffers,
-	["retrospect"] = setup_retrospect,
-	["stickybuf"] = setup_stickybuf,
-	["spaceport-nvim"] = setup_spaceport_nvim,
-	["beam"] = setup_beam,
-	["navigator"] = setup_navigator,
-	["vim-wordmotion"] = setup_vim_wordmotion,
-	["clever-f"] = setup_clever_f,
-	["hop"] = setup_hop,
-	["mini.jump"] = setup_mini_jump,
-	["mini.jump2d"] = setup_mini_jump2d,
-	["neowords"] = setup_neowords,
-	["leap"] = setup_leap,
-	["flash"] = setup_flash,
-	["treemonkey"] = setup_treemonkey,
-	["vim-edgemotion"] = setup_vim_edgemotion,
-	["whaler"] = setup_whaler,
-	["marks"] = setup_marks,
-	["harpoon-core"] = setup_harpoon_core,
-	["markit"] = setup_markit,
-	["arrow"] = setup_arrow,
-	["gx-extended"] = setup_gx_extended,
-	["urlview"] = setup_urlview,
-	["highlight-current-n"] = setup_highlight_current_n,
-}
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
-end
+-- local functions = {
+-- 	["general-setup"] = general_setup,
+-- 	["spear"] = setup_spear,
+-- 	["smart-splits"] = setup_smart_splits,
+-- 	["swm"] = setup_swm,
+-- 	["nvim_winpick"] = setup_nvim_winpick,
+-- 	["windows"] = setup_windows,
+-- 	["pragma"] = setup_pragma,
+-- 	["windex-nvim"] = setup_windex_nvim,
+-- 	["bafa"] = setup_bafa,
+-- 	["flybuf"] = setup_flybuf,
+-- 	["vuffers"] = setup_vuffers,
+-- 	["retrospect"] = setup_retrospect,
+-- 	["stickybuf"] = setup_stickybuf,
+-- 	["spaceport-nvim"] = setup_spaceport_nvim,
+-- 	["beam"] = setup_beam,
+-- 	["navigator"] = setup_navigator,
+-- 	["vim-wordmotion"] = setup_vim_wordmotion,
+-- 	["clever-f"] = setup_clever_f,
+-- 	["hop"] = setup_hop,
+-- 	["mini.jump"] = setup_mini_jump,
+-- 	["mini.jump2d"] = setup_mini_jump2d,
+-- 	["neowords"] = setup_neowords,
+-- 	["leap"] = setup_leap,
+-- 	["flash"] = setup_flash,
+-- 	["treemonkey"] = setup_treemonkey,
+-- 	["vim-edgemotion"] = setup_vim_edgemotion,
+-- 	["whaler"] = setup_whaler,
+-- 	["marks"] = setup_marks,
+-- 	["harpoon-core"] = setup_harpoon_core,
+-- 	["markit"] = setup_markit,
+-- 	["arrow"] = setup_arrow,
+-- 	["gx-extended"] = setup_gx_extended,
+-- 	["urlview"] = setup_urlview,
+-- 	["highlight-current-n"] = setup_highlight_current_n,
+-- }
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
 
-maybe_call("general-setup")
-maybe_call("spear")
-maybe_call("smart-splits")
-maybe_call("swm")
-maybe_call("nvim_winpick")
-maybe_call("windows")
-maybe_call("pragma")
-maybe_call("windex-nvim")
-maybe_call("bafa")
-maybe_call("flybuf")
-maybe_call("vuffers")
-maybe_call("retrospect")
-maybe_call("stickybuf")
-maybe_call("spaceport-nvim")
-maybe_call("beam")
-maybe_call("navigator")
-maybe_call("vim-wordmotion")
-maybe_call("clever-f")
-maybe_call("hop")
-maybe_call("mini.jump")
-maybe_call("mini.jump2d")
-maybe_call("neowords")
-maybe_call("leap")
-maybe_call("flash")
-maybe_call("treemonkey")
-maybe_call("vim-edgemotion")
-maybe_call("whaler")
-maybe_call("marks")
-maybe_call("harpoon-core")
-maybe_call("markit")
-maybe_call("arrow")
-maybe_call("gx-extended")
-maybe_call("urlview")
-maybe_call("highlight-current-n")
+-- maybe_call("general-setup")
+-- maybe_call("spear")
+-- maybe_call("smart-splits")
+-- maybe_call("swm")
+-- maybe_call("nvim_winpick")
+-- maybe_call("windows")
+-- maybe_call("pragma")
+-- maybe_call("windex-nvim")
+-- maybe_call("bafa")
+-- maybe_call("flybuf")
+-- maybe_call("vuffers")
+-- maybe_call("retrospect")
+-- maybe_call("stickybuf")
+-- maybe_call("spaceport-nvim")
+-- maybe_call("beam")
+-- maybe_call("navigator")
+-- maybe_call("vim-wordmotion")
+-- maybe_call("clever-f")
+-- maybe_call("hop")
+-- maybe_call("mini.jump")
+-- maybe_call("mini.jump2d")
+-- maybe_call("neowords")
+-- maybe_call("leap")
+-- maybe_call("flash")
+-- maybe_call("treemonkey")
+-- maybe_call("vim-edgemotion")
+-- maybe_call("whaler")
+-- maybe_call("marks")
+-- maybe_call("harpoon-core")
+-- maybe_call("markit")
+-- maybe_call("arrow")
+-- maybe_call("gx-extended")
+-- maybe_call("urlview")
+-- maybe_call("highlight-current-n")
+
+setup_all_enabled("navigation", setups)

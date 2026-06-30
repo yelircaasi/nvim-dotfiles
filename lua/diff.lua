@@ -596,8 +596,12 @@ local function add_default_diffview_keymaps(cfg, actions)
 	return cfg
 end
 
-setup_plugin("diffview", function(diffview)
-	local actions = require("diffview.actions")
-	diffview.setup(add_default_diffview_keymaps(diffview_defaults, actions))
-	-- commands: DiffviewOpen, DiffviewClose, DiffviewToggleFiles, DiffviewFocusFiles
-end)
+local function setup_diffview()
+	setup_plugin("diffview", function(diffview)
+		local actions = require("diffview.actions")
+		diffview.setup(add_default_diffview_keymaps(diffview_defaults, actions))
+		-- commands: DiffviewOpen, DiffviewClose, DiffviewToggleFiles, DiffviewFocusFiles
+	end)
+end
+
+setup_all_enabled("diff", { diffview = setup_diffview })

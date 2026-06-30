@@ -1,8 +1,10 @@
+local setups = {}
+
 --─────────────────────────────────────────────────────────────────────────────
 --──── general mappings ───────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function general_keymaps()
+setups.general_keymaps = function()
 	local nvx = { "n", "v", "x" }
 	-- map_explicit({
 	--     mode = "",
@@ -135,7 +137,7 @@ end
 --──── plugins ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_keyseer()
+function setups.keyseer()
 	-- https://github.com/jokajak/keyseer.nvim
 	-- Neovim plugin to display which keys have keymaps assigned
 	-- command: `:KeySeer`
@@ -209,7 +211,7 @@ local function setup_keyseer()
 	setup_plugin("keyseer", keyseer_defaults)
 end
 
-local function setup_homerows()
+function setups.homerows()
 	-- PROBABLY NOT, BUT WORTH A TRY https://github.com/unode/homerow.vim/blob/master/autoload/homerow.vim
 	-- https://github.com/kbario/homerows.nvim
 	-- "I don't care what keyboard layout I'm using, i just want the keybinding on my homerows"
@@ -232,7 +234,7 @@ local function setup_homerows()
 	setup_plugin("homerows", homerows_defaults)
 end
 
-local function setup_whichkey_setup()
+setups["whichkey-setup"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	-- TODO: review examples
 	-- https://github.com/AckslD/nvim-whichkey-setup.lua
@@ -250,7 +252,7 @@ local function setup_whichkey_setup()
 	end)
 end
 
-local function setup_better_escape()
+setups["better-escape"] = function()
 	-- https://github.com/max397574/better-escape.nvim
 	-- Map keys without delay when typing
 	local better_escape_defaults = {
@@ -291,7 +293,7 @@ local function setup_better_escape()
 	setup_plugin("better-escape", better_escape_defaults)
 end
 
-local function setup_which_key()
+setups["which-key"] = function()
 	-- https://github.com/folke/which-key.nvim
 	-- Create key bindings that stick. WhichKey helps you remember your Neovim keymaps, by showing available keybindings in a popup as you type.
 	local which_key_defaults = {
@@ -472,21 +474,21 @@ local function setup_which_key()
 	end)
 end
 
-local function setup_mini_keymap()
+setups["mini-keymap"] = function()
 	-- https://github.com/nvim-mini/mini.keymap
 	-- Special key mappings. Part of 'mini.nvim' library.
 	mini_keymap_defaults = {}
 	setup_plugin("mini.keymap", mini_keymap_defaults)
 end
 
-local function setup_hydra()
+function setups.hydra()
 	-- https://github.com/nvimtools/hydra.nvim
 	-- Create custom submodes and menus
 	-- TODO: Hydra is too generic for a global setup; just expose the module:
 	setup_plugin("hydra")
 end
 
-local function setup_insx()
+function setups.insx()
 	-- https://github.com/hrsh7th/nvim-insx
 	-- Flexible key mapping manager.
 	setup_plugin("insx", function(insx)
@@ -495,7 +497,7 @@ local function setup_insx()
 	end)
 end
 
-local function setup_keymap_amend()
+setups["keymap-amend"] = function()
 	-- https://github.com/anuvyklack/keymap-amend.nvim
 	-- Amend the existing keymap in Neovim
 	local keymap_amend_nvim_defaults = nil
@@ -519,13 +521,13 @@ local function setup_keymap_amend()
 	end)
 end
 
-local function setup_unimpaired_which_key()
+setups["unimpaired-which-key"] = function()
 	-- https://github.com/afreakk/unimpaired-which-key.nvim
 	-- Bridge between vim-unimpaired and which-key.nvim
 	setup_plugin("unimpaired-which-key", function(_) end)
 end
 
-local function setup_wf()
+function setups.wf()
 	-- https://github.com/Cassin01/wf.nvim
 	--  A modern which-key for neovim
 	local wf_defaults = {
@@ -648,7 +650,7 @@ local function setup_wf()
 	--]]
 end
 
-local function setup_keytex()
+function setups.keytex()
 	-- TODO
 	-- https://github.com/cronJohn/keytex.nvim
 	--  A neovim plugin for keyboard shortcut management
@@ -656,7 +658,7 @@ local function setup_keytex()
 	setup_plugin("keytex", function(keytex) end)
 end
 
-local function setup_nvim_keymapper()
+setups["nvim-keymapper"] = function()
 	-- https://github.com/bgrohman/nvim-keymapper
 	-- Neovim Telescope extension for creating, documenting, and searching keymaps.
 	local nvim_keymapper_defaults = nil
@@ -668,7 +670,7 @@ local function setup_nvim_keymapper()
 	end)
 end
 
-local function setup_mini_keymap()
+setups["mini-keymap"] = function()
 	setup_plugin("mini.keymap", function(km)
 		km.setup()
 
@@ -677,7 +679,7 @@ local function setup_mini_keymap()
 	end)
 end
 
-local function setup_hawtkeys()
+function setups.hawtkeys()
 	local hawtkeys_defaults = {
 		leader = " ", -- the key you want to use as the leader, default is space
 		homerow = 2, -- the row you want to use as the homerow, default is 2
@@ -719,22 +721,7 @@ local function setup_hawtkeys()
 			HawtkeysMatchBad = { fg = "red" },
 		},
 	}
-	setup_plugin("mini.keymap", hawtkeys_defaults)
+	setup_plugin("hawtkeys", hawtkeys_defaults)
 end
 
-general_keymaps()
-setup_keyseer()
-setup_homerows()
-setup_whichkey_setup()
-setup_better_escape()
-setup_which_key()
-setup_mini_keymap()
-setup_hydra()
-setup_hydra()
-setup_hydra()
-setup_unimpaired_which_key()
--- setup_wf() TODO
--- setup_keytex() TODO
-setup_nvim_keymapper()
-setup_mini_keymap()
-setup_hawtkeys()
+setup_all_enabled("mappings", setups)

@@ -1,4 +1,6 @@
-local function setup_dapui()
+local setups = {}
+
+function setups.dapui()
 	local dap = utils.get_plugin("dap") -- TODO: add to dependencies
 	setup_plugin("dapui", function(dapui)
 		dapui.setup({
@@ -38,7 +40,7 @@ local function setup_dapui()
 	end)
 end
 
-local function setup_dap_virtual_text()
+setups["dap-virtual-text"] = function()
 	setup_plugin("nvim-dap-virtual-text", {
 		commented = true,
 	})
@@ -102,7 +104,7 @@ local function setup_dap_virtual_text()
 	end)
 end
 
-local function create_keymaps()
+function setups.keymaps()
 	-- QUICKFIX QOL
 	map_explicit({
 		mode = "n",
@@ -168,7 +170,7 @@ local function create_keymaps()
 	})
 end
 
-local function create_autommands()
+function setups.autommands()
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = { "qf" },
 		callback = function(ev)
@@ -181,7 +183,9 @@ end
 --──── CALL SETUPS ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-setup_dapui()
-setup_dap_virtual_text()
-create_keymaps()
-create_autommands()
+setup_all_enabled("debugging", setups)
+
+-- setup_dapui()
+-- setup_dap_virtual_text()
+-- create_keymaps()
+-- create_autommands()

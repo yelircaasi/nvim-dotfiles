@@ -1,4 +1,6 @@
-local function setup_odenwald_colorscheme()
+local setups = {}
+
+setups["odenwald-colorscheme"] = function()
 	vim.opt.runtimepath:prepend(REPOS_DIR .. "/nvim-colors/odenwald.nvim")
 	local odenwald = require("odenwald")
 	odenwald.setup()
@@ -9,7 +11,7 @@ local function setup_odenwald_colorscheme()
 	vim.api.nvim_set_hl(0, "@variable", { link = "Identifier" })
 end
 
-local function setup_headlines()
+function setups.headlines()
 	-- https://github.com/lukas-reineke/headlines.nvim
 	-- adds horizontal highlights for text filetypes, like markdown, orgmode, and neorg
 	setup_plugin("headlines", { -- TODO: move to colors (?)
@@ -27,70 +29,74 @@ local function setup_headlines()
 	})
 end
 
-local function setup_sunglasses()
-	-- https://github.com/miversen33/sunglasses.nvim
-	-- Put on your shades so you only see what you care about
-	local sunglasses_defaults = {
-		filter_percent = 0.65,
-		filter_type = "SHADE",
-		log_level = "ERROR",
-		refresh_timer = 5,
-		excluded_filetypes = {
-			"dashboard",
-			"lspsagafinder",
-			"packer",
-			"checkhealth",
-			"mason",
-			"NvimTree",
-			"neo-tree",
-			"plugin",
-			"lazy",
-			"TelescopePrompt",
-			"alpha",
-			"toggleterm",
-			"sagafinder",
-			"better_term",
-			"fugitiveblame",
-			"starter",
-			"NeogitPopup",
-			"NeogitStatus",
-			"DiffviewFiles",
-			"DiffviewFileHistory",
-			"DressingInput",
-			"spectre_panel",
-			"zsh",
-			"registers",
-			"startuptime",
-			"OverseerList",
-			"Outline",
-			"Navbuddy",
-			"noice",
-			"notify",
-			"saga_codeaction",
-			"sagarename",
-		},
-		excluded_highlights = {
-			"WinSeparator",
-			{ "lualine_.*", glob = true },
-		},
-		can_shade_callback = function(opts)
-			local conditions = {
-				function()
-					return vim.api.nvim_get_option_value("diff", { win = opts.window })
-				end,
-			}
+function setups.sunglasses()
+	local function setup_sunglasses()
+		-- https://github.com/miversen33/sunglasses.nvim
+		-- Put on your shades so you only see what you care about
+		local sunglasses_defaults = {
+			filter_percent = 0.65,
+			filter_type = "SHADE",
+			log_level = "ERROR",
+			refresh_timer = 5,
+			excluded_filetypes = {
+				"dashboard",
+				"lspsagafinder",
+				"packer",
+				"checkhealth",
+				"mason",
+				"NvimTree",
+				"neo-tree",
+				"plugin",
+				"lazy",
+				"TelescopePrompt",
+				"alpha",
+				"toggleterm",
+				"sagafinder",
+				"better_term",
+				"fugitiveblame",
+				"starter",
+				"NeogitPopup",
+				"NeogitStatus",
+				"DiffviewFiles",
+				"DiffviewFileHistory",
+				"DressingInput",
+				"spectre_panel",
+				"zsh",
+				"registers",
+				"startuptime",
+				"OverseerList",
+				"Outline",
+				"Navbuddy",
+				"noice",
+				"notify",
+				"saga_codeaction",
+				"sagarename",
+			},
+			excluded_highlights = {
+				"WinSeparator",
+				{ "lualine_.*", glob = true },
+			},
+			can_shade_callback = function(opts)
+				local conditions = {
+					function()
+						return vim.api.nvim_get_option_value("diff", { win = opts.window })
+					end,
+				}
 
-			for _, condition in ipairs(conditions) do
-				if condition() then
-					return false
+				for _, condition in ipairs(conditions) do
+					if condition() then
+						return false
+					end
 				end
-			end
 
-			return true
-		end,
-	}
-	setup_plugin("sunglasses", sunglasses_defaults)
-	print("set up sunglasses.nvim")
+				return true
+			end,
+		}
+		setup_plugin("sunglasses", sunglasses_defaults)
+		print("set up sunglasses.nvim")
+	end
+
+	map_explicit({ mode = "n", sequence = "<leader>su", action = setup_sunglasses })
 end
 
 local function configure()
@@ -112,7 +118,4 @@ local function configure()
 	})
 end
 
-setup_odenwald_colorscheme()
-setup_headlines()
-map_explicit({ mode = "n", sequence = "<leader>su", action = setup_sunglasses })
-configure()
+setup_all_enabled("colors", setups)

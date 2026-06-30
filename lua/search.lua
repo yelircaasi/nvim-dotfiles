@@ -1,36 +1,6 @@
-local selections = {
-	picker = "snacks",
-}
-local elements = {
-	["ido"] = true,
-	["regex-vars"] = false,
-	["inc_rename"] = false,
-	["muren"] = false,
-	["rip-substitute"] = false,
-	["sad"] = false,
-	["fzf-lua"] = false,
-	["deck"] = false,
-	["snacks"] = false, -- selections.picker == "snacks",
-	["hlslens"] = false,
-	["nvim-hlsearch"] = false,
-	["grug-far"] = false,
-	["spectre"] = false,
-	["pickme"] = selections.picker == "pickme",
-	["renamer"] = false,
-	["search-replace"] = false,
-	["rgflow"] = false,
-	["ssr"] = false,
-	["substitute"] = false,
-	["actions-preview"] = false,
-	["spider"] = false,
-	["improved-search-nvim"] = false,
-	["nvim-rg"] = false,
-	["hlsearch-nvim"] = false,
-	["nvim-monorepos"] = false,
-	["blink"] = false,
-}
+local setups = {}
 
-local function setup_ido()
+function setups.ido()
 	local ido_config = {} -- TODO
 	setup_plugin("ido", function(ido)
 		ido.bind({
@@ -59,7 +29,7 @@ local function setup_ido()
 	end)
 end
 
-local function setup_regex_vars()
+setups["regex-vars"] = function()
 	-- https://github.com/jake-stewart/regex-vars.nvim
 	-- search in neovim with variable expansion
 	local regex_vars_defaults = nil
@@ -71,7 +41,7 @@ local function setup_regex_vars()
 	end)
 end
 
-local function setup_inc_rename()
+setups["inc-rename"] = function()
 	-- https://github.com/smjonas/inc-rename.nvim
 	-- Incremental LSP renaming based on Neovim's command-preview feature
 	local inc_rename_defaults = {
@@ -94,7 +64,7 @@ local function setup_inc_rename()
 	setup_plugin("inc_rename", inc_rename_defaults)
 end
 
-local function setup_muren()
+function setups.muren()
 	-- https://github.com/AckslD/muren.nvim
 	-- multiple search and replace with ease
 	local muren_defaults = {
@@ -157,7 +127,7 @@ local function setup_muren()
 	setup_plugin("muren", muren_defaults)
 end
 
-local function setup_rip_substitute()
+setups["rip-substitute"] = function()
 	-- TODO: install ripgrep
 	-- https://github.com/chrisgrieser/nvim-rip-substitute
 	-- Search & replace in the current buffer or workspace with incremental preview, a convenient UI, and modern regex syntax
@@ -218,7 +188,7 @@ local function setup_rip_substitute()
 	setup_plugin("rip-substitute", rip_substitute_defaults)
 end
 
-local function setup_sad()
+function setups.sad()
 	-- TODO: install sad, delta, fzf, fd
 	-- https://github.com/ray-x/sad.nvim
 	-- Space Age seD in Neovim. A project-wide find and replace plugin for Neovim.
@@ -235,7 +205,7 @@ local function setup_sad()
 	setup_plugin("sad", sad_defaults)
 end
 
-local function setup_fzf_lua()
+setups["fzf-lua"] = function()
 	setup_plugin("fzf-lua", function(fzf)
 		fzf.setup({
 			winopts = {
@@ -351,7 +321,7 @@ local function setup_fzf_lua()
 	end)
 end
 
-local function setup_deck()
+function setups.deck()
 	-- NOTE: deck.nvim (hrsh7th) is a low-level async UI framework, not typically
 	-- setup directly — it's a dependency other plugins build on. If you have a
 	-- specific deck-based plugin, configure that instead. Bare minimum to load it:
@@ -473,7 +443,7 @@ local function setup_deck()
 	end)
 end
 
-local function setup_snacks()
+function setups.snacks()
 	setup_plugin("snacks", function(snacks)
 		snacks.setup({
 			bigfile = { enabled = true },
@@ -529,7 +499,7 @@ local function setup_snacks()
 	end)
 end
 
-local function setup_hlslens()
+function setups.hlslens()
 	setup_plugin("hlslens", function(lens)
 		lens.setup({ calm_down = true })
 
@@ -574,12 +544,12 @@ local function setup_hlslens()
 	end)
 end
 
-local function setup_nvim_hlsearch()
+setups["nvim-hlsearch"] = function()
 	-- nvim-hlsearch: auto-clears search highlight when cursor moves off a match
 	setup_plugin("nvim-hlsearch", { auto_restore = true })
 end
 
-local function setup_grug_far()
+setups["grug-far"] = function()
 	-- NOTE: grug-far and spectre are both find-and-replace — you probably only
 	-- need one. grug-far is more actively maintained and ergonomic.
 	setup_plugin("grug-far", function(grug)
@@ -610,7 +580,7 @@ local function setup_grug_far()
 	end)
 end
 
-local function setup_spectre()
+function setups.spectre()
 	-- https://github.com/nvim-pack/nvim-spectre
 	-- search panel for neovim
 	local spectre_defaults = {
@@ -856,7 +826,7 @@ local function setup_spectre()
 	end)
 end
 
-local function setup_pickme()
+function setups.pickme()
 	-- TODO: make lazy
 	setup_plugin("pickme", function(pickme)
 		-- Include at least one of these pickers:
@@ -904,7 +874,7 @@ local function setup_pickme()
 	})
 end
 
-local function setup_renamer()
+function setups.renamer()
 	-- https://github.com/filipdutescu/renamer.nvim
 	-- VS Code-like renaming UI for Neovim, writen in Lua
 	setup_plugin("renamer", function(renamer)
@@ -953,7 +923,7 @@ local function setup_renamer()
 	end)
 end
 
-local function setup_search_replace()
+setups["search-replace"] = function()
 	-- https://github.com/roobert/search-replace.nvim
 	-- A Neovim search and replace plugin that builds on the native search and replace experience
 	local search_replace_defaults = {
@@ -1062,7 +1032,7 @@ local function setup_search_replace()
 	end)
 end
 
-local function setup_rgflow()
+function setups.rgflow()
 	-- https://github.com/mangelozzi/rgflow.nvim
 	-- The more you use this plugin, the better you become at using RipGrep from the CLI.
 	--     Not simply a wrapper which could be replaced by a few lines of config.
@@ -1082,7 +1052,7 @@ local function setup_rgflow()
 	setup_plugin("rgflow-nvim", rgflow_defaults)
 end
 
-local function setup_ssr()
+function setups.ssr()
 	-- https://github.com/cshuaimin/ssr.nvim
 	-- Treesitter based structural search and replace plugin for Neovim
 	local ssr_defaults = {
@@ -1103,7 +1073,7 @@ local function setup_ssr()
 	setup_plugin("ssr", ssr_defaults)
 end
 
-local function setup_substitute()
+function setups.substitute()
 	-- https://github.com/gbprod/substitute.nvim
 	-- Neovim plugin introducing a new operators motions to quickly replace and exchange text
 	local substitute_defaults = {
@@ -1161,7 +1131,7 @@ local function setup_substitute()
 	end)
 end
 
-local function setup_actions_preview()
+setups["actions-preview"] = function()
 	-- https://github.com/aznhe21/actions-preview.nvim
 	-- Fully customizable previewer for LSP code actions
 	local actions_preview_defaults = {
@@ -1243,7 +1213,7 @@ local function setup_actions_preview()
 	setup_plugin("actions-preview", actions_preview_defaults)
 end
 
-local function setup_spider()
+function setups.spider()
 	-- TODO: custom movement patterns: https://github.com/chrisgrieser/nvim-spider#advanced-custom-movement-patterns
 	-- https://github.com/chrisgrieser/nvim-spider
 	-- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
@@ -1264,7 +1234,7 @@ local function setup_spider()
 	end)
 end
 
-local function setup_improved_search_nvim()
+setups["improved-search-nvim"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	-- https://github.com/backdround/improved-search.nvim
 	--[[
@@ -1324,7 +1294,7 @@ local function setup_improved_search_nvim()
 	end)
 end
 
-local function setup_nvim_rg()
+setups["nvim-rg"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY https://github.com/duane9/nvim-rg
 	-- https://github.com/duane9/nvim-rg
 	-- Run ripgrep from Neovim asynchronously.
@@ -1337,7 +1307,7 @@ local function setup_nvim_rg()
 	end)
 end
 
-local function setup_hlsearch_nvim()
+setups["hlsearch-nvim"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	-- https://github.com/nvimdev/hlsearch.nvim
 	-- auto remove search highlight and rehighlight when using n or N
@@ -1345,7 +1315,7 @@ local function setup_hlsearch_nvim()
 	setup_plugin("hlsearch-nvim", hlsearch_nvim_defaults)
 end
 
-local function setup_nvim_monorepos()
+setups["nvim-monorepos"] = function()
 	-- https://github.com/sajjathossain/nvim-monorepos
 	-- simple telescope file finder for monorepos
 	local nvim_monorepos_config = {
@@ -1355,7 +1325,7 @@ local function setup_nvim_monorepos()
 	setup_plugin("nvim-monorepos", nvim_monorepos_config)
 end
 
-local function setup_blink()
+function setups.blink()
 	local blink_defaults = {
 		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
 		-- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -1396,66 +1366,74 @@ local function setup_blink()
 	setup_plugin("blink", blink_defaults)
 end
 
-local functions = {
-	["ido"] = setup_ido,
-	["regex-vars"] = setup_regex_vars,
-	["inc_rename"] = setup_inc_rename,
-	["muren"] = setup_muren,
-	["rip-substitute"] = setup_rip_substitute,
-	["sad"] = setup_sad,
-	["fzf-lua"] = setup_fzf_lua,
-	["deck"] = setup_deck,
-	["snacks"] = setup_snacks,
-	["hlslens"] = setup_hlslens,
-	["nvim-hlsearch"] = setup_nvim_hlsearch,
-	["grug-far"] = setup_grug_far,
-	["spectre"] = setup_spectre,
-	["pickme"] = setup_pickme,
-	["renamer"] = setup_renamer,
-	["search-replace"] = setup_search_replace,
-	["rgflow"] = setup_rgflow,
-	["ssr"] = setup_ssr,
-	["substitute"] = setup_substitute,
-	["actions-preview"] = setup_actions_preview,
-	["spider"] = setup_spider,
-	["improved-search-nvim"] = setup_improved_search_nvim,
-	["nvim-rg"] = setup_nvim_rg,
-	["hlsearch-nvim"] = setup_hlsearch_nvim,
-	["nvim-monorepos"] = setup_nvim_monorepos,
-	["blink"] = setup_blink,
-}
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
+function setups.replacer()
+	-- TODO: vendor (?)
+	local replacer = require("replacer")
+	replacer.setup({ rename_files = true, save_on_write = true })
 end
 
-maybe_call("ido")
-maybe_call("regex-vars")
-maybe_call("inc_rename")
-maybe_call("muren")
-maybe_call("rip-substitute")
-maybe_call("sad")
-maybe_call("fzf-lua")
-maybe_call("deck")
-maybe_call("snacks")
-maybe_call("hlslens")
-maybe_call("nvim-hlsearch")
-maybe_call("grug-far")
-maybe_call("spectre")
-maybe_call("pickme")
-maybe_call("renamer")
-maybe_call("search-replace")
-maybe_call("rgflow")
-maybe_call("ssr")
-maybe_call("substitute")
-maybe_call("actions-preview")
-maybe_call("spider")
-maybe_call("improved-search-nvim")
-maybe_call("nvim-rg")
-maybe_call("hlsearch-nvim")
-maybe_call("nvim-monorepos")
-maybe_call("blink")
+-- local functions = {
+-- 	["ido"] = setup_ido,
+-- 	["regex-vars"] = setup_regex_vars,
+-- 	["inc_rename"] = setup_inc_rename,
+-- 	["muren"] = setup_muren,
+-- 	["rip-substitute"] = setup_rip_substitute,
+-- 	["sad"] = setup_sad,
+-- 	["fzf-lua"] = setup_fzf_lua,
+-- 	["deck"] = setup_deck,
+-- 	["snacks"] = setup_snacks,
+-- 	["hlslens"] = setup_hlslens,
+-- 	["nvim-hlsearch"] = setup_nvim_hlsearch,
+-- 	["grug-far"] = setup_grug_far,
+-- 	["spectre"] = setup_spectre,
+-- 	["pickme"] = setup_pickme,
+-- 	["renamer"] = setup_renamer,
+-- 	["search-replace"] = setup_search_replace,
+-- 	["rgflow"] = setup_rgflow,
+-- 	["ssr"] = setup_ssr,
+-- 	["substitute"] = setup_substitute,
+-- 	["actions-preview"] = setup_actions_preview,
+-- 	["spider"] = setup_spider,
+-- 	["improved-search-nvim"] = setup_improved_search_nvim,
+-- 	["nvim-rg"] = setup_nvim_rg,
+-- 	["hlsearch-nvim"] = setup_hlsearch_nvim,
+-- 	["nvim-monorepos"] = setup_nvim_monorepos,
+-- 	["blink"] = setup_blink,
+-- }
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
+
+-- maybe_call("ido")
+-- maybe_call("regex-vars")
+-- maybe_call("inc_rename")
+-- maybe_call("muren")
+-- maybe_call("rip-substitute")
+-- maybe_call("sad")
+-- maybe_call("fzf-lua")
+-- maybe_call("deck")
+-- maybe_call("snacks")
+-- maybe_call("hlslens")
+-- maybe_call("nvim-hlsearch")
+-- maybe_call("grug-far")
+-- maybe_call("spectre")
+-- maybe_call("pickme")
+-- maybe_call("renamer")
+-- maybe_call("search-replace")
+-- maybe_call("rgflow")
+-- maybe_call("ssr")
+-- maybe_call("substitute")
+-- maybe_call("actions-preview")
+-- maybe_call("spider")
+-- maybe_call("improved-search-nvim")
+-- maybe_call("nvim-rg")
+-- maybe_call("hlsearch-nvim")
+-- maybe_call("nvim-monorepos")
+-- maybe_call("blink")
+
+setup_all_enabled("search", setups)

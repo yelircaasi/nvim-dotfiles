@@ -1,4 +1,6 @@
-local function setup_yazi()
+local setups = {}
+
+function setups.yazi()
 	local yazi_defaults = {
 		-- Below is the default configuration. It is optional to set these values.
 		-- You can customize the configuration for each yazi call by passing it to
@@ -194,7 +196,7 @@ local function setup_yazi()
 	end)
 end
 
-local function setup_oil()
+function setups.oil()
 	---@type oil.SetupOpts
 	local oil_defaults = {
 		-- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
@@ -418,7 +420,7 @@ local function setup_oil()
 	})
 end
 
-local function setup_neotree()
+function setups.neotree()
 	---@type neotree.Config.Base
 	local neotree_defaults = {
 		-- If a user has a sources list it will replace this one.
@@ -1226,7 +1228,7 @@ local function setup_neotree()
 	setup_plugin("neo-tree", neotree_defaults)
 end
 
-local function setup_nvimtree()
+function setups.nvimtree()
 	vim.g.loaded_netrw = 1
 	vim.g.loaded_netrwPlugin = 1
 
@@ -1251,14 +1253,10 @@ local function setup_nvimtree()
 	setup_plugin("nvim-tree", nvimtree_defaults)
 end
 
-local function setup_chadtree()
+function setups.chadtree()
 	-- https://github.com/ms-jpq/chadtree
 	-- File manager for Neovim. Better than NERDTree.
 	setup_plugin("chadtree", {}) -- annoying messages & non-nix install habits
 end
 
-setup_yazi()
-setup_oil()
-setup_neotree()
-setup_nvimtree()
--- setup_chadtree()
+setup_all_enabled("explorers", setups)

@@ -88,8 +88,12 @@ end
 ---@field coverage_overrides CoverageConfig
 
 local function setup_testing_for_lang(lang_cfg)
-	setup_neotest_for_lang(lang_cfg.language, lang_cfg.neotest_adapter, lang_cfg.neotest_overrides)
-	setup_coverage_for_lang(lang_cfg.language, lang_cfg.coverage_langspec, lang_cfg.coverage_overrides)
+	if USING.testing.neotest then
+		setup_neotest_for_lang(lang_cfg.language, lang_cfg.neotest_adapter, lang_cfg.neotest_overrides)
+	end
+	if USING.testing.coverage then
+		setup_coverage_for_lang(lang_cfg.language, lang_cfg.coverage_langspec, lang_cfg.coverage_overrides)
+	end
 end
 
 return { setup_testing_for_lang = setup_testing_for_lang }

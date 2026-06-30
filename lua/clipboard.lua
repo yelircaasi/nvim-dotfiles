@@ -1,4 +1,6 @@
-local function general_config()
+local setups = {}
+
+function setups.general()
 	-- unnamed register syncs with system clipboard
 	vim.opt.clipboard = "unnamedplus"
 
@@ -74,7 +76,7 @@ local function general_config()
 	-- That way you never lose a yank regardless of what `d` does
 end
 
-local function create_autocommands()
+function setups.autocommands()
 	vim.api.nvim_create_autocmd("TextYankPost", {
 		callback = function()
 			vim.hl.on_yank()
@@ -85,7 +87,7 @@ end
 --──── yanky ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_yanky()
+function setups.yanky()
 	local yanky_defaults = {
 		ring = {
 			history_length = 100,
@@ -225,7 +227,7 @@ local function setup_yanky()
 	end)
 end
 
-local function setup_neoclip()
+function setups.neoclip()
 	local neoclip_defaults = {
 		history = 1000,
 		enable_persistent_history = false,
@@ -335,7 +337,7 @@ end
 --──── lazyclip ───────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_lazyclip()
+function setups.lazyclip()
 	local lazyclip_defaults = {
 		-- Core settings
 		max_history = 100, -- Maximum number of items to keep in history
@@ -367,7 +369,7 @@ end
 --──── pasta ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_pasta()
+function setups.pasta()
 	setup_plugin("pasta", function(pasta)
 		local mapping = require("pasta.mapping")
 		map_explicit({
@@ -396,7 +398,7 @@ end
 
 -- TODO: install https://github.com/matze/wastebin
 
-local function setup_wastebin()
+function setup_wastebin()
 	local wastebin_defaults = {
 		-- URL of wastebin service to POST pastes to
 		url = vim.env.WASTEBIN_URL or "https://foo.bar.com",
@@ -414,9 +416,4 @@ end
 --──── CALL SETUPS ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-general_config()
-create_autocommands()
-setup_yanky()
-setup_lazyclip()
-setup_pasta()
-setup_wastebin()
+setup_all_enabled("clipboard", setups)

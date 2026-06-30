@@ -1,23 +1,6 @@
-local selections = {}
-local elements = {
-	["octo"] = false,
-	["octohub"] = false,
-	["worktrees"] = false,
-	["forgit"] = false,
-	["official-gitlab"] = false,
-	["gitlab"] = false,
-	["gitsigns"] = false,
-	["jj"] = false,
-	["jujutsu"] = false,
-	["jiejie"] = false,
-	["lazygit"] = false,
-	["git-conflict"] = false,
-	["neogit"] = false,
-	["vim-fugitive"] = false,
-	["blame"] = false,
-}
+local setups = {}
 
-local function setup_octo()
+function setups.octo()
 	local octo_default_config = {
 		picker = "telescope", -- or "fzf-lua" or "snacks" or "default"
 		picker_config = {
@@ -412,7 +395,7 @@ local function setup_octo()
 	setup_plugin("octo")
 end
 
-local function setup_octohub()
+function setups.octohub()
 	-- TODO: install gh
 	-- https://github.com/2kabhishek/octohub.nvim
 	-- All Your GitHub repos and more in Neovim
@@ -451,7 +434,7 @@ local function setup_octohub()
 	setup_plugin("octohub", octohub_defaults)
 end
 
-local function setup_worktrees()
+function setups.worktrees()
 	-- TODO: review examples in README
 	-- https://github.com/Juksuu/worktrees.nvim
 	-- Git worktree wrapper for neovim
@@ -478,7 +461,7 @@ local function setup_worktrees()
 	setup_plugin("worktrees", worktrees_defaults)
 end
 
-local function setup_forgit()
+function setups.forgit()
 	-- TODO: install delta, guihua
 	-- https://github.com/ray-x/forgit.nvim
 	-- Interactive fzf+git for Neovim. I remembered the git commands so you wont forget.
@@ -503,7 +486,7 @@ local function setup_forgit()
 	setup_plugin("forgit", forgit_defaults)
 end
 
-local function setup_official_gitlab()
+setups["official-gitlab"] = function()
 	local official_gitlab_config = {
 		statusline = {
 			enabled = false,
@@ -538,7 +521,7 @@ local function setup_official_gitlab()
 	setup_gitlab_nvim()
 end
 
-local function setup_gitlab()
+function setups.gitlab()
 	setup_plugin("gitlab", { -- https://github.com/harrisoncramer/gitlab.nvim
 		-- auth_provider = function()
 		-- 	return "my_token", "https://custom.gitlab.instance.url", nil
@@ -546,7 +529,7 @@ local function setup_gitlab()
 	})
 end
 
-local function setup_gitsigns()
+function setups.gitsigns()
 	setup_plugin("gitsigns", function(gitsigns)
 		gitsigns.setup({
 			signs = {
@@ -606,7 +589,7 @@ local function setup_gitsigns()
 	end)
 end
 
-local function setup_jj()
+function setups.jj()
 	local jj_default_config = {
 		-- Setup snacks as a picker
 		picker = {
@@ -779,7 +762,7 @@ local function setup_jj()
 	setup_plugin("jj", jj_default_config)
 end
 
-local function setup_jujutsu()
+function setups.jujutsu()
 	local jujutsu_default_config = {
 		-- Diff viewer: "difftastic", "diffview", "codediff", none"
 		diff_preset = "difftastic", -- default
@@ -790,7 +773,7 @@ local function setup_jujutsu()
 	setup_plugin("jujutsu-nvim", jujutsu_default_config)
 end
 
-local function setup_jiejie()
+function setups.jiejie()
 	local jiejie_default_config = {
 		-- Excluded revset expression, see https://docs.jj-vcs.dev/latest/revsets/ for the full language
 		excluded_revset = 'bookmarks(glob:"renovate/*") | tracked_remote_bookmarks(glob:"renovate/*") | untracked_remote_bookmarks(glob:"renovate/*")',
@@ -804,7 +787,7 @@ local function setup_jiejie()
 	setup_plugin("jiejie", jiejie_default_config)
 end
 
-local function setup_lazygit()
+function setups.lazygit()
 	setup_plugin("lazygit", function(lazygit)
 		vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
 		vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
@@ -821,7 +804,7 @@ local function setup_lazygit()
 	end)
 end
 
-local function setup_git_conflict()
+setups["git-conflict"] = function()
 	setup_plugin("git-conflict", {
 		default_mappings = true, -- disable buffer local mapping created by this plugin
 		default_commands = true, -- disable commands created by this plugin
@@ -834,7 +817,7 @@ local function setup_git_conflict()
 	})
 end
 
-local function setup_neogit()
+function setups.neogit()
 	local neogit_default_config = {
 		-- Use Treesitter to apply syntax highlighting to diff hunks
 		treesitter_diff_highlight = true,
@@ -1245,13 +1228,13 @@ local function setup_neogit()
 	end)
 end
 
-local function setup_vim_fugitive()
+setups["vim-fugitive"] = function()
 	utils.packadd("vim-fugitive", function()
 		-- print("Installed vim-fugitive.")
 	end)
 end
 
-local function setup_blame()
+function setups.blame()
 	-- https://github.com/FabijanZulj/blame.nvim
 	-- Neovim fugitive style git blame plugin
 	local blame_defaults = {
@@ -1309,20 +1292,22 @@ local function maybe_call(element_name)
 	end
 end
 
-maybe_call("octo")
-maybe_call("octohub")
-maybe_call("worktrees")
-maybe_call("forgit")
-maybe_call("official-gitlab")
-maybe_call("gitlab")
-maybe_call("gitsigns")
-maybe_call("jj")
-maybe_call("jujutsu")
-maybe_call("jiejie")
-maybe_call("lazygit")
-maybe_call("git-conflict")
-maybe_call("neogit")
-maybe_call("vim-fugitive")
-maybe_call("blame")
+-- maybe_call("octo")
+-- maybe_call("octohub")
+-- maybe_call("worktrees")
+-- maybe_call("forgit")
+-- maybe_call("official-gitlab")
+-- maybe_call("gitlab")
+-- maybe_call("gitsigns")
+-- maybe_call("jj")
+-- maybe_call("jujutsu")
+-- maybe_call("jiejie")
+-- maybe_call("lazygit")
+-- maybe_call("git-conflict")
+-- maybe_call("neogit")
+-- maybe_call("vim-fugitive")
+-- maybe_call("blame")
 
 -- TODO: rename to version-control
+
+setup_all_enabled("git", setups)

@@ -4,38 +4,10 @@
 --   setup_plugin("null-ls") -- OBSOLETE
 --   setup_plugin("guard") -- TODO - needed?
 
+local setups = {}
+
 local selections = {}
-local elements = {
-	["general-setup"] = true,
-	["create-keymaps"] = true,
-	["create-autocommands"] = true,
-	["diagflow"] = true,
-	["configure-diagnostics-modes"] = true,
-	["conform"] = true,
-	["lsp-format"] = true,
-	["lspkind"] = true,
-	["lspsaga"] = true,
-	["doc-window"] = false, -- TODO: update to remove dep on nvim-treesitter.ts_utils
-	["trouble"] = true,
-	["quicker"] = true,
-	["bqf"] = true,
-	["nvim-lint"] = true,
-	["refactoring"] = true,
-	["error-jump"] = true,
-	["qfview"] = true,
-	["vale"] = true,
-	["genghis"] = true,
-	["precommit"] = true,
-	["lint"] = true,
-	["corn"] = true,
-	["glance"] = true,
-	["dmap"] = true,
-	["strict"] = false,
-	["inlayhint-filler"] = true,
-	["hlargs"] = true,
-	["lsp_signature"] = true,
-	["nvim-lightbulb"] = true,
-}
+local elements = {}
 
 local function general_setup()
 	vim.cmd("set completeopt+=noselect")
@@ -197,7 +169,7 @@ local function create_autocommands()
 	})
 end
 
-local function setup_diagflow()
+function setups.diagflow()
 	-- https://github.com/dgagn/diagflow.nvim
 	-- LSP diagnostics in virtual text at the top right of your screen
 	local diagflow_defaults = {
@@ -339,7 +311,7 @@ local function configure_diagnostics_modes()
 	set_diagnostics_mode()
 end
 
-local function setup_conform()
+function setups.conform()
 	local conform_config = {
 		formatters_by_ft = {
 			python = {
@@ -391,7 +363,7 @@ local function setup_conform()
 	end)
 end
 
-local function setup_lsp_format()
+setups["lsp-format"] = function()
 	-- SUPERCHARGED
 	setup_plugin("lsp-format", {
 		typescript = {
@@ -403,7 +375,7 @@ local function setup_lsp_format()
 	})
 end
 
-local function setup_lspkind()
+function setups.lspkind()
 	local lspkind_defaults = {
 		-- defines how annotations are shown
 		-- default: symbol
@@ -453,7 +425,7 @@ local function setup_lspkind()
 	end)
 end
 
-local function setup_lspsaga()
+function setups.lspsaga()
 	local lspsaga_defaults = {
 		layout = "normal", -- "float"
 		symbol_in_winbar = {
@@ -580,13 +552,13 @@ local function setup_lspsaga()
 	})
 end
 
-local function setup_doc_window()
+setups["doc-window"] = function()
 	-- https://github.com/resonyze/doc-window.nvim
 	-- A plugin to display hover info you get from lsp in a separate buffer.
 	setup_plugin("doc-window", {}) --TODO: DEPENDS ON ts_utils
 end
 
-local function setup_trouble()
+function setups.trouble()
 	---@class trouble.Mode: trouble.Config,trouble.Section.spec
 	---@field desc? string
 	---@field sections? string[]
@@ -792,7 +764,7 @@ local function setup_trouble()
 	setup_plugin("trouble.nvim", trouble_defaults)
 end
 
-local function setup_quicker()
+function setups.quicker()
 	local quicker_defaults = {
 		-- Local options to set for quickfix
 		opts = {
@@ -866,7 +838,7 @@ local function setup_quicker()
 	setup_plugin("quicker", quicker_defaults)
 end
 
-local function setup_bqf()
+function setups.bqf()
 	-- https://github.com/kevinhwang91/nvim-bqf
 	-- Better quickfix window in Neovim, polish old quickfix window.
 	local bqf_config = {
@@ -923,7 +895,7 @@ local function setup_bqf()
 	})
 end
 
-local function setup_nvim_lint()
+setups["nvim-lint"] = function()
 	setup_plugin("nvim-lint", function(lint)
 		lint.linters_by_ft = {
 			markdown = { "vale" },
@@ -943,7 +915,7 @@ local function setup_nvim_lint()
 	end)
 end
 
-local function setup_refactoring()
+function setups.refactoring()
 	setup_plugin("refactoring", function(refactoring)
 		refactoring.setup()
 		local keymap = vim.keymap
@@ -1030,7 +1002,7 @@ local function setup_refactoring()
 	end)
 end
 
-local function setup_error_jump()
+setups["error-jump"] = function()
 	-- https://github.com/Dr-42/error-jump.nvim
 	-- Gives basic functionality for error messages with format filename:line:column
 	setup_plugin("error-jump", function(error_jump)
@@ -1061,14 +1033,14 @@ local function setup_error_jump()
 	end)
 end
 
-local function setup_qfview()
+function setups.qfview()
 	-- https://github.com/ashfinal/qfview.nvim
 	-- Pretty quickfix/location view for Neovim
 	-- no config options
 	setup_plugin("qfview")
 end
 
-local function setup_vale()
+function setups.vale()
 	-- https://github.com/marcelofern/vale.nvim
 	-- A Neovim wrapper around Vale, the syntax-aware linter for prose.
 	local vale_defaults = {
@@ -1080,7 +1052,7 @@ local function setup_vale()
 	setup_plugin("vale", vale_defaults)
 end
 
-local function setup_genghis()
+function setups.genghis()
 	-- https://github.com/chrisgrieser/nvim-genghis
 	-- Lightweight and quick file operations without being a full-blown file manager.
 	local nvim_genghis_defaults = {
@@ -1137,20 +1109,20 @@ local function setup_genghis()
 	setup_plugin("nvim-genghis", nvim_genghis_defaults)
 end
 
-local function setup_precommit()
+function setups.precommit()
 	-- https://github.com/Ttibsi/pre-commit.nvim
 	-- Trigger pre-commit linters/formatter straight from within Neovim
 	local precommit_defaults = nil
 	setup_plugin("precommit", precommit_defaults)
 end
 
-local function setup_lint()
+function setups.lint()
 	-- https://github.com/mfussenegger/nvim-lint
 	-- An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support.
 	setup_plugin("lint", function(lint) end)
 end
 
-local function setup_corn()
+function setups.corn()
 	-- https://github.com/RaafatTurki/corn.nvim
 	-- LSP diagnostics at your corner
 	local corn_defaults = {
@@ -1206,7 +1178,7 @@ local function setup_corn()
 	setup_plugin("corn", corn_defaults)
 end
 
-local function setup_glance()
+function setups.glance()
 	-- https://github.com/dnlhc/glance.nvim
 	-- Peek preview window for LSP locations in Neovim
 	setup_plugin("glance", function(glance)
@@ -1307,7 +1279,7 @@ local function setup_glance()
 	end)
 end
 
-local function setup_dmap()
+function setups.dmap()
 	-- https://github.com/doums/dmap.nvim
 	-- nvim plugin providing a subtle overview of LSP diagnostics
 	local dmap_defaults = {
@@ -1356,7 +1328,7 @@ local function setup_dmap()
 	setup_plugin("dmap", dmap_defaults)
 end
 
-local function setup_strict()
+function setups.strict()
 	-- https://github.com/emileferreira/nvim-strict
 	-- Strict, native code style formatting plugin for Neovim. Expose deep nesting, overlong lines, trailing whitespace, trailing empty lines, todos and inconsistent indentation.
 	local strict_defaults = {
@@ -1407,7 +1379,7 @@ local function setup_strict()
 	setup_plugin("strict", strict_config)
 end
 
-local function setup_inlayhint_filler()
+setups["inlayhint-filler"] = function()
 	-- https://github.com/davidyz/inlayhint-filler.nvim
 	-- For some languages like Python, the inlay-hint provided by the language server are actually optional
 	--     symbols/tokens that can be inserted into the buffer. This plugin provides an API to insert the
@@ -1424,7 +1396,7 @@ local function setup_inlayhint_filler()
 	setup_plugin("inlayhint-filler", inlayhint_filler_defaults)
 end
 
-local function setup_hlargs()
+function setups.hlargs()
 	-- https://github.com/m-demare/hlargs.nvim
 	-- Highlight arguments' definitions and usages, using Treesitter
 	local hlargs_defaults = {
@@ -1468,7 +1440,7 @@ local function setup_hlargs()
 	setup_plugin("hlargs", hlargs_defaults)
 end
 
-local function setup_lsp_signature()
+setups["lsp_signature"] = function()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	-- https://github.com/ray-x/lsp_signature.nvim
 	-- LSP signature hint as you type
@@ -1557,7 +1529,7 @@ local function setup_lsp_signature()
 	setup_plugin("lsp_signature", lsp_signature_defaults)
 end
 
-local function setup_nvim_lightbulb()
+setups["nvim-lightbulb"] = function()
 	-- https://github.com/kosayoda/nvim-lightbulb
 	-- VSCode 💡 for neovim's built-in LSP.
 	local nvim_lightbulb_defaults = {
@@ -1707,72 +1679,74 @@ local function setup_nvim_lightbulb()
 	setup_plugin("nvim-lightbulb")
 end
 
-local functions = {
-	["general-setup"] = general_setup,
-	["create-keymaps"] = create_keymaps,
-	["create-autocommands"] = create_autocommands,
-	["diagflow"] = setup_diagflow,
-	["configure-diagnostics-modes"] = configure_diagnostics_modes,
-	["conform"] = setup_conform,
-	["lsp-format"] = setup_lsp_format,
-	["lspkind"] = setup_lspkind,
-	["lspsaga"] = setup_lspsaga,
-	["doc-window"] = setup_doc_window,
-	["trouble"] = setup_trouble,
-	["quicker"] = setup_quicker,
-	["bqf"] = setup_bqf,
-	["nvim-lint"] = setup_nvim_lint,
-	["refactoring"] = setup_refactoring,
-	["error-jump"] = setup_error_jump,
-	["qfview"] = setup_qfview,
-	["vale"] = setup_vale,
-	["genghis"] = setup_genghis,
-	["precommit"] = setup_precommit,
-	["lint"] = setup_lint,
-	["corn"] = setup_corn,
-	["glance"] = setup_glance,
-	["dmap"] = setup_dmap,
-	["strict"] = setup_strict,
-	["inlayhint-filler"] = setup_inlayhint_filler,
-	["hlargs"] = setup_hlargs,
-	["lsp_signature"] = setup_lsp_signature,
-	["nvim-lightbulb"] = setup_nvim_lightbulb,
-}
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
-end
+-- local functions = {
+-- 	["general-setup"] = general_setup,
+-- 	["create-keymaps"] = create_keymaps,
+-- 	["create-autocommands"] = create_autocommands,
+-- 	["diagflow"] = setup_diagflow,
+-- 	["configure-diagnostics-modes"] = configure_diagnostics_modes,
+-- 	["conform"] = setup_conform,
+-- 	["lsp-format"] = setup_lsp_format,
+-- 	["lspkind"] = setup_lspkind,
+-- 	["lspsaga"] = setup_lspsaga,
+-- 	["doc-window"] = setup_doc_window,
+-- 	["trouble"] = setup_trouble,
+-- 	["quicker"] = setup_quicker,
+-- 	["bqf"] = setup_bqf,
+-- 	["nvim-lint"] = setup_nvim_lint,
+-- 	["refactoring"] = setup_refactoring,
+-- 	["error-jump"] = setup_error_jump,
+-- 	["qfview"] = setup_qfview,
+-- 	["vale"] = setup_vale,
+-- 	["genghis"] = setup_genghis,
+-- 	["precommit"] = setup_precommit,
+-- 	["lint"] = setup_lint,
+-- 	["corn"] = setup_corn,
+-- 	["glance"] = setup_glance,
+-- 	["dmap"] = setup_dmap,
+-- 	["strict"] = setup_strict,
+-- 	["inlayhint-filler"] = setup_inlayhint_filler,
+-- 	["hlargs"] = setup_hlargs,
+-- 	["lsp_signature"] = setup_lsp_signature,
+-- 	["nvim-lightbulb"] = setup_nvim_lightbulb,
+-- }
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
 
-maybe_call("general-setup")
-maybe_call("create-keymaps")
-maybe_call("create-autocommands")
-maybe_call("diagflow")
-maybe_call("configure-diagnostics-modes")
-maybe_call("conform")
-maybe_call("lsp-format")
-maybe_call("lspkind")
-maybe_call("lspsaga")
-maybe_call("doc-window")
-maybe_call("trouble")
-maybe_call("quicker")
-maybe_call("bqf")
-maybe_call("nvim-lint")
-maybe_call("refactoring")
-maybe_call("error-jump")
-maybe_call("qfview")
-maybe_call("vale")
-maybe_call("genghis")
-maybe_call("precommit")
-maybe_call("lint")
-maybe_call("corn")
-maybe_call("glance")
-maybe_call("dmap")
-maybe_call("strict")
-maybe_call("inlayhint-filler")
-maybe_call("hlargs")
-maybe_call("lsp_signature")
-maybe_call("nvim-lightbulb")
+-- maybe_call("general-setup")
+-- maybe_call("create-keymaps")
+-- maybe_call("create-autocommands")
+-- maybe_call("diagflow")
+-- maybe_call("configure-diagnostics-modes")
+-- maybe_call("conform")
+-- maybe_call("lsp-format")
+-- maybe_call("lspkind")
+-- maybe_call("lspsaga")
+-- maybe_call("doc-window")
+-- maybe_call("trouble")
+-- maybe_call("quicker")
+-- maybe_call("bqf")
+-- maybe_call("nvim-lint")
+-- maybe_call("refactoring")
+-- maybe_call("error-jump")
+-- maybe_call("qfview")
+-- maybe_call("vale")
+-- maybe_call("genghis")
+-- maybe_call("precommit")
+-- maybe_call("lint")
+-- maybe_call("corn")
+-- maybe_call("glance")
+-- maybe_call("dmap")
+-- maybe_call("strict")
+-- maybe_call("inlayhint-filler")
+-- maybe_call("hlargs")
+-- maybe_call("lsp_signature")
+-- maybe_call("nvim-lightbulb")
+
+setup_all_enabled("lsp", setups)

@@ -1,62 +1,13 @@
+local setups = {}
+
 -- setup_plugin("plenary")
 -- setup_plugin("nio")
-local selections = { -- used to ensure mutual exclusivity of conflicting plugins
-	top_line = "dropbar", -- dropbar|nougat|minibar|winbar
-	bottom_line = "lualine", -- lualine|nougat|cokeline|heirline|galaxyline|staline|windline
-	tab_line = "bufferline", -- bufferline|tabby|nougat
-}
-local plugins = {
-	["nvim-web-devicons"] = true,
-	["virtcolumn"] = false,
-	["virt-column"] = false,
-	["smartcolumn"] = false,
-	["statuscol"] = false,
-	["TreePin"] = false,
-	["symbols"] = true,
-	["aerial"] = false,
-	["navbuddy"] = false,
-
-	["bufferline"] = selections.tab_line == "bufferline",
-	["tabby"] = selections.tab_line == "tabby",
-	["nougat::tabline"] = selections.tab_line == "nougat",
-
-	["dropbar"] = selections.top_line == "dropbar",
-	["nougat::winbar"] = selections.top_line == "nougat",
-	["minibar"] = selections.top_line == "minibar",
-	["winbar"] = selections.top_line == "winbar",
-
-	["lualine"] = selections.bottom_line == "lualine",
-	["nougat::statusline"] = selections.bottom_line == "nougat",
-	["cokeline"] = selections.bottom_line == "cokeline",
-	["heirline"] = selections.bottom_line == "heirline",
-	["galaxyline"] = selections.bottom_line == "galaxyline",
-	["staline"] = selections.bottom_line == "staline",
-	["windline"] = selections.bottom_line == "windline",
-
-	["navic"] = false,
-	["vimade"] = false,
-	["zen-mode"] = true,
-	["modicator"] = true,
-	["modes"] = true,
-	["cmdbuf"] = false,
-	["mini.cmdline"] = false,
-	["menu"] = false,
-	["fidget"] = true,
-	["notify"] = false,
-	["control-panel"] = false,
-	["output-panel"] = false,
-	["cosmic-ui"] = false,
-	["lvim-ui-config"] = false,
-	["volt"] = false,
-	["noice"] = false,
-	["reactive"] = false,
-}
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── fonts, characters ──────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_icons()
+function setups.icons()
 	if vim.g.nerdfont then
 		utils.printv("Using nerd icons")
 		setup_plugin("nvim-web-devicons", {
@@ -133,7 +84,7 @@ end
 --──── columns ────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_virtcolumn()
+function setups.virtcolumn()
 	-- EXPERIMENTAL
 	-- TODO: compare https://github.com/lukas-reineke/virt-column.nvim (may be better)
 	-- https://github.com/xiyaowong/virtcolumn.nvim
@@ -145,7 +96,7 @@ local function setup_virtcolumn()
 	end)
 end
 
-local function setup_virt_column()
+setups["virt-column"] = function()
 	-- :help virt-column.txt
 	-- https://github.com/lukas-reineke/virt-column.nvim
 	-- Display a character as the colorcolumn
@@ -155,7 +106,7 @@ local function setup_virt_column()
 	end)
 end
 
-local function setup_smartcolumn()
+function setups.smartcolumn()
 	-- https://github.com/m4xshen/smartcolumn.nvim
 	-- A Neovim plugin hiding your colorcolumn when unneeded.
 	local smartcolumn_defaults = {
@@ -168,7 +119,7 @@ local function setup_smartcolumn()
 	setup_plugin("smartcolumn", smartcolumn_defaults)
 end
 
-local function setup_statuscol()
+function setups.statuscol()
 	-- https://github.com/luukvbaal/statuscol.nvim
 	-- Status column plugin that provides a configurable 'statuscolumn' and click handlers.
 	setup_plugin("statuscol", function(statuscol)
@@ -216,13 +167,13 @@ end
 --──── outline ────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_treepin()
+function setups.treepin()
 	-- https://github.com/KaityyUwU/TreePin
 	-- A lightweight neovim plugin for pinning fragments of code to the screen.
 	setup_plugin("TreePin", {}) -- TODO: REQUIRES UPDATE FROM nvim-treesitter
 end
 
-local function setup_symbols()
+function setups.symbols()
 	-- https://github.com/oskarrrrrrr/symbols.nvim
 	-- Code navigation sidebar for Neovim.
 	local symbols_defaults = {
@@ -452,7 +403,7 @@ local function setup_symbols()
 	setup_plugin("symbols", symbols_defaults)
 end
 
-local function setup_aerial()
+function setups.aerial()
 	-- TODO: maybe use aerial instead of navbuddy
 	-- https://github.com/stevearc/aerial.nvim
 	-- Neovim plugin for a code outline window
@@ -488,7 +439,7 @@ local function setup_aerial()
 	end)
 end
 
-local function setup_navbuddy()
+function setups.navbuddy()
 	-- utils.packadd("nui") -- TODO: comment out after next build
 	-- https://github.com/SmiteshP/nvim-navbuddy
 	-- A simple popup display that provides breadcrumbs feature using LSP server
@@ -509,7 +460,7 @@ local function setup_navbuddy()
 	end)
 end
 
-local function setup_dropbar()
+function setups.dropbar()
 	-- https://github.com/Bekaboo/dropbar.nvim
 	-- IDE-like breadcrumbs, out of the box
 	local dropbar_config = {
@@ -555,7 +506,7 @@ end
 --──── lines, bars ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_lualine()
+function setups.lualine()
 	-- https://github.com/nvim-lualine/lualine.nvim
 	-- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
 	--[[
@@ -1008,24 +959,24 @@ local function setup_lualine()
 	setup_plugin("lualine", lualine_defaultlike)
 end
 
-local function setup_cokeline()
+function setups.cokeline()
 	setup_plugin("cokeline", {}) -- TODO
 end
 
-local function setup_heirline()
+function setups.heirline()
 	setup_plugin("heirline", {}) -- TODO
 	setup_plugin("heirline-components", {}) -- TODO
 end
 
-local function setup_galaxyline()
+function setups.galaxyline()
 	setup_plugin("galaxyline", function(_) end) -- TODO
 end
 
-local function setup_staline()
+function setups.staline()
 	setup_plugin("staline", {}) -- TODO
 end
 
-local function setup_navic()
+function setups.navic()
 	-- https://github.com/SmiteshP/nvim-navic
 	-- Simple winbar/statusline plugin that shows your current code context
 	local navic_defaults = {
@@ -1076,7 +1027,7 @@ local function setup_navic()
 	setup_plugin("nvim-navic", navic_defaults)
 end
 
-local function setup_bufferline()
+function setups.bufferline()
 	-- https://github.com/akinsho/bufferline.nvim
 	-- A snazzy bufferline for Neovim
 	local BG = "#031A16"
@@ -1235,31 +1186,31 @@ local function setup_bufferline()
 	end)
 end
 
-local function setup_nougat_tabline()
+setups["nougat-tabline"] = function()
 	-- https://github.com/MunifTanjim/nougat.nvim
 	-- Hyperextensible Statusline / Tabline / Winbar for Neovim
 	setup_plugin("nougat", function(_) end) -- TODO
 end
 
-local function setup_nougat_statusline()
+setups["nougat-statusline"] = function()
 	-- https://github.com/MunifTanjim/nougat.nvim
 	-- Hyperextensible Statusline / Tabline / Winbar for Neovim
 	setup_plugin("nougat", function(_) end) -- TODO
 end
 
-local function setup_nougat_winbar()
+setups["nougat-winbar"] = function()
 	-- https://github.com/MunifTanjim/nougat.nvim
 	-- Hyperextensible Statusline / Tabline / Winbar for Neovim
 	setup_plugin("nougat", function(_) end) -- TODO
 end
 
-local function setup_tabby()
+function setups.tabby()
 	--
 	--
 	setup_plugin("tabby", {}) -- TODO
 end
 
-local function setup_minibar()
+function setups.minibar()
 	-- https://github.com/aktersnurra/minibar.nvim
 	-- A minimalistic winbar.
 	local cfg = {
@@ -1293,7 +1244,7 @@ local function setup_minibar()
 	setup_plugin("minibar", cfg)
 end
 
-local function setup_winbar()
+function setups.winbar()
 	-- https://github.com/fgheng/winbar.nvim
 	-- winbar config for neovim
 	local cfg = {
@@ -1334,7 +1285,7 @@ local function setup_winbar()
 	setup_plugin("winbar", cfg)
 end
 
-local function setup_windline()
+function setups.windline()
 	setup_plugin("windline", function(windline)
 		local windline = require("windline")
 		local helper = require("windline.helpers")
@@ -1540,7 +1491,7 @@ end
 --──── focus ──────────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_vimade()
+function setups.vimade()
 	-- https://github.com/tadaa/vimade
 	-- Vimade let's you dim, fade, tint, animate, and customize colors in your windows and buffers for (Neo)vim
 	setup_plugin("vimade", {
@@ -1549,7 +1500,7 @@ local function setup_vimade()
 	})
 end
 
-local function setup_zenmode()
+function setups.zenmode()
 	-- https://github.com/folke/zen-mode.nvim
 	-- Distraction-free coding for Neovim
 	local zenmode_defaults = {
@@ -1579,7 +1530,7 @@ end
 --──── mode-related ───────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_modicator()
+function setups.modicator()
 	-- https://github.com/mawkler/modicator.nvim
 	-- Cursor line number mode indicator plugin for Neovim
 	local modicator_defaults = {
@@ -1614,7 +1565,7 @@ local function setup_modicator()
 	end)
 end
 
-local function setup_modes()
+function setups.modes()
 	-- https://github.com/mvllow/modes.nvim
 	-- Prismatic line decorations for the adventurous vim user
 	local modes_defaults = {
@@ -1661,7 +1612,7 @@ end
 --──── command interface ──────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_cmdbuf()
+function setups.cmdbuf()
 	-- PROBABLY NOT, BUT WORTH A TRY
 	-- https://github.com/notomo/cmdbuf.nvim
 	-- Alternative command-line window plugin for neovim
@@ -1750,7 +1701,7 @@ local function setup_cmdbuf()
 	end)
 end
 
-local function setup_mini_cmdline()
+setups["mini-cmdline"] = function()
 	-- https://github.com/nvim-mini/mini.cmdline
 	-- Command line tweaks. Part of 'mini.nvim' library.
 	local mini_cmdline_defaults = {
@@ -1804,7 +1755,7 @@ end
 --──── menus, selection ───────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_menu()
+function setups.menu()
 	-- https://github.com/nvzone/menu
 	-- Menu plugin for neovim ( supports nested menus ) made using volt
 	local menu_defaults = nil
@@ -1815,7 +1766,7 @@ end
 --──── output, notification ───────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_fidget()
+function setups.fidget()
 	-- https://github.com/j-hui/fidget.nvim
 	-- Extensible UI for Neovim notifications and LSP progress messages.
 	local fidget_defaults = [[{
@@ -1955,7 +1906,7 @@ local function setup_fidget()
 	})
 end
 
-local function setup_notify()
+function setups.notify()
 	-- PROBABLY NOT, BUT WORTH A TRY (== nvim-notify ?)
 	-- https://github.com/rcarriga/nvim-notify
 	-- A fancy, configurable, notification manager for NeoVim
@@ -1995,14 +1946,14 @@ local function setup_notify()
 	end)
 end
 
-local function setup_control_panel()
+setups["control-panel"] = function()
 	-- https://github.com/mhanberg/control-panel.nvim
 	-- experimental plugin, use with caution
 	local control_panel_defaults = nil
 	setup_plugin("control_panel", control_panel_defaults)
 end
 
-local function setup_output_panel()
+setups["output-panel"] = function()
 	-- TODO: translate lazy.nvim options from README
 	-- https://github.com/mhanberg/output-panel.nvim
 	-- A panel to view the logs from your LSP servers.
@@ -2016,7 +1967,7 @@ end
 --──── UI libraries ───────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_cosmicui()
+function setups.cosmicui()
 	-- https://github.com/CosmicNvim/cosmic-ui
 	-- Cosmic-UI is a simple wrapper around specific vim functionality. Built in order to provide a quick and easy way to create a Cosmic UI experience with Neovim!
 	local cosmic_ui_defaults = {
@@ -2055,19 +2006,19 @@ local function setup_cosmicui()
 	setup_plugin("cosmic-ui", cosmic_ui_defaults)
 end
 
-local function setup_lvim_ui_config()
+setups["lvim-ui-config"] = function()
 	--
 	--
 	setup_plugin("lvim-ui-config", {}) -- TODO: not requirable
 end
 
-local function setup_volt()
+function setups.volt()
 	-- https://github.com/nvzone/volt
 	-- Create blazing fast & beautiful reactive UI in Neovim
 	setup_plugin("volt", function(_) end)
 end
 
-local function setup_noice()
+function setups.noice()
 	-- https://github.com/folke/noice.nvim
 	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 	local noice_config = {
@@ -2094,7 +2045,7 @@ end
 --──── other/general ──────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_reactive()
+function setups.reactive()
 	-- https://github.com/rasulomaroff/reactive.nvim
 	-- Reactivity. Right in your neovim.
 	local reactive_config = { -- TODO; not currently using this so I can explore
@@ -2168,43 +2119,45 @@ local function maybe_setup(plugin_name)
 	end
 end
 
-maybe_setup("nvim-web-devicons")
-maybe_setup("virtcolumn")
-maybe_setup("virt-column")
-maybe_setup("smartcolumn")
-maybe_setup("statuscol")
-maybe_setup("TreePin")
-maybe_setup("symbols")
-maybe_setup("aerial")
-maybe_setup("navbuddy")
-maybe_setup("dropbar")
-maybe_setup("lualine")
-maybe_setup("cokeline")
-maybe_setup("heirline")
-maybe_setup("galaxyline")
-maybe_setup("staline")
-maybe_setup("navic")
-maybe_setup("bufferline")
-maybe_setup("nougat::statusline")
-maybe_setup("nougat::tabline")
-maybe_setup("nougat::winbar")
-maybe_setup("tabby")
-maybe_setup("minibar")
-maybe_setup("winbar")
-maybe_setup("windline")
-maybe_setup("vimade")
-maybe_setup("zen-mode")
-maybe_setup("modicator")
-maybe_setup("modes")
-maybe_setup("cmdbuf")
-maybe_setup("mini.cmdline")
-maybe_setup("menu")
-maybe_setup("fidget")
-maybe_setup("notify")
-maybe_setup("control-panel")
-maybe_setup("output-panel")
-maybe_setup("cosmic-ui")
-maybe_setup("lvim-ui-config")
-maybe_setup("volt")
-maybe_setup("noice")
-maybe_setup("reactive")
+-- maybe_setup("nvim-web-devicons")
+-- maybe_setup("virtcolumn")
+-- maybe_setup("virt-column")
+-- maybe_setup("smartcolumn")
+-- maybe_setup("statuscol")
+-- maybe_setup("TreePin")
+-- maybe_setup("symbols")
+-- maybe_setup("aerial")
+-- maybe_setup("navbuddy")
+-- maybe_setup("dropbar")
+-- maybe_setup("lualine")
+-- maybe_setup("cokeline")
+-- maybe_setup("heirline")
+-- maybe_setup("galaxyline")
+-- maybe_setup("staline")
+-- maybe_setup("navic")
+-- maybe_setup("bufferline")
+-- maybe_setup("nougat::statusline")
+-- maybe_setup("nougat::tabline")
+-- maybe_setup("nougat::winbar")
+-- maybe_setup("tabby")
+-- maybe_setup("minibar")
+-- maybe_setup("winbar")
+-- maybe_setup("windline")
+-- maybe_setup("vimade")
+-- maybe_setup("zen-mode")
+-- maybe_setup("modicator")
+-- maybe_setup("modes")
+-- maybe_setup("cmdbuf")
+-- maybe_setup("mini.cmdline")
+-- maybe_setup("menu")
+-- maybe_setup("fidget")
+-- maybe_setup("notify")
+-- maybe_setup("control-panel")
+-- maybe_setup("output-panel")
+-- maybe_setup("cosmic-ui")
+-- maybe_setup("lvim-ui-config")
+-- maybe_setup("volt")
+-- maybe_setup("noice")
+-- maybe_setup("reactive")
+
+setup_all_enabled("ui", setups)

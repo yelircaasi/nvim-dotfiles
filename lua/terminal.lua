@@ -1,8 +1,10 @@
+local setups = {}
+
 --─────────────────────────────────────────────────────────────────────────────
 --──── general mappings ───────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function create_keymaps()
+function setups.create_keymaps()
 	map_explicit({
 		mode = "t",
 		sequence = "<Esc>",
@@ -27,7 +29,7 @@ end
 --──── terminal plugins ───────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-local function setup_vim_floaterm()
+setups["vim-floaterm"] = function()
 	-- https://github.com/voldikss/vim-floaterm
 	-- Terminal manager for (neo)vim
 	utils.packadd("vim-floaterm", function()
@@ -49,7 +51,7 @@ local function setup_vim_floaterm()
 	end)
 end
 
-local function setup_toggleterm()
+function setups.toggleterm()
 	-- https://github.com/akinsho/toggleterm.nvim
 	-- A neovim lua plugin to help easily manage multiple terminal windows
 	setup_plugin("toggleterm", {
@@ -67,7 +69,7 @@ local function setup_toggleterm()
 	})
 end
 
-local function setup_neaterm()
+function setups.neaterm()
 	-- TODO: add plenary and fzf-lua to dependencies
 	-- https://github.com/Dan7h3x/neaterm.nvim
 	-- A little (smart maybe) terminal plugin for neovim.
@@ -238,13 +240,13 @@ local function setup_neaterm()
 	setup_plugin("neaterm", neaterm_defaults)
 end
 
-local function setup_termim()
+function setups.termim()
 	-- https://github.com/2KAbhishek/termim.nvim
 	-- Neovim Terminal, Improved
 	utils.packadd("termim")
 end
 
-local function setup_yarepl()
+function setups.yarepl()
 	setup_plugin("yarepl", {
 		-- see `:h buflisted`, whether the REPL buffer should be buflisted.
 		buflisted = true,
@@ -298,7 +300,7 @@ local function setup_yarepl()
 	})
 end
 
-local function setup_neomux()
+function setups.neomux()
 	-- TODO: debug nvr-go
 	-- https://github.com/nikvdp/neomux
 	-- Control Neovim from shells running inside Neovim.
@@ -309,10 +311,4 @@ end
 --──── CALL SETUPS ────────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
 
-create_keymaps()
-setup_vim_floaterm()
-setup_toggleterm()
-setup_neaterm()
-setup_termim()
-setup_yarepl()
-setup_neomux()
+setup_all_enabled("terminal", setups)

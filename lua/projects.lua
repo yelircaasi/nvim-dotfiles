@@ -1,10 +1,12 @@
-local function setup_auto_session()
+local setups = {}
+
+setups["auto-session"] = function()
 	setup_plugin("auto-session", {
 		suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 	})
 end
 
-local function setup_persistence()
+function setups.persistence()
 	setup_plugin("persistence", {
 		{
 			dir = vim.fn.stdpath("state") .. "/sessions/", -- directory where session files are saved
@@ -16,7 +18,7 @@ local function setup_persistence()
 	})
 end
 
-local function setup_project()
+function setups.project()
 	setup_plugin("project_nvim", {
 		-- Manual mode doesn't automatically change your root directory, so you have
 		-- the option to manually do so using `:ProjectRoot` command.
@@ -65,7 +67,7 @@ local function setup_project()
 	})
 end
 
-local function setup_mini_sessions()
+setups["mini-sessions"] = function()
 	setup_plugin("mini.sessions", {
 		-- Whether to read default session if Neovim opened without file arguments
 		autoread = false,
@@ -96,11 +98,11 @@ local function setup_mini_sessions()
 	})
 end
 
-local function setup_neoconf()
+function setups.projector()
 	setup_plugin("projector", function(_) end)
 end
 
-local function setup_auto_()
+function setups.neoconf()
 	-- https://github.com/folke/neoconf.nvim
 	-- Neovim plugin to manage global and project-local settings
 	local neoconf_defaults = {
@@ -146,9 +148,11 @@ local function setup_auto_()
 	setup_plugin("neoconf", neoconf_defaults)
 end
 
-setup_auto_session()
-setup_persistence()
-setup_project()
-setup_mini_sessions()
-setup_projector()
-setup_neoconf()
+-- setup_auto_session()
+-- setup_persistence()
+-- setup_project()
+-- setup_mini_sessions()
+-- setup_projector()
+-- setup_neoconf()
+
+setup_all_enabled("projects", setups)

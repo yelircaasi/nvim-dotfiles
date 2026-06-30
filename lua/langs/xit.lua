@@ -4,21 +4,21 @@ local function set_xit_options()
 	print("PLACEHOLDER")
 end
 
-local function setup_miscellaneous()
+function setups.miscellaneous()
 	vim.opt.runtimepath:prepend("/home/isaac/repos/xit.nvim")
 	require("xit").setup()
 	print("Required xit.")
 end
 
-local function setup_lsp()
+function setups.lsp()
 	print("PLACEHOLDER")
 end
 
-local function setup_testing()
+function setups.testing()
 	print("PLACEHOLDER")
 end
 
-local function setup_debugging()
+function setups.debugging()
 	print("PLACEHOLDER")
 end
 

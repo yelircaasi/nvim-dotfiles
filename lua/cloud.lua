@@ -1,4 +1,6 @@
-local function setup_kubectl()
+local setups = {}
+
+function setups.kubectl()
 	-- https://github.com/Ramilito/kubectl.nvim
 	-- ⎈ Streamline your Kubernetes management within Neovim—control and monitor your cluster seamlessly, all without leaving your coding environment.
 	local kubectl_defaults = {
@@ -66,7 +68,7 @@ local function setup_kubectl()
 	setup_plugin("kubectl", kubectl_defaults)
 end
 
-local function setup_kpops()
+function setups.kpops()
 	-- TODO: install https://github.com/bakdata/kpops
 	-- https://github.com/disrupted/kpops.nvim
 	-- Neovim plugin for integrating KPOps
@@ -74,36 +76,38 @@ local function setup_kpops()
 	setup_plugin("kpops", kpops_defaults)
 end
 
-local function setup_kubels()
+function setups.kubels()
 	-- https://github.com/elasticrash/kubels.nvim
 	-- A small Kubernetes Neovim plugin
 	local kubels_defaults = {}
 	setup_plugin("kubels", kubels_defaults)
 end
 
-local function setup_vim_helm()
+setups["vim-helm"] = function()
 	-- https://github.com/towolf/vim-helm
 	-- vim syntax for helm templates (yaml + gotmpl + sprig + custom)
 	local function setup_vim_helm() end
 	utils.packadd("vim-helm", setup_vim_helm)
 end
 
-local function setup_k8vim()
+function setups.k8vim()
 	-- https://github.com/alonso-montero/k8vim.nvim
 	-- Kubernetes interface for nvim
 	local k8vim_defaults = nil
 	setup_plugin("k8vim", k8vim_defaults)
 end
 
-local function setup_kubernetes()
+function setups.kubernetes()
 	-- https://github.com/diogo464/kubernetes.nvim
 	-- Kubernetes CRD support for yaml-language-server and neovim
 	-- setup_plugin("kubernetes", {})  TODO: install kubectl
 end
 
-setup_kubectl()
-setup_kpops()
-setup_kubels()
-setup_vim_helm()
-setup_k8vim()
-setup_kubernetes()
+setup_all_enabled("cloud", setups)
+
+-- setup_kubectl()
+-- setup_kpops()
+-- setup_kubels()
+-- setup_vim_helm()
+-- setup_k8vim()
+-- setup_kubernetes()

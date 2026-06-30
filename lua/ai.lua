@@ -1,4 +1,6 @@
-local function setup_copilot()
+local setups = {}
+
+function setups.copilot()
 	local copilot_defaults = {
 		panel = {
 			enabled = true,
@@ -82,7 +84,7 @@ local function setup_copilot()
 		-- 	panel = { enabled = true },
 		-- })
 
-		local function setup_copilot()
+		function setups.copilot()
 			copilot.setup(copilot_defaults)
 		end
 		setup_copilot() -- TODO: remove to make fully lazy
@@ -92,7 +94,7 @@ local function setup_copilot()
 end
 
 -- TODO: https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/
-local function setup_opencode()
+function setups.opencode()
 	---@type opencode.Opts
 	local opencode_defaults = {
 		server = {
@@ -323,7 +325,7 @@ local function setup_opencode()
 	end)
 end
 
-local function setup_avante()
+function setups.avante()
 	local avante_defaults = {
 		---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 		---@type Provider
@@ -533,7 +535,7 @@ local function setup_avante()
 	setup_plugin("avante", avante_defaults) -- https://github.com/yetone/avante.nvim | Use your Neovim like using Cursor AI IDE!
 end
 
-local function setup_codecompanion()
+function setups.codecompanion()
 	local codecompanion_opts = {
 		interactions = {
 			chat = {
@@ -574,7 +576,7 @@ local function setup_codecompanion()
 	end)
 end
 
-local function setup_llm()
+function setups.llm()
 	setup_plugin("llm", function(llm)
 		local tools = require("llm.tools") -- for app tools
 		local llm_defaults = {
@@ -652,20 +654,30 @@ local function setup_llm()
 	end)
 end
 
-local function setup_vim_ai()
+setups["vim-ai"] = function()
 	utils.packadd("vim-ai", vim_ai_setup)
 end
 
-local function setup_sg()
+function setups.sg()
 	-- https://github.com/sourcegraph/sg.nvim
 	-- Experimental Sourcegraph + Cody plugin for Neovim
 	setup_plugin("sg", {}) -- requires interactive input
 end
 
-setup_copilot()
-setup_opencode()
-setup_avante()
-setup_codecompanion()
-setup_llm()
-setup_vim_ai()
-setup_sg()
+setup_all_enabled("ai", {
+	copilot = setup_copilot,
+	opencode = setup_opencode,
+	avante = setup_avante,
+	codecompanion = setup_codecompanion,
+	llm = setup_llm,
+	["vim-ai"] = setup_vim_ai,
+	sg = setup_sg,
+})
+
+setup_if_using("copilot")
+setup_if_using("opencode")
+setup_if_using("avante")
+setup_if_using("codecompanion")
+setup_if_using("llm")
+setup_if_using("vim-ai")
+setup_if_using("sg")

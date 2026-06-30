@@ -1,4 +1,6 @@
-local function configure_folding()
+local setups = {}
+
+function setups.configure_folding()
 	vim.opt.foldmethod = "expr"
 	vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 	vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
@@ -69,7 +71,7 @@ local function configure_folding()
 	})
 end
 
-local function setup_ufo()
+function setups.ufo()
 	vim.cmd("packadd promise-async")
 	require("promise")
 	require("async")
@@ -124,5 +126,4 @@ local function setup_ufo()
 	-- require("ufo").setup()
 end
 
-configure_folding()
--- setup_ufo() -- TODO: fix async name collision
+setup_all_enabled("folding", setups)

@@ -1,16 +1,4 @@
-local selections = {}
-local elements = {
-	["set-global-ts-languages"] = true,
-	["general-setup"] = true,
-	["check-parsers"] = true,
-	["configure-filetypes-and-aliases"] = true,
-	["configure-folds-and-indentation"] = true,
-	["nvim-treesitter-textobjects"] = true,
-	["treesitter-context"] = true,
-	["wrap-treesitter-start"] = true,
-	["change-commands"] = true,
-	["create-autocommands"] = true,
-}
+local setups = {}
 
 local function set_global_ts_languages()
 	TS_LANGUAGES = {
@@ -80,7 +68,7 @@ local function configure_folds_and_indentation()
 	vim.opt.indentexpr = "v:lua.vim.treesitter.indent()"
 end
 
-local function setup_treesitter_textobjects()
+setups["treesitter-textobjects"] = function()
 	-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	-- Syntax aware text-objects, select, move, swap, and peek support.
 	local treesitter_textobjects_defaults = {
@@ -156,7 +144,7 @@ local function setup_treesitter_textobjects()
 	end)
 end
 
-local function setup_treesitter_context()
+setups["treesitter-context"] = function()
 	-- https://github.com/nvim-treesitter/nvim-treesitter-context
 	-- Show code context
 	local treesitter_context_defaults = {
@@ -258,37 +246,37 @@ local function create_autocommands()
 	})
 end
 
-local functions = {
-	["set-global-ts-languages"] = set_global_ts_languages,
-	["general-setup"] = general_setup,
-	["check-parsers"] = check_parsers,
-	["configure-filetypes-and-aliases"] = configure_filetypes_and_aliases,
-	["configure-folds-and-indentation"] = configure_folds_and_indentation,
-	["nvim-treesitter-textobjects"] = setup_treesitter_textobjects,
-	["treesitter-context"] = setup_treesitter_context,
-	["wrap-treesitter-start"] = wrap_treesitter_start,
-	["change-commands"] = change_commands,
-	["create-autocommands"] = create_autocommands,
-}
-local function maybe_call(element_name)
-	local include = elements[element_name]
-	if include then
-		-- print("Calling '" .. element_name .. "'")
-		local func = functions[element_name]
-		func()
-	end
-end
+-- local functions = {
+-- 	["set-global-ts-languages"] = set_global_ts_languages,
+-- 	["general-setup"] = general_setup,
+-- 	["check-parsers"] = check_parsers,
+-- 	["configure-filetypes-and-aliases"] = configure_filetypes_and_aliases,
+-- 	["configure-folds-and-indentation"] = configure_folds_and_indentation,
+-- 	["nvim-treesitter-textobjects"] = setup_treesitter_textobjects,
+-- 	["treesitter-context"] = setup_treesitter_context,
+-- 	["wrap-treesitter-start"] = wrap_treesitter_start,
+-- 	["change-commands"] = change_commands,
+-- 	["create-autocommands"] = create_autocommands,
+-- }
+-- local function maybe_call(element_name)
+-- 	local include = elements[element_name]
+-- 	if include then
+-- 		-- print("Calling '" .. element_name .. "'")
+-- 		local func = functions[element_name]
+-- 		func()
+-- 	end
+-- end
 
-maybe_call("set-global-ts-languages")
-maybe_call("general-setup")
-maybe_call("check-parsers")
-maybe_call("configure-filetypes-and-aliases")
-maybe_call("configure-folds-and-indentation")
-maybe_call("nvim-treesitter-textobjects")
-maybe_call("treesitter-context")
-maybe_call("wrap-treesitter-start")
-maybe_call("change-commands")
-maybe_call("create-autocommands")
+-- maybe_call("set-global-ts-languages")
+-- maybe_call("general-setup")
+-- maybe_call("check-parsers")
+-- maybe_call("configure-filetypes-and-aliases")
+-- maybe_call("configure-folds-and-indentation")
+-- maybe_call("nvim-treesitter-textobjects")
+-- maybe_call("treesitter-context")
+-- maybe_call("wrap-treesitter-start")
+-- maybe_call("change-commands")
+-- maybe_call("create-autocommands")
 
 -- ================================================================================================
 -- === NOTES ======================================================================================
@@ -314,3 +302,5 @@ maybe_call("create-autocommands")
 -- :TSEnable highlight
 -- :TSDisable highlight
 -- ```
+
+setup_all_enabled("treesitter", setups)
