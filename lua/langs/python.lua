@@ -1,4 +1,7 @@
-local function set_python_options(ev)
+local M = {}
+local setups = {}
+
+function setups.python_options(ev)
 	vim.bo[ev.buf].shiftwidth = 4
 	vim.keymap.set("n", "<localleader>r", "<cmd>!python %<cr>", { buffer = ev.buf })
 end
@@ -135,23 +138,21 @@ function setups.debugging()
 	]]
 end
 
-local M = {}
-
 function M.setup(ev, features_enabled)
 	print("Setting up Python.")
-	set_python_options(ev)
-	setup_equals()
+	setups.python_options(ev)
+	setups.equals()
 	if features_enabled.lsp then
 		print(" - LSP enabled")
-		setup_lsp()
+		setups.lsp()
 	end
 	if features_enabled.testing then
 		print(" - Testing enabled")
-		setup_testing()
+		setups.testing()
 	end
 	if features_enabled.debugging then
 		print(" - Debugging enabled")
-		setup_debugging()
+		setups.debugging()
 	end
 end
 
