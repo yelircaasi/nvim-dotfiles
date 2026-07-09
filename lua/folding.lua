@@ -24,7 +24,7 @@ function setups.configure_folding()
 	-- Keymaps
 	map_explicit({
 		mode = "n",
-		sequence = "zR",
+		sequence = "zR", -- TODO:: change to 'toggle all folds'?
 		action = function()
 			vim.opt.foldlevel = 99
 		end,
@@ -32,19 +32,19 @@ function setups.configure_folding()
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "zM",
-		action = function()
+		sequence = "zM", -- TODO:: change to 'toggle all folds'?		action = function()
 			vim.opt.foldlevel = 0
 		end,
 		desc = "Close all folds",
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "za",
+		sequence = "za", -- TODO:: change to zz?
 		action = "za",
 		desc = "Toggle fold",
 	})
-	map_explicit({
+	map_explicit({ -- TODO:: figure out how to close floating window
+		-- TODO: add treesitter/LSP highlighting to floating window
 		mode = "n",
 		sequence = "zp",
 		action = function()
@@ -68,7 +68,7 @@ function setups.configure_folding()
 			})
 		end,
 		desc = "Preview fold",
-	})
+ })
 end
 
 function setups.ufo()
@@ -96,21 +96,22 @@ function setups.ufo()
 
 		-- ALTERNATIVE: LSP
 		--[[
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true
-    }
-    local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
-    for _, ls in ipairs(language_servers) do
-        require('lspconfig')[ls].setup({
-            capabilities = capabilities
-            -- add other fields for setting up lsp server in this table
-        })
-    end
-    --]]
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities.textDocument.foldingRange = {
+			dynamicRegistration = false,
+			lineFoldingOnly = true
+		}
+		local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+		for _, ls in ipairs(language_servers) do
+			require('lspconfig')[ls].setup({
+				capabilities = capabilities
+				-- add other fields for setting up lsp server in this table
+			})
+		end
+		--]]
 		ufo.setup({})
 
+		-- TODO:: remove duplication (same keybinds as above)
 		map_explicit({
 			mode = "n",
 			sequence = "zR",
