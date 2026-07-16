@@ -93,6 +93,7 @@ function setups.copilot()
 	end)
 end
 
+-- TODO NEXT!
 function setups.opencode()
 	-- TODO: https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/
 	---@type opencode.Opts

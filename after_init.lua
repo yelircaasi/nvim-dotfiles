@@ -32,6 +32,15 @@ function create_ft_autocmd(pattern, callback)
 		callback = callback,
 	})
 end
+--[[ tl
+function create_ft_autocmd(pattern: string, callback: (function() nil)
+	vim.api.nvim_create_autocmd("FileType", {
+		group = vim.api.nvim_create_augroup("ft_" .. pattern, { clear = true }),
+		pattern = pattern,
+		callback = callback,
+	})
+end
+-- ]]
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── COLORSCHEME ────────────────────────────────────────────────────────────
@@ -44,6 +53,9 @@ require("colors")
 
 require("checks")
 require("lsp")
+require("lsp_like")
+require("qa")
+require("diagnostics")
 require("editing")
 require("navigation")
 require("treesitter")

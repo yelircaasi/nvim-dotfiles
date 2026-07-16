@@ -32,7 +32,8 @@ function setups.configure_folding()
 	})
 	map_explicit({
 		mode = "n",
-		sequence = "zM", -- TODO:: change to 'toggle all folds'?		action = function()
+		sequence = "zM", -- TODO:: change to 'toggle all folds'?
+		action = function()
 			vim.opt.foldlevel = 0
 		end,
 		desc = "Close all folds",
@@ -68,7 +69,7 @@ function setups.configure_folding()
 			})
 		end,
 		desc = "Preview fold",
- })
+	})
 end
 
 function setups.ufo()

@@ -201,11 +201,16 @@ end
 
 setups["vim-auto-save"] = function()
 	utils.packadd("vim-auto-save", function()
+		-- https://github.com/907th/vim-auto-save
+		-- A Vim plugin which saves files to disk automatically.
 		-- no config required
-	end) -- PROBABLY NOT, BUT WORTH A TRY
+	end) -- PROBABLY NOT, BUT WORTH A TRY; doesn't do anything savior.nvim can't do
 end
 
 function setups.zpragmatic()
+	-- https://github.com/muhammadzkralla/zpragmatic.nvim
+	-- Not a bad idea, but a bit annoying in practice.
+	-- automatic hooks like conform.nvim and precommit.nvim provide better ergonomics
 	local zpragmatic_defaults = {
 		filetype_questions = {
 			["*"] = { -- Questions for any file type

@@ -63,9 +63,9 @@ USING = {
 	},
 	completion = {
 		["friendly-snippets"] = true,
-		["ultisnips"] = true,
+		["ultisnips"] = false,
 		["luasnip"] = true,
-		["nvim-cmp"] = true,
+		["nvim-cmp"] = false,
 		["blink-cmp"] = true,
 	},
 	debugging = {
@@ -73,6 +73,20 @@ USING = {
 		["dap-virtual-text"] = false, -- false: fix dependency
 		["keymaps"] = true,
 		["autommands"] = true,
+	},
+	diagnostics = {
+		["create_keymaps"] = true,
+		["create_autocommands"] = true,
+		["diagflow"] = false,
+		["configure_diagnostics_modes"] = false,
+		["trouble"] = true,
+		["quicker"] = true,
+		["bqf"] = true,
+		["error-jump"] = true,
+		["qfview"] = true,
+		["dmap"] = true,
+		["corn"] = true,
+		["nvim-lightbulb"] = true,
 	},
 	diff = {
 		["diffview"] = true,
@@ -83,11 +97,11 @@ USING = {
 		["Comment"] = true,
 		["todo-comments"] = true,
 		["ts_context_commentstring"] = true,
-		["savior"] = true,
-		["vim-auto-save"] = true,
+		["savior"] = false,
+		["vim-auto-save"] = false,
 		["zpragmatic"] = false,
 		["multicursors"] = true, --
-		["vim-visual-multi"] = true, -- TODO: make lazy with <leader>vm or other
+		["vim-visual-multi"] = true, --  TODO: make lazy with <leader>vm or other
 		["illuminate"] = true,
 		["splitjoin"] = false, --        TODO: debug
 		["spread"] = false, --           TODO: update (using old nvim-treesitter)
@@ -130,19 +144,19 @@ USING = {
 		["miscellaneous-autocommands"] = true,
 	},
 	execution = {
-		["conjure"] = true,
-		["sniprun"] = true,
-		["live-command"] = true,
-		["channelot"] = true,
-		["vim-slime"] = true,
-		["jaq"] = true,
-		["iron"] = true,
-		["resin"] = true,
-		["officer"] = true,
-		["compiler"] = true,
-		["jupytext"] = true,
-		["quarto"] = true,
-		["asyncrun"] = true,
+		["conjure"] = false,
+		["sniprun"] = false,
+		["live-command"] = false,
+		["channelot"] = false,
+		["vim-slime"] = false,
+		["jaq"] = false,
+		["iron"] = false,
+		["resin"] = false,
+		["officer"] = false,
+		["compiler"] = false,
+		["jupytext"] = false,
+		["quarto"] = false,
+		["asyncrun"] = false,
 		["xmake"] = false,
 	},
 	experimental = {
@@ -156,6 +170,7 @@ USING = {
 		["neotree"] = true,
 		["nvimtree"] = true,
 		["chadtree"] = false,
+		["genghis"] = true,
 	},
 	folding = {
 		["configure_folding"] = true,
@@ -180,35 +195,19 @@ USING = {
 	},
 	lsp = {
 		["general_setup"] = true,
-		["create_keymaps"] = true,
-		["create_autocommands"] = true,
-		["diagflow"] = true,
-		["configure_diagnostics_modes"] = true,
-		["conform"] = true,
 		["lsp-format"] = true,
 		["lspkind"] = true,
 		["lspsaga"] = true,
-		["doc-window"] = false, -- TODO: update to remove dep on nvim-treesitter.ts_utils
-		["trouble"] = true,
-		["quicker"] = true,
-		["bqf"] = true,
-		["nvim-lint"] = true,
-		["refactoring"] = true,
-		["error-jump"] = true,
-		["qfview"] = true,
-		["vale"] = true,
-		["genghis"] = true,
-		["precommit"] = true,
-		["lint"] = true,
-		["corn"] = true,
 		["glance"] = true,
-		["dmap"] = true,
-		["strict"] = false,
 		["inlayhint-filler"] = true,
-		["hlargs"] = true,
 		["lsp_signature"] = true,
-		["nvim-lightbulb"] = true,
 		["lsp_formatting"] = true,
+	},
+	lsp_like = {
+		["doc-window"] = false, -- TODO: update to remove dep on nvim-treesitter.ts_utils
+		["refactoring"] = true,
+		["lint"] = true,
+		["hlargs"] = true,
 	},
 	macros = {
 		["neocomposer"] = true,
@@ -356,6 +355,11 @@ USING = {
 		["projector"] = true,
 		["neoconf"] = true,
 	},
+	qa = {
+		["precommit"] = true,
+		["conform"] = true,
+		["strict"] = false,
+	},
 	search = {
 		["ido"] = true,
 		["regex-vars"] = false,
@@ -471,6 +475,7 @@ function setup_all_enabled(modname, funcset)
 
 	for name, func in pairs(funcset) do
 		if toggles[name] then
+			-- print("Setting up " .. name)
 			func()
 		end
 	end
@@ -485,6 +490,7 @@ LANGUAGES = {
 	["lua"] = false,
 	["markdown"] = false,
 	["nix"] = false,
+	["prose"] = false,
 	["rust"] = false,
 	["tex"] = false,
 	["typst"] = false,

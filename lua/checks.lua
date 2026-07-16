@@ -26,4 +26,6 @@ end
 --     end,
 -- })
 
+-- TODO next: opencode server, cloud env (k9s, kubectl, minikube, gcp, azure, azd, etc)
+
 setup_all_enabled("checks", checks)
