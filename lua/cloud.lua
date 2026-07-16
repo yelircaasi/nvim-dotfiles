@@ -69,7 +69,7 @@ function setups.kubectl()
 end
 
 function setups.kpops()
-	-- TODO: install https://github.com/bakdata/kpops
+	-- TODO: install https://github.com/bakdata/kpops | https://bakdata.github.io/kpops/latest/user/what-is-kpops/
 	-- https://github.com/disrupted/kpops.nvim
 	-- Neovim plugin for integrating KPOps
 	local kpops_defaults = {}

@@ -29,14 +29,15 @@ function setups.headlines()
 	})
 end
 
+-- TODO: needs update/vendoring (no error, seems to be API error)
 function setups.sunglasses()
 	local function setup_sunglasses()
 		-- https://github.com/miversen33/sunglasses.nvim
 		-- Put on your shades so you only see what you care about
 		local sunglasses_defaults = {
-			filter_percent = 0.65,
-			filter_type = "SHADE",
-			log_level = "ERROR",
+			-- filter_percent = 0.65,
+			filter_percent = 0.3,
+			filter_type = "DEFAULT",
 			refresh_timer = 5,
 			excluded_filetypes = {
 				"dashboard",
@@ -93,15 +94,22 @@ function setups.sunglasses()
 			end,
 		}
 		setup_plugin("sunglasses", sunglasses_defaults)
+		vim.cmd(":SunglassesEnable")
 		print("set up sunglasses.nvim")
 	end
 
-	map_explicit({ mode = "n", sequence = "<leader>su", action = setup_sunglasses })
+	map_explicit({ mode = "n", sequence = "<leader>sun", action = setup_sunglasses })
+	map_explicit({ mode = "n", sequence = "<leader>sut", action = ":SunglassesEnableToggle<CR>" })
+	map_explicit({ mode = "n", sequence = "<leader>suon", action = ":SunglassesOn<CR>" })
+	map_explicit({ mode = "n", sequence = "<leader>suoff", action = ":SunglassesOff<CR>" })
 end
 
-local function configure()
+function setups.configure()
 	vim.api.nvim_set_hl(0, "NonText", { fg = "#5b5e5a" })
 	vim.api.nvim_set_hl(0, "SpecialKey", { fg = "#5b5e5a" })
+	vim.api.nvim_set_hl(0, "StatusLine", { bg = "#000000" })
+	-- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#aaaaaa" })
+	-- vim.api.nvim_set_hl(0, "WinSeparator", { bg = "#aaaaaa" })
 
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		-- immediate = true,
@@ -118,4 +126,15 @@ local function configure()
 	})
 end
 
-setup_all_enabled("colors", setups)
+if USING.colors["odenwald-colorscheme"] then
+	setups["odenwald-colorscheme"]()
+end
+if USING.colors.sunglasses then
+	setups.sunglasses()
+end
+if USING.colors.headlines then
+	setups.headlines()
+end
+if USING.colors.configure then
+	setups.configure()
+end

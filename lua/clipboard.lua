@@ -89,6 +89,7 @@ end
 --─────────────────────────────────────────────────────────────────────────────
 
 function setups.yanky()
+	-- https://github.com/LazyVim/LazyVim/discussions/1460
 	local yanky_defaults = {
 		ring = {
 			history_length = 100,

@@ -84,6 +84,7 @@ require("multilang")
 require("experimental")
 
 require("language_support").create(LANGUAGES, LANGUAGE_FEATURES)
+require("post")
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── DEBUG INFO ─────────────────────────────────────────────────────────────

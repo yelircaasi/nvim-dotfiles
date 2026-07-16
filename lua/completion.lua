@@ -160,7 +160,6 @@ function setups.luasnip()
 				i(2, "pass"),
 			}),
 		})
-		print("added snippets")
 
 		-- loaders
 		-- TODO: https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#lua
@@ -361,6 +360,7 @@ setups["nvim-cmp"] = function()
 	})
 end
 
+-- TODO: migrate to V2.0: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/editors/vim/plugins/non-generated/blink-cmp/default.nix#L56
 setups["blink-cmp"] = function()
 	local bink_cmp_defaults = {
 		-- Enables keymaps, completions and signature help when true (doesn't apply to cmdline or term)

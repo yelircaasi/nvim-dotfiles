@@ -2084,7 +2084,6 @@ setups["mini-pairs"] = function()
 end
 
 setups.map_ctrl_o = function()
-	print("Mapped Ctrl-l")
 	map_explicit({
 		mode = "i",
 		sequence = "<C-O>",

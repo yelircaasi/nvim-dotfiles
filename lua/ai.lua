@@ -96,126 +96,149 @@ end
 -- TODO NEXT!
 function setups.opencode()
 	-- TODO: https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/
-	---@type opencode.Opts
-	local opencode_defaults = {
-		server = {
-			url = nil,
-			username = vim.env.OPENCODE_SERVER_USERNAME or "opencode", -- Same env vars and defaults as `opencode`
-			password = vim.env.OPENCODE_SERVER_PASSWORD,
-			start = function()
-				vim.cmd("vsplit term://opencode --port | wincmd p")
-			end,
-		},
-  -- stylua: ignore
-  contexts = {
-    ["@this"] = function(context) return context:this() end,
-    ["@buffer"] = function(context) return context:buffer() end,
-    ["@buffers"] = function(context) return context:buffers() end,
-    ["@visible"] = function(context) return context:visible_text() end,
-    ["@diagnostics"] = function(context) return context:diagnostics() end,
-    ["@quickfix"] = function(context) return context:quickfix() end,
-    ["@diff"] = function(context) return context:git_diff() end,
-    ["@marks"] = function(context) return context:marks() end,
-    ["@grapple"] = function(context) return context:grapple_tags() end,
-  },
-		ask = {
-			prompt = "Ask opencode: ",
-			completion = "customlist,v:lua.opencode_completion",
-			snacks = {
-				icon = "󰚩 ",
-				win = {
-					title_pos = "left",
-					relative = "cursor",
-					row = -3, -- Row above the cursor
-					col = 0, -- Align with the cursor
-					keys = {
-						i_cr = {
-							desc = "submit",
+
+	local function setup_opencode()
+		vim.cmd.packadd("opencode")
+
+		---@type opencode.Opts
+		local opencode_defaults = {
+			server = {
+				url = nil,
+				username = vim.env.OPENCODE_SERVER_USERNAME or "opencode", -- Same env vars and defaults as `opencode`
+				password = vim.env.OPENCODE_SERVER_PASSWORD,
+				start = function()
+					vim.cmd("vsplit term://opencode --port | wincmd p")
+				end,
+			},
+			contexts = {
+				["@this"] = function(context)
+					return context:this()
+				end,
+				["@buffer"] = function(context)
+					return context:buffer()
+				end,
+				["@buffers"] = function(context)
+					return context:buffers()
+				end,
+				["@visible"] = function(context)
+					return context:visible_text()
+				end,
+				["@diagnostics"] = function(context)
+					return context:diagnostics()
+				end,
+				["@quickfix"] = function(context)
+					return context:quickfix()
+				end,
+				["@diff"] = function(context)
+					return context:git_diff()
+				end,
+				["@marks"] = function(context)
+					return context:marks()
+				end,
+				["@grapple"] = function(context)
+					return context:grapple_tags()
+				end,
+			},
+			ask = {
+				prompt = "Ask opencode: ",
+				completion = "customlist,v:lua.opencode_completion",
+				snacks = {
+					icon = "󰚩 ",
+					win = {
+						title_pos = "left",
+						relative = "cursor",
+						row = -3, -- Row above the cursor
+						col = 0, -- Align with the cursor
+						keys = {
+							i_cr = {
+								desc = "submit",
+							},
 						},
+						b = {
+							completion = true,
+						},
+						bo = {
+							filetype = "opencode_ask",
+						},
+						on_buf = function(win)
+							-- Make sure your completion plugin has the LSP source enabled,
+							-- either by default or for the `opencode_ask` filetype!
+							vim.lsp.start(require("opencode.ui.ask.cmp"), {
+								bufnr = win.buf,
+							})
+						end,
 					},
-					b = {
-						completion = true,
-					},
-					bo = {
-						filetype = "opencode_ask",
-					},
-					on_buf = function(win)
-						-- Make sure your completion plugin has the LSP source enabled,
-						-- either by default or for the `opencode_ask` filetype!
-						vim.lsp.start(require("opencode.ui.ask.cmp"), {
-							bufnr = win.buf,
-						})
-					end,
 				},
 			},
-		},
-		select = {
-			prompt = "opencode: ",
-			prompts = {
-				ask = "...",
-				diagnostics = "Explain @diagnostics",
-				diff = "Review the following git diff for correctness and readability: @diff",
-				document = "Add comments documenting @this",
-				explain = "Explain @this and its context",
-				fix = "Fix @diagnostics",
-				implement = "Implement @this",
-				optimize = "Optimize @this for performance and readability",
-				review = "Review @this for correctness and readability",
-				test = "Add tests for @this",
-			},
-			commands = {
-				["agent.cycle"] = "Cycle selected agent",
-				["prompt.clear"] = "Clear current prompt",
-				["prompt.submit"] = "Submit current prompt",
-				["session.compact"] = "Compact current session",
-				["session.interrupt"] = "Interrupt current session",
-				["session.new"] = "Start new session",
-				["session.redo"] = "Redo last undone action in current session",
-				["session.select"] = "Select session",
-				["session.undo"] = "Undo last action in current session",
-			},
-			server = true,
-			snacks = {
-				preview = "preview",
-				layout = {
-					preset = "vscode",
-					hidden = {}, -- preview is hidden by default in `vim.ui.select`
+			select = {
+				prompt = "opencode: ",
+				prompts = {
+					ask = "...",
+					diagnostics = "Explain @diagnostics",
+					diff = "Review the following git diff for correctness and readability: @diff",
+					document = "Add comments documenting @this",
+					explain = "Explain @this and its context",
+					fix = "Fix @diagnostics",
+					implement = "Implement @this",
+					optimize = "Optimize @this for performance and readability",
+					review = "Review @this for correctness and readability",
+					test = "Add tests for @this",
+				},
+				commands = {
+					["agent.cycle"] = "Cycle selected agent",
+					["prompt.clear"] = "Clear current prompt",
+					["prompt.submit"] = "Submit current prompt",
+					["session.compact"] = "Compact current session",
+					["session.interrupt"] = "Interrupt current session",
+					["session.new"] = "Start new session",
+					["session.redo"] = "Redo last undone action in current session",
+					["session.select"] = "Select session",
+					["session.undo"] = "Undo last action in current session",
+				},
+				server = true,
+				snacks = {
+					preview = "preview",
+					layout = {
+						preset = "vscode",
+						hidden = {}, -- preview is hidden by default in `vim.ui.select`
+					},
 				},
 			},
-		},
-		events = {
-			enabled = true,
-			reload = true,
-			permissions = {
+			events = {
 				enabled = true,
-				edits = {
+				reload = true,
+				permissions = {
 					enabled = true,
+					edits = {
+						enabled = true,
+					},
 				},
 			},
-		},
-		lsp = {
-			enabled = false,
-			filetypes = nil,
-			handlers = {
-				hover = {
-					enabled = true,
-					model = nil,
+			lsp = {
+				enabled = false,
+				filetypes = nil,
+				handlers = {
+					hover = {
+						enabled = true,
+						model = nil,
+					},
+					code_action = { enabled = true },
 				},
-				code_action = { enabled = true },
 			},
-		},
-	}
-	setup_plugin("opencode", function(opencode)
+		}
+
 		---@type opencode.Opts
 		vim.g.opencode_opts = opencode_defaults
 		vim.o.autoread = true -- Required for `vim.g.opencode_opts.events.reload`
+
+		local opencode = require("opencode")
 
 		-- Recommended/example keymaps
 		map_explicit({
 			mode = { "n", "x" },
 			sequence = "<leader>oa",
 			action = function()
-				require("opencode").ask("@this: ")
+				opencode.ask("@this: ")
 			end,
 			desc = "Ask opencode…",
 		})
@@ -223,7 +246,7 @@ function setups.opencode()
 			mode = { "n", "x" },
 			sequence = "<leader>os",
 			action = function()
-				require("opencode").select()
+				opencode.select()
 			end,
 			desc = "Select opencode…",
 		})
@@ -232,7 +255,7 @@ function setups.opencode()
 			mode = { "n", "x" },
 			sequence = "go",
 			action = function()
-				return require("opencode").operator("@this ")
+				return opencode.operator("@this ")
 			end,
 			opts = { desc = "Add range to opencode", expr = true },
 		})
@@ -240,7 +263,7 @@ function setups.opencode()
 			mode = "n",
 			sequence = "goo",
 			action = function()
-				return require("opencode").operator("@this ") .. "_"
+				return opencode.operator("@this ") .. "_"
 			end,
 			opts = { desc = "Add line to opencode", expr = true },
 		})
@@ -249,7 +272,7 @@ function setups.opencode()
 			mode = "n",
 			sequence = "<S-C-u>",
 			action = function()
-				require("opencode").command("session.half.page.up")
+				opencode.command("session.half.page.up")
 			end,
 			opts = { desc = "Scroll opencode up" },
 		})
@@ -257,7 +280,7 @@ function setups.opencode()
 			mode = "n",
 			sequence = "<S-C-d>",
 			action = function()
-				require("opencode").command("session.half.page.down")
+				opencode.command("session.half.page.down")
 			end,
 			opts = { desc = "Scroll opencode down" },
 		})
@@ -323,7 +346,9 @@ function setups.opencode()
 		end
 
 		setup_opencode_snacks()
-	end)
+	end
+	setup_opencode()
+	-- print("set up opencode")
 end
 
 function setups.avante()
