@@ -1,0 +1,10 @@
+{
+    "Python __init__": {
+        "prefix": "init",
+        "body": [
+            "def __init__(self, ${1:args}):",
+            "\t${2:pass}"
+        ],
+        "description": "Python __init__ method"
+    }
+}

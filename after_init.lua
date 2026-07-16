@@ -32,6 +32,7 @@ function create_ft_autocmd(pattern, callback)
 		callback = callback,
 	})
 end
+
 --[[ tl
 function create_ft_autocmd(pattern: string, callback: (function() nil)
 	vim.api.nvim_create_autocmd("FileType", {

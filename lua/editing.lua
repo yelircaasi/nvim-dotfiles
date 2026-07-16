@@ -1144,8 +1144,10 @@ end
 function setups.dial()
 	setup_plugin("dial", function(dial)
 		local augend = require("dial.augend")
-		local manipulate = require("dial.map")
-		require("dial.config").augends:register_group({
+		local dial_map = require("dial.map")
+		local manipulate = dial_map.manipulate
+		local dial_config = require("dial.config")
+		dial_config.augends:register_group({
 			default = {
 				augend.integer.alias.decimal,
 				augend.integer.alias.hex,
@@ -1163,77 +1165,76 @@ function setups.dial()
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<C-a>",
+			sequence = "<leader>dk",
 			action = function()
 				manipulate("increment", "normal")
 			end,
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<C-x>",
-			function()
+			sequence = "<leader>dj",
+			action = function()
 				manipulate("decrement", "normal")
 			end,
 		})
-		map_explicit({
-			mode = "n",
-			sequence = "g<C-a>",
-			action = function()
-				manipulate("increment", "gnormal")
-			end,
-		})
-		map_explicit({
-			mode = "n",
-			sequence = "g<C-x>",
-			action = function()
-				manipulate("decrement", "gnormal")
-			end,
-		})
+		-- map_explicit({
+		-- 	mode = "n",
+		-- 	sequence = "g<C-a>",
+		-- 	action = function()
+		-- 		manipulate("increment", "gnormal")
+		-- 	end,
+		-- })
+		-- map_explicit({
+		-- 	mode = "n",
+		-- 	sequence = "g<C-x>",
+		-- 	action = function()
+		-- 		manipulate("decrement", "gnormal")
+		-- 	end,
+		-- })
 		map_explicit({
 			mode = "x",
-			sequence = "<C-a>",
+			sequence = "<leader>dk",
 			action = function()
 				manipulate("increment", "visual")
 			end,
 		})
 		map_explicit({
 			mode = "x",
-			sequence = "<C-x>",
+			sequence = "<leader>dj",
 			action = function()
 				manipulate("decrement", "visual")
 			end,
 		})
+		-- map_explicit({
+		-- 	mode = "x",
+		-- 	sequence = "g<C-a>",
+		-- 	action = function()
+		-- 		manipulate("increment", "gvisual")
+		-- 	end,
+		-- })
+		-- map_explicit({
+		-- 	mode = "x",
+		-- 	sequence = "g<C-x>",
+		-- 	action = function()
+		-- 		manipulate("decrement", "gvisual")
+		-- 	end,
+		-- })
 		map_explicit({
 			mode = "x",
-			sequence = "g<C-a>",
+			sequence = "<leader>dk",
 			action = function()
-				manipulate("increment", "gvisual")
+				manipulate("increment", "visual", "only_in_visual")
 			end,
 		})
 		map_explicit({
 			mode = "x",
-			sequence = "g<C-x>",
+			sequence = "<leader>dj",
 			action = function()
-				manipulate("decrement", "gvisual")
+				manipulate("decrement", "visual", "only_in_visual")
 			end,
 		})
 
-		map_explicit({
-			mode = "x",
-			sequence = "<C-a>",
-			action = function()
-				require("dial.map").manipulate("increment", "visual", "only_in_visual")
-			end,
-		})
-		map_explicit({
-			mode = "x",
-			sequence = "<C-x>",
-			action = function()
-				require("dial.map").manipulate("decrement", "visual", "only_in_visual")
-			end,
-		})
-
-		require("dial.config").augends:on_filetype({
+		dial_config.augends:on_filetype({
 			typescript = {
 				augend.integer.alias.decimal,
 				augend.integer.alias.hex,
@@ -1241,71 +1242,6 @@ function setups.dial()
 			},
 		})
 	end)
-	-- TODO: fold in above
-	map_explicit({ ------------------------------------------------------------------------------------------------------------- dial
-		mode = "n",
-		sequence = "<C-a>",
-		action = function()
-			require("dial.map").manipulate("increment", "normal")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "<C-x>",
-		action = function()
-			require("dial.map").manipulate("decrement", "normal")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "g<C-a>",
-		action = function()
-			require("dial.map").manipulate("increment", "gnormal")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "n",
-		sequence = "g<C-x>",
-		action = function()
-			require("dial.map").manipulate("decrement", "gnormal")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "x",
-		sequence = "<C-a>",
-		action = function()
-			require("dial.map").manipulate("increment", "visual")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "x",
-		sequence = "<C-x>",
-		action = function()
-			require("dial.map").manipulate("decrement", "visual")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "x",
-		sequence = "g<C-a>",
-		action = function()
-			require("dial.map").manipulate("increment", "gvisual")
-		end,
-		desc = "",
-	})
-	map_explicit({
-		mode = "x",
-		sequence = "g<C-x>",
-		action = function()
-			require("dial.map").manipulate("decrement", "gvisual")
-		end,
-		desc = "",
-	})
 end
 
 --─────────────────────────────────────────────────────────────────────────────
@@ -2145,6 +2081,29 @@ setups["mini-pairs"] = function()
 		},
 	}
 	setup_plugin("mini.pairs", mini_pairs_defaults)
+end
+
+setups.map_ctrl_o = function()
+	print("Mapped Ctrl-l")
+	map_explicit({
+		mode = "i",
+		sequence = "<C-O>",
+		action = function()
+			print("ctrl-l recognized")
+			local line = vim.api.nvim_get_current_line()
+			local col = vim.api.nvim_win_get_cursor(0)[2]
+			local next = line:sub(col + 1, col + 1)
+			if next:match("[%]%)%}'\"` ]") then
+				vim.api.nvim_win_set_cursor(0, {
+					vim.api.nvim_win_get_cursor(0)[1],
+					col + 1,
+				})
+			else
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-l>", true, false, true), "n", false)
+			end
+		end,
+		desc = "Jump past closing delimiter",
+	})
 end
 
 --─────────────────────────────────────────────────────────────────────────────

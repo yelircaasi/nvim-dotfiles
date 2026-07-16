@@ -124,13 +124,13 @@ setups["friendly-snippets"] = function()
 	})
 end
 
-function setups.ultisnips()
-	utils.packadd("ultisnips")
-end
-
 --─────────────────────────────────────────────────────────────────────────────
 --──── snippet engines ────────────────────────────────────────────────────────
 --─────────────────────────────────────────────────────────────────────────────
+
+function setups.ultisnips()
+	utils.packadd("ultisnips")
+end
 
 function setups.luasnip()
 	function setup_luasnip()
@@ -145,21 +145,35 @@ function setups.luasnip()
 
 		local s = ls.snippet
 		local t = ls.text_node
+		local i = ls.insert_node
 
 		ls.add_snippets("all", {
 			s({ trig = "a.*b", regTrig = true }, {
 				t("REGEX OK"),
 			}),
 		})
+		ls.add_snippets("python", {
+			s("init", {
+				t("def __init__(self, "),
+				i(1, "args"),
+				t({ "):", "\t" }),
+				i(2, "pass"),
+			}),
+		})
+		print("added snippets")
 
 		-- loaders
 		-- TODO: https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#lua
 
 		require("luasnip.loaders.from_vscode").lazy_load()
+		require("luasnip.loaders.from_vscode").lazy_load({
+			paths = { vim.fn.stdpath("config") .. "/snippets" },
+		})
 		-- NOTE:
 		-- It's mandatory to have a `package.json` file in the snippet directory. For examples, see [friendly-snippets](https://github.com/rafamadriz/friendly-snippets/blob/main/package.json).
 		-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./my-cool-snippets" } })
 
+		-- see https://github.com/timmywil/snipmate-snippets/tree/master/snippets
 		require("luasnip.loaders.from_snipmate").lazy_load()
 
 		map_explicit({
@@ -193,6 +207,32 @@ function setups.luasnip()
 			action = function()
 				if ls.choice_active() then
 					ls.change_choice(1)
+				end
+			end,
+			opts = { silent = true },
+		})
+
+		map_explicit({
+			mode = "i",
+			sequence = "<Tab>",
+			action = function()
+				if ls.expand_or_jumpable() then
+					ls.expand_or_jump()
+				else
+					return "<Tab>"
+				end
+			end,
+			opts = { silent = true },
+		})
+
+		map_explicit({
+			mode = "i",
+			sequence = "<S-Tab>",
+			action = function()
+				if ls.jumpable(-1) then
+					ls.jump(-1)
+				else
+					return "<S-Tab>"
 				end
 			end,
 			opts = { silent = true },
@@ -384,7 +424,7 @@ setups["blink-cmp"] = function()
 		},
 
 		-- Use a preset for snippets, check the snippets documentation for more information
-		snippets = { preset = "default" }, -- "default" | "luasnip" | "mini_snippets" | "vsnip" },
+		snippets = { preset = "luasnip" }, -- "default" | "luasnip" | "mini_snippets" | "vsnip" },
 
 		-- Experimental signature help support
 		signature = { enabled = true },
@@ -404,7 +444,7 @@ setups["blink-cmp"] = function()
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 
-			["<Tab>"] = { "snippet_forward", "fallback" },
+			["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
 			["<S-Tab>"] = { "snippet_backward", "fallback" },
 
 			["<C-b>"] = { "scroll_documentation_up", "fallback" },
