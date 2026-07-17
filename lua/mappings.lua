@@ -43,6 +43,16 @@ setups.general_keymaps = function()
 	-- })
 	map_explicit({
 		mode = "n",
+		sequence = "<leader>=",
+		action = ":split<CR>",
+	})
+	map_explicit({
+		mode = "n",
+		sequence = "<leader>|",
+		action = ":vsplit<CR>",
+	})
+	map_explicit({
+		mode = "n",
 		sequence = "<leader>ww",
 		action = ":write<CR>",
 	})

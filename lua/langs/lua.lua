@@ -1,4 +1,6 @@
-local function set_lua_options()
+local setups = {}
+
+function setups.options(ev)
 	vim.bo[ev.buf].shiftwidth = 4
 end
 
@@ -80,6 +82,7 @@ function setups.testing()
 	-- TODO: add to neotest setup
 	-- https://github.com/nvim-neotest/neotest-plenary
 	-- for lua testing
+	utils.packadd("neotest")
 	setup_plugin("neotest-plenary") -- just to test installation & requiring
 end
 
@@ -91,19 +94,19 @@ local M = {}
 
 function M.setup(ev, features_enabled)
 	print("Setting up Lua.")
-	set_lua_options(ev)
-	setup_miscellaneous()
+	setups.options(ev)
+	setups.miscellaneous()
 	if features_enabled.lsp then
 		print(" - LSP enabled")
-		setup_lsp()
+		setups.lsp()
 	end
 	if features_enabled.testing then
 		print(" - Testing enabled")
-		setup_testing()
+		setups.testing()
 	end
 	if features_enabled.debugging then
 		print(" - Debugging enabled")
-		setup_debugging()
+		setups.debugging()
 	end
 end
 

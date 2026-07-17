@@ -810,7 +810,20 @@ function setups.corn()
 			-- custom logic goes here
 		end,
 	}
-	setup_plugin("corn", corn_defaults)
+	local corn = setup_plugin("corn", corn_defaults)
+	vim.g.corn_enabled = false
+
+	local function toggle_corn()
+		vim.g.corn_enabled = not vim.g.corn_enabled
+		corn.toggle()
+	end
+
+	map_explicit({
+		mode = "n",
+		sequence = "<leader>dc",
+		action = toggle_corn,
+		desc = "Toggle corn.nvim (LSP diagnostics in floating popup)",
+	})
 end
 
 -- TODO: add keybind to inspect or get further info on lightbulb (analogous to clicking in VSCode)

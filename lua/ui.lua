@@ -1028,6 +1028,7 @@ function setups.navic()
 end
 
 function setups.bufferline()
+	utils.packadd("nvim-web-devicons")
 	-- https://github.com/akinsho/bufferline.nvim
 	-- A snazzy bufferline for Neovim
 	local BG = "#031A16"
