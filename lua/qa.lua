@@ -44,17 +44,33 @@ function setups.conform()
 				-- Ignore exit code so it doesn't block save; use for diagnostics instead
 				ignore_exitcode = true,
 			},
+			stylua = {
+				command = "stylua",
+				args = { "$FILENAME" },
+				-- Ignore exit code so it doesn't block save; use for diagnostics instead
+				ignore_exitcode = true,
+			},
 		},
 	}
 	setup_plugin("conform", function(conform)
 		conform.setup(conform_config)
 
 		vim.api.nvim_create_autocmd("BufWritePre", {
-			-- pattern = "*.py",
+			pattern = { "*.py", "*.rs" },
 			callback = function(args)
 				conform.format({ bufnr = args.buf })
 			end,
 			-- desc = "Format Python on save with conform",
+		})
+
+		map_explicit({
+			mode = "n",
+			sequence = "<leader>cf",
+			action = function(ev)
+				conform.format({ bufnr = 0 })
+				print("Formatted using conform.")
+			end,
+			opts = shared_opts,
 		})
 	end)
 end

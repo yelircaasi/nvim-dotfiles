@@ -76,14 +76,6 @@ function setups.create_autocommands()
 		})
 		map_explicit({
 			mode = "n",
-			sequence = "<leader>cf",
-			action = function()
-				require("conform").format({ bufnr = ev.buf })
-			end,
-			opts = shared_opts,
-		})
-		map_explicit({
-			mode = "n",
 			sequence = "<leader>cl",
 			action = vim.lsp.codelens.run,
 			opts = shared_opts,
@@ -222,7 +214,7 @@ function setups.configure_diagnostics_modes()
 	current_mode_index = 1
 	diagnostics_active = false
 
-	local diagnostic_modes = {
+	vim.g.diagnostic_modes = {
 		{
 			name = "End of Line (Virtual Text)",
 			config = {
@@ -285,7 +277,7 @@ function setups.configure_diagnostics_modes()
 		end
 
 		vim.diagnostic.enable(true)
-		local mode = diagnostic_modes[current_mode_index]
+		local mode = vim.g.diagnostic_modes[current_mode_index]
 		vim.diagnostic.config(mode.config)
 		utils.printv("LSP Mode: " .. mode.name)
 	end
@@ -815,6 +807,7 @@ function setups.corn()
 
 	local function toggle_corn()
 		vim.g.corn_enabled = not vim.g.corn_enabled
+
 		corn.toggle()
 	end
 

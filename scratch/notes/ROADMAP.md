@@ -4,7 +4,7 @@
 1. [ ] 
 
 2. [ ] set up efm-langserver with LSP
-3. [ ] 
+3. [ ] https://github.com/stevearc/three.nvim
 4. [ ] 
 5. [ ] 
 6. [ ] 

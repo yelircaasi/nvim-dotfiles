@@ -1,3 +1,6 @@
+local setups = {}
+print("requiring nix.lua")
+
 function setups.miscellaneous()
 	-- https://github.com/figsoda/nix-develop.nvim
 	-- Run `nix develop` without restarting neovim
@@ -29,19 +32,28 @@ function setups.miscellaneous()
 	--]]
 end
 
-local function set_nix_options()
+function setups.options()
 	print("PLACEHOLDER")
 end
 
 function setups.lsp()
-	vim.lsp.config["nixd"] = {
-		cmd = { "nixd" },
-		filetypes = { "nix" },
-		root_markers = { "flake.nix", ".git" },
-		settings = {},
+	vim.lsp.config = {
+		["nixd"] = {
+			cmd = { "nixd" },
+			filetypes = { "nix" },
+			root_markers = { "flake.nix", ".git" },
+			settings = {},
+		},
+		["nil"] = {
+			cmd = { "nil" },
+			filetypes = { "nix" },
+			root_markers = { "flake.nix", ".git" },
+			settings = {},
+		},
 	}
 
 	vim.lsp.enable("nixd")
+	vim.lsp.enable("nil")
 end
 
 function setups.testing()
@@ -56,18 +68,19 @@ local M = {}
 
 function M.setup(ev, features_enabled)
 	print("Setting up Nix.")
-	set_nix_options(ev)
+	setups.options()
+	setups.miscellaneous()
 	if features_enabled.lsp then
 		print(" - LSP enabled")
-		setup_lsp()
+		setups.lsp()
 	end
 	if features_enabled.testing then
 		print(" - Testing enabled")
-		setup_testing()
+		setups.testing()
 	end
 	if features_enabled.debugging then
 		print(" - Debugging enabled")
-		setup_debugging()
+		setups.debugging()
 	end
 end
 

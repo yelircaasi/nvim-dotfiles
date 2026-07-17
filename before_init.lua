@@ -371,7 +371,7 @@ USING = {
 	},
 	qa = {
 		["precommit"] =             false, -- recently true
-		["conform"] =               false, -- recently true
+		["conform"] =                true,
 		["strict"] =                false,
 	},
 	search = {
@@ -503,7 +503,7 @@ LANGUAGES = {
 	["json"] =                      false,
 	["lua"] =                        true,
 	["markdown"] =                  false,
-	["nix"] =                       false,
+	["nix"] =                        true,
 	["prose"] =                     false,
 	["rust"] =                      false,
 	["tex"] =                       false,
