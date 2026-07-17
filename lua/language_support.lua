@@ -5,6 +5,7 @@ vim.filetype.add({
 		nix = "nix",
 		tl = "teal",
 		just = "just",
+		rs = "rust",
 	},
 })
 

@@ -1,4 +1,6 @@
-local function set_rust_options()
+local setups = {}
+
+function setups.options()
 	print("PLACEHOLDER")
 end
 
@@ -171,7 +173,12 @@ function setups.lsp()
 			end,
 			default_settings = {
 				-- rust-analyzer language server configuration
-				["rust-analyzer"] = {},
+				["rust-analyzer"] = { -- from old standlone rust-analyzer LSP config
+					cmd = { "rust-analyzer" },
+					filetypes = { "rust" },
+					root_markers = { { "Cargo.toml", "cargo.lock" }, ".git" },
+					settings = {},
+				},
 			},
 		},
 		-- DAP configuration
@@ -198,14 +205,10 @@ function setups.lsp()
 		opts = { silent = true, buffer = bufnr },
 	})
 
+	require("rustaceanvim.lsp").start()
+
 	-- TODO: probably extraneous with rustaceanvim
-	vim.lsp.config["rust-analyzer"] =
-		{ ------------------------------------------------------------------------------- RUST
-			cmd = { "rust-analyzer" },
-			filetypes = { "rust" },
-			root_markers = { { "Cargo.toml", "cargo.lock" }, ".git" },
-			settings = {},
-		}
+	-- vim.lsp.enable("rust-analyzer")
 end
 
 function setups.testing()
@@ -221,7 +224,7 @@ local M = {}
 function M.setup(ev, features_enabled)
 	print("Setting up Rust.")
 	setups.check_executable_dependencies()
-	setups.rust_options(ev)
+	setups.options()
 	setups.miscellaneous()
 	if features_enabled.lsp then
 		print(" - LSP enabled")

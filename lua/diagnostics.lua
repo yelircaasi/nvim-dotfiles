@@ -300,7 +300,7 @@ function setups.configure_diagnostics_modes()
 				current_mode_index = 1
 			else
 				current_mode_index = current_mode_index + 1
-				if current_mode_index > #diagnostic_modes then
+				if current_mode_index > #vim.g.diagnostic_modes then
 					current_mode_index = 1
 				end
 			end
