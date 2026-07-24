@@ -16,38 +16,27 @@ function setups.conform()
 				"ruff_organize_imports",
 				-- "mypy",
 			},
-			nix = {
-				"alejandra",
-			},
-			lua = {
-				"stylua",
-			},
-			haskell = {
-				"fourmolu",
-			},
-			rust = {
-				"rustfmt",
-			},
-			go = {
-				"gofmt",
-			},
+			nix = { "alejandra" },
+			lua = { "stylua" },
+			haskell = { "fourmolu" },
+			rust = { "rustfmt" },
+			go = { "gofmt" },
 		},
 		format_on_save = {
 			timeout_ms = 1000,
 			lsp_format = "fallback", -- Use LSP formatting if available
 		},
 		formatters = {
+			-- Ignore exit code so it doesn't block save; use for diagnostics instead
 			mypy = {
 				command = "mypy",
 				args = { "--no-error-summary", "--show-column-numbers", "--no-color-output", "$FILENAME" },
 				stdin = false,
-				-- Ignore exit code so it doesn't block save; use for diagnostics instead
 				ignore_exitcode = true,
 			},
 			stylua = {
 				command = "stylua",
 				args = { "$FILENAME" },
-				-- Ignore exit code so it doesn't block save; use for diagnostics instead
 				ignore_exitcode = true,
 			},
 		},
@@ -59,8 +48,8 @@ function setups.conform()
 			pattern = { "*.py", "*.rs" },
 			callback = function(args)
 				conform.format({ bufnr = args.buf })
+				vim.notify("Formatted using conform.")
 			end,
-			-- desc = "Format Python on save with conform",
 		})
 
 		map_explicit({
@@ -68,7 +57,7 @@ function setups.conform()
 			sequence = "<leader>cf",
 			action = function(ev)
 				conform.format({ bufnr = 0 })
-				print("Formatted using conform.")
+				vim.notify("Formatted using conform.")
 			end,
 			opts = shared_opts,
 		})
@@ -77,7 +66,9 @@ end
 
 function setups.strict()
 	-- https://github.com/emileferreira/nvim-strict
-	-- Strict, native code style formatting plugin for Neovim. Expose deep nesting, overlong lines, trailing whitespace, trailing empty lines, todos and inconsistent indentation.
+	-- Strict, native code style formatting plugin for Neovim.
+	--     Expose deep nesting, overlong lines, trailing whitespace,
+	--     trailing empty lines, todos and inconsistent indentation.
 	local strict_defaults = {
 		included_filetypes = nil,
 		excluded_buftypes = { "help", "nofile", "terminal", "prompt" },

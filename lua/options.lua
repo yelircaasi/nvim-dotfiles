@@ -7,8 +7,8 @@ local function set_options()
 		nerdfont = true,
 	}
 	local options = {
-		number = true, -- Show absolute line number on the current line
-		relativenumber = true, -- Show relative numbers on other lines
+		number = true, -- show absolute line number on the current line
+		relativenumber = true, -- show relative numbers on other lines
 		shiftwidth = 4,
 		wrap = false,
 		signcolumn = "yes",

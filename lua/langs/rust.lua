@@ -164,16 +164,13 @@ end
 
 function setups.lsp()
 	vim.g.rustaceanvim = {
-		-- Plugin configuration
 		tools = {},
-		-- LSP configuration
 		server = {
 			on_attach = function(client, bufnr)
-				-- you can also put keymaps in here
+				-- put keymaps in here
 			end,
 			default_settings = {
-				-- rust-analyzer language server configuration
-				["rust-analyzer"] = { -- from old standlone rust-analyzer LSP config
+				["rust-analyzer"] = {
 					cmd = { "rust-analyzer" },
 					filetypes = { "rust" },
 					root_markers = { { "Cargo.toml", "cargo.lock" }, ".git" },
@@ -181,7 +178,6 @@ function setups.lsp()
 				},
 			},
 		},
-		-- DAP configuration
 		dap = {},
 	}
 	local rnv = setup_plugin("rustaceanvim")
@@ -206,9 +202,6 @@ function setups.lsp()
 	})
 
 	require("rustaceanvim.lsp").start()
-
-	-- TODO: probably extraneous with rustaceanvim
-	-- vim.lsp.enable("rust-analyzer")
 end
 
 function setups.testing()

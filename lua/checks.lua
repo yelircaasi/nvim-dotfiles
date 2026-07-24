@@ -68,6 +68,23 @@ end
 
 -- TODO next: opencode server, cloud env (k9s, kubectl, minikube, gcp, azure, azd, etc)
 
+function checks.check_paths()
+	-- print()
+	-- print(vim.inspect(vim.opt.runtimepath))
+	-- print(vim.inspect(vim.opt.packpath))
+
+	-- print(vim.o.runtimepath:find(vim.env.VIMRUNTIME) ~= nil)
+	-- -- vim.o.runtimepath:prepend(vim.env.VIMRUNTIME)
+	-- print(vim.o.runtimepath:find(vim.env.VIMRUNTIME) ~= nil)
+
+	-- print(vim.env.VIMRUNTIME)
+	-- vim.opt.runtimepath:prepend(vim.env.VIMRUNTIME)
+	-- print(vim.o.runtimepath:find(vim.env.VIMRUNTIME, 1, true) ~= nil)
+
+	-- print(vim.inspect(vim.opt.runtimepath))
+	-- print(vim.inspect(vim.opt.packpath))
+end
+
 setup_all_enabled("checks", checks)
 
 -- TODO
