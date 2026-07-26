@@ -20,7 +20,7 @@ end
 function setups.general_setup()
 	parser_root = vim.fn.fnamemodify(OPT_DIR, ":h:h:h")
 	vim.opt.runtimepath:prepend(PARSER_DIR)
-	-- -----
+
 	local my_install_dir = (not HAS_NIX) and ((vim.fn.stdpath("data")) .. "/site") or DERIVATION_DIR
 
 	local my_parser_install_dir = my_install_dir .. "/parser"

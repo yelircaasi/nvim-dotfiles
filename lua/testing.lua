@@ -32,7 +32,6 @@ local function setup_neotest_for_lang(language, adapter, overrides)
 		end,
 		desc = "Run nearest test",
 	})
-
 	nmap({
 		sequence = "<leader>to",
 		action = function()
@@ -54,24 +53,23 @@ end
 
 -- https://github.com/andythigpen/nvim-coverage
 -- Displays test coverage data in the sign column
-local coverage_defaults = { -- just sample config; not exchaustive
-	commands = true, -- create commands
+local coverage_defaults = {
+	commands = true,
 	highlights = {
-		-- customize highlight groups created by the plugin
-		covered = { fg = "#C3E88D" }, -- supports style, fg, bg, sp (see :h highlight-gui)
+		-- supports style, fg, bg, sp (see :h highlight-gui)
+		covered = { fg = "#C3E88D" },
 		uncovered = { fg = "#F07178" },
 	},
 	signs = {
-		-- use your own highlight groups or text markers
+		-- use own highlight groups or text markers
 		covered = { hl = "CoverageCovered", text = "▎" },
 		uncovered = { hl = "CoverageUncovered", text = "▎" },
 	},
 	summary = {
-		-- customize the summary pop-up
-		min_coverage = 80.0, -- minimum coverage threshold (used for highlighting)
+		min_coverage = 80.0,
 	},
 	lang = {
-		-- customize language specific settings
+		-- TODO: customize language specific settings
 	},
 }
 local function setup_coverage_for_lang(language, lang_specs, overrides)

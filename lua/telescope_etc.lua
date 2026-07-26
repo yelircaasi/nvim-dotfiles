@@ -16,12 +16,12 @@ function setups.telescope()
 			defaults = {
 				mappings = {
 					i = {
-						-- Movement
+						-- movement
 						["<C-j>"] = "move_selection_next",
 						["<C-k>"] = "move_selection_previous",
 						["<C-d>"] = "preview_scrolling_down",
 						["<C-u>"] = "preview_scrolling_up",
-						-- Actions
+						-- actions
 						["<C-q>"] = "send_to_qflist",
 						["<C-l>"] = "complete_tag",
 						["<C-x>"] = "select_horizontal",

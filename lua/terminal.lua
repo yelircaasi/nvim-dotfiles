@@ -57,7 +57,7 @@ function setups.toggleterm()
 	setup_plugin("toggleterm", {
 		open_mapping = [[<c-\>]],
 		direction = "float",
-		-- this is the key to inheriting your colorscheme's background
+		-- this is the key to inheriting colorscheme's background
 		highlights = {
 			Normal = {
 				link = "Normal",
@@ -166,7 +166,6 @@ function setups.neaterm()
 			repl_restart = "<leader>rR",
 		},
 
-		-- REPL configurations
 		repl = {
 			float_width = 0.6,
 			float_height = 0.4,
@@ -176,7 +175,6 @@ function setups.neaterm()
 			update_interval = 5000,
 		},
 
-		-- REPL language configurations
 		repl_configs = {
 			python = {
 				name = "Python (IPython)",
@@ -225,7 +223,6 @@ function setups.neaterm()
 			},
 		},
 
-		-- Terminal features
 		features = {
 			auto_insert = true,
 			auto_close = true,
