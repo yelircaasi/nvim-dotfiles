@@ -20,7 +20,44 @@ local setups = {}
 -- indentmini
 --]]
 
-setups["general-setup"] = function() end
+setups["general-setup"] = function()
+	local function open_float(path)
+		path = vim.fn.resolve(path)
+		print(path)
+		local buf = vim.fn.bufadd(path)
+		vim.fn.bufload(buf)
+
+		local width = math.floor(vim.o.columns * 0.8)
+		local height = math.floor(vim.o.lines * 0.8)
+
+		vim.api.nvim_open_win(buf, true, {
+			relative = "editor",
+			width = width,
+			height = height,
+			row = math.floor((vim.o.lines - height) / 2),
+			col = math.floor((vim.o.columns - width) / 2),
+			-- style = "minimal", scr
+			border = "rounded",
+		})
+	end
+
+	map_explicit({
+		mode = "n",
+		sequence = "<leader><leader>d",
+		action = function()
+			vim.cmd(":vsplit ~/.config/nvim/scratch/DESIDERATA.md")
+		end,
+	})
+	map_explicit({
+		mode = "n",
+		sequence = "<leader><leader>n",
+		action = function()
+			vim.cmd(":vsplit ~/.config/nvim/")
+		end,
+	})
+
+	-- open_float()
+end
 
 setups["vim-commentary"] = function()
 	utils.packadd("vim-commentary", function()

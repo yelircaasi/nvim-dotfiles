@@ -1,7 +1,7 @@
 local setups = {}
 
 function setups.options()
-	print("PLACEHOLDER")
+	-- print("PLACEHOLDER")
 end
 
 function setups.check_executable_dependencies() end
@@ -205,30 +205,32 @@ function setups.lsp()
 end
 
 function setups.testing()
-	print("PLACEHOLDER")
+	-- print("PLACEHOLDER")
 end
 
 function setups.debugging()
-	print("PLACEHOLDER")
+	-- print("PLACEHOLDER")
 end
 
 local M = {}
 
 function M.setup(ev, features_enabled)
-	print("Setting up Rust.")
+	utils.printv("Setting up Rust.")
 	setups.check_executable_dependencies()
 	setups.options()
-	setups.miscellaneous()
+
+	--TODO! update crates to use correct parameters
+	-- setups.miscellaneous()
 	if features_enabled.lsp then
-		print(" - LSP enabled")
+		-- utils.printv(" - LSP enabled")
 		setups.lsp()
 	end
 	if features_enabled.testing then
-		print(" - Testing enabled")
+		-- utils.printv(" - Testing enabled")
 		setups.testing()
 	end
 	if features_enabled.debugging then
-		print(" - Debugging enabled")
+		-- utils.printv(" - Debugging enabled")
 		setups.debugging()
 	end
 end

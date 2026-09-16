@@ -139,19 +139,19 @@ function setups.debugging()
 end
 
 function M.setup(ev, features_enabled)
-	print("Setting up Python.")
+	utils.printv("Setting up Python.")
 	setups.python_options(ev)
 	setups.equals()
 	if features_enabled.lsp then
-		print(" - LSP enabled")
+		utils.printv(" - LSP enabled")
 		setups.lsp()
 	end
 	if features_enabled.testing then
-		print(" - Testing enabled")
+		utils.printv(" - Testing enabled")
 		setups.testing()
 	end
 	if features_enabled.debugging then
-		print(" - Debugging enabled")
+		utils.printv(" - Debugging enabled")
 		setups.debugging()
 	end
 end
