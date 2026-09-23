@@ -175,6 +175,7 @@ function setups.lsp()
 					filetypes = { "rust" },
 					root_markers = { { "Cargo.toml", "cargo.lock" }, ".git" },
 					settings = {},
+					check = { command = "clippy" },
 				},
 			},
 		},

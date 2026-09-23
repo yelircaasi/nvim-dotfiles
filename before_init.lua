@@ -8,6 +8,7 @@ local selections = {
 	top_line = "dropbar", -- dropbar|nougat|minibar|winbar
 	bottom_line = "lualine", -- lualine|nougat|cokeline|heirline|galaxyline|staline|windline
 	tab_line = "bufferline", -- bufferline|tabby|nougat
+	lazygit = "snacks", -- snacks|lazygit.nvim
 }
 -- TODO: make utils.map fail if setting a keymap that conflicts with existing (require explicit )
 --     -> use SAFE global to modulate behavior
@@ -186,7 +187,8 @@ USING = {
 		["jj"] = false,
 		["jujutsu"] = false,
 		["jiejie"] = false,
-		["lazygit"] = false,
+		["lazygit"] = selections.lazygit == "lazygit.nvim",
+		["snacks.lazygit"] = selections.lazygit == "snacks",
 		["git-conflict"] = false,
 		["neogit"] = false,
 		["vim-fugitive"] = false,
