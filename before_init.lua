@@ -161,7 +161,7 @@ USING = {
 	},
 	experimental = {
 		["fsread"] = false,
-		["wezterm-run"] = false,
+		["wezterm-run"] = true,
 		["consilium"] = false,
 	},
 	explorers = {
