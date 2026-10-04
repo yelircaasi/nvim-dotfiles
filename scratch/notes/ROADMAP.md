@@ -1,13 +1,13 @@
 
 ## Roadmap
 
-1. [ ] use `<leader>n` as ergonomic alternative to `C-w` for navigation
-
-2. [ ] set up efm-langserver with LSP
-3. [ ] https://github.com/stevearc/three.nvim
-4. [ ] 
-5. [ ] 
+1. [x] use `<leader>n` as ergonomic alternative to `C-w` for navigation
+2. [ ] rename clipboard to yank-paste
+3. [ ] get robust and ergonomic search-and-replace setup (check out spectre.nvim)
+4. [ ] https://github.com/stevearc/three.nvim
+5. [ ] set up efm-langserver with LSP
 6. [ ] 
+7. [ ] 
 
 ### Mappings (key knowledge)
 

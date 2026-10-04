@@ -4,6 +4,19 @@ function setups.general_setup()
 	-- unnamed register syncs with system clipboard
 	vim.opt.clipboard = "unnamedplus"
 
+	map_explicit({
+		mode = nv,
+		sequence = "<leader>p0",
+		action = '"0p',
+		desc = "Paste from register 0",
+	})
+	map_explicit({
+		mode = nv,
+		sequence = "<leader>P0",
+		action = '"0P',
+		desc = "Paste from register 0",
+	})
+
 	-- alternate (default, keep separate)
 	-- vim.opt.clipboard = ""
 	--> then use "+y / "+p explicitly
@@ -30,7 +43,7 @@ function setups.general_setup()
 	})
 	map_explicit({
 		mode = nv,
-		sequence = "<leader>P",
+		sequence = "<leader>PP",
 		action = '"+P',
 		desc = "Put from system (unnamedplus) clipboard (before)",
 	})
