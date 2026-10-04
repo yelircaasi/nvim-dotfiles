@@ -1,7 +1,7 @@
 
 ## Roadmap
 
-1. [ ] 
+1. [ ] use `<leader>n` as ergonomic alternative to `C-w` for navigation
 
 2. [ ] set up efm-langserver with LSP
 3. [ ] https://github.com/stevearc/three.nvim

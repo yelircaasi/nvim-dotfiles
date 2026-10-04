@@ -312,7 +312,7 @@ USING = {
 		["otter"] = false, -- recently true
 	},
 	navigation = {
-		["general_setup"] = false, -- recently true
+		["general_setup"] = true, -- recently true
 		["spear"] = false, -- recently true
 		["smart-splits"] = false, -- recently true
 		["swm"] = false, -- recently true
@@ -321,7 +321,7 @@ USING = {
 		["pragma"] = false, -- recently true
 		["windex-nvim"] = false, -- recently true
 		["bafa"] = false, -- recently true
-		["flybuf"] = false, -- recently true
+		["flybuf"] = true, -- recently true
 		["vuffers"] = false, -- recently true
 		["retrospect"] = false, -- recently true
 		["stickybuf"] = false, -- recently true
@@ -349,12 +349,13 @@ USING = {
 		["mini.pick"] = false, -- recently true
 	},
 	projects = {
-		["auto_session"] = false, -- recently true
-		["persistence"] = false, -- recently true
-		["project"] = false, -- recently true
-		["mini_sessions"] = false, -- recently true
-		["projector"] = false, -- recently true
-		["neoconf"] = false, -- recently true
+		["auto_session"    ] = false, -- recently true
+		["persistence"     ] = false, -- recently true
+		["project"         ] = false, -- recently true
+		["mini_sessions"   ] = false, -- recently true
+		["projector"       ] = false, -- recently true
+		["neoconf"         ] = false, -- recently true
+		["project-commands"] = true , -- recently true
 	},
 	qa = {
 		["precommit"] = false, -- recently true

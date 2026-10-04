@@ -1,6 +1,20 @@
 local setups = {}
 
-function setups.general_setup() end
+function setups.general_setup()
+	for key, direction in pairs({
+		h = "to the left",
+		j = "below",
+		k = "above",
+		l = "to the right",
+	}) do
+		map_explicit({
+			mode = "n",
+			sequence = "<leader>n" .. key,
+			action = "<C-w>" .. key,
+			desc = "Navigate to buffer " .. direction,
+		})
+	end
+end
 
 --─────────────────────────────────────────────────────────────────────────────
 --──── FILES ──────────────────────────────────────────────────────────────────
@@ -520,7 +534,7 @@ function setups.flybuf()
 		map_explicit({
 			mode = "n",
 			sequence = "<leader>bf",
-			action = "FlyBuf",
+			action = ":FlyBuf<CR>",
 			desc = "FlyBuf: buffer list",
 		})
 	end)

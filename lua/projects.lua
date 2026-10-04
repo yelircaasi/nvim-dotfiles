@@ -148,4 +148,13 @@ function setups.neoconf()
 	setup_plugin("neoconf", neoconf_defaults)
 end
 
+setups["project-commands"] = function()
+	-- https://github.com/yelircaasi/project-commands.nvim
+	-- Neovim plugin for opening and editing the output of project-specific commands.
+	local project_commands_config = {}
+	vim.opt.runtimepath:prepend(REPOS_DIR .. "/project-commands.nvim")
+	local project_commands = require("project-commands")
+	project_commands.setup(project_commands_config)
+end
+
 setup_all_enabled("projects", setups)

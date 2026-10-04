@@ -18,9 +18,10 @@ end
 setups["wezterm-run"] = function()
 	-- TODO
 	-- require("wezterm_send").setup()
+	local wezrun_config = {}
 	vim.opt.runtimepath:prepend(REPOS_DIR .. "/wezterm-run.nvim")
 	local wezrun = require("wezterm-run")
-	wezrun.setup()
+	wezrun.setup(wezrun_config)
 end
 
 function setups.consilium()
