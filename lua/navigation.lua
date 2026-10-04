@@ -1,3 +1,6 @@
+-- Note that project-commands.nvim (setup in ./projects.lua) also provides support for opening paths, via
+-- require("project-commands").open_path_under_cursor(direction)
+
 local setups = {}
 
 function setups.general_setup()
